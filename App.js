@@ -2,13 +2,10 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import WaggleNavigator from "./navigation/WaggleNavigator";
+
 export default function App() {
-    return (
-        <View style={styles.container}>
-            <Text>Hello 혜림! Nice 2 Meet U!!</Text>
-            <StatusBar style="auto" />
-        </View>
-    );
+    return <WaggleNavigator></WaggleNavigator>;
 }
 
 const styles = StyleSheet.create({
