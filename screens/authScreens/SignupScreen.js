@@ -5,7 +5,12 @@ const SignUpScreen = (props) => {
     return (
         <View>
             <Text>This is SignUpScreen</Text>
-            <Button title="가입하기(Go to CompleteRegisterScreen)" onPress={() => props.navigation.navigate("CompleteRegister")}></Button>
+            <Button
+                title="가입하기(Go to CompleteRegisterScreen)"
+                onPress={() => {
+                    return props.navigation.navigate("CompleteRegister");
+                }}
+            ></Button>
         </View>
     );
 };
