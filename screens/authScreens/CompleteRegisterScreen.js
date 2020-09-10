@@ -1,14 +1,70 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+
+const LoginButton = ({onPress}) => {
+    return(
+        <TouchableOpacity activeOpacity={0.8} 
+        style={styles.button} 
+        onPress={() => this.style = {height:200}/* 여기 잘 수정하면 될듯 (navigate) */}>
+            <Text style={styles.text}>로그인하기</Text>
+        </TouchableOpacity>
+    );
+};
 
 const CompleteRegisterScreen = (props) => {
     return (
-        <View>
-            <Text>This is CompleteRegisterScreen</Text>
-            <Button title="로그인하기(Go back to LogIn Screen)" onPress={() => props.navigation.navigate("Login")}></Button>
+        <View style={styles.container}>
+            <View style={styles.top}>
+                <Text style={styles.text}>가입완료</Text>
+                <Text style={styles.text}>이제 와글로 멋진 식사를 즐겨보세요!</Text>
+            </View>
+            <View style={styles.mid}>
+                <Text style={styles.text}>김눈송</Text>
+                <Text style={styles.text}>test@gmail.com</Text>
+                {/* 정보 받아와서 내용 수정되게끔 고쳐야 */}
+            </View>
+            <View style={styles.bottom}><LoginButton/></View>
         </View>
     );
 };
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "black"
+    },
+    top: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    mid: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    bottom: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    button: {
+        width: "100%",
+        height: 110,
+        backgroundColor: "orange",
+        justifyContent: "center",
+        alignItems: "center",
+        position: 'absolute',
+        bottom: 0
+    },
+    touched: {
+        backgroundColor: "#ee5555"
+    },
+    text: {
+        color: "#fff",
+        fontSize: 20,
+        fontWeight: "bold"
+    }
+});
 
 export default CompleteRegisterScreen;
