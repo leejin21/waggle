@@ -41,7 +41,7 @@ const AuthStack = () => {
         <Auth.Navigator initialRouteName="Login">
             <Auth.Screen name="Login" component={LoginScreen}></Auth.Screen>
             <Auth.Screen name="Signup" component={SignupScreen}></Auth.Screen>
-            <Auth.Screen name="TermsNC" component={TermsNConditionsScreen}></Auth.Screen>
+            <Auth.Screen name="TermsNC" component={TermsNConditionsScreen} options={{ title: "약관동의", ...headerOptions }}></Auth.Screen>
             <Auth.Screen name="CompleteRegister" component={CompleteRegisterScreen}></Auth.Screen>
         </Auth.Navigator>
     );
@@ -68,6 +68,26 @@ const waggleNavigator = () => {
     return <NavigationContainer>{isSignedIn ? <MainStack></MainStack> : <AuthStack></AuthStack>}</NavigationContainer>;
 };
 
-const styles = StyleSheet.create({});
+const headerOptions = {
+    headerTintColor: "#ffffff",
+    headerBackTitleVisible: false,
+
+    headerStyle: {
+        backgroundColor: "black",
+        height: 150,
+        // 밑에 줄 그인 거 없애기 위함
+        shadowColor: "transparent",
+    },
+    headerTitleStyle: {
+        fontSize: 30,
+        fontFamily: "noto_bold",
+    },
+};
+
+const styles = StyleSheet.create({
+    hello: {
+        borderBottomColor: "black",
+    },
+});
 
 export default waggleNavigator;

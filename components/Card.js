@@ -1,0 +1,19 @@
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+
+const Card = (props) => {
+    return <View style={styles.card}>{props.children}</View>;
+};
+
+const styles = StyleSheet.create({
+    card: {
+        backgroundColor: "#565656",
+        flex: 3,
+        marginTop: 30,
+        marginHorizontal: 10,
+        borderRadius: 40,
+        padding: 25,
+    },
+});
+
+export default Card;
