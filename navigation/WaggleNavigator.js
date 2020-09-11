@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import { NavigationContainer, TabRouter } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -22,6 +22,8 @@ import MyPageScreen from "../screens/settingsScreens/MyPageScreen";
 // import signedIn from each folders
 import { getIsSignedIn } from "../stored/SignedIn";
 
+import Colors from "../constants/Colors";
+
 const Settings = createStackNavigator();
 const Auth = createStackNavigator();
 const Main = createStackNavigator();
@@ -39,7 +41,7 @@ const SettingsStack = () => {
 const AuthStack = () => {
     return (
         <Auth.Navigator initialRouteName="Login">
-            <Auth.Screen name="Login" component={LoginScreen}></Auth.Screen>
+            <Auth.Screen name="Login" component={LoginScreen} options={logoHeaderOptions}></Auth.Screen>
             <Auth.Screen name="Signup" component={SignupScreen}></Auth.Screen>
             <Auth.Screen name="TermsNC" component={TermsNConditionsScreen} options={{ title: "약관동의", ...headerOptions }}></Auth.Screen>
             <Auth.Screen name="CompleteRegister" component={CompleteRegisterScreen}></Auth.Screen>
@@ -69,7 +71,7 @@ const waggleNavigator = () => {
 };
 
 const headerOptions = {
-    headerTintColor: "#ffffff",
+    headerTintColor: "white",
     headerBackTitleVisible: false,
 
     headerStyle: {
@@ -84,10 +86,19 @@ const headerOptions = {
     },
 };
 
-const styles = StyleSheet.create({
-    hello: {
-        borderBottomColor: "black",
+const logoHeaderOptions = {
+    headerBackTitleVisible: false,
+    headerTitle: (props) => <Image style={{ width: 160, height: 80 }} source={require("../assets/images/logo.png")} resizeMode="contain"></Image>,
+    headerTitleStyle: {
+        flex: 1,
+        textAlign: "center",
     },
-});
+    headerStyle: {
+        ...headerOptions.headerStyle,
+        backgroundColor: Colors.body_grey,
+    },
+};
+
+const styles = StyleSheet.create({});
 
 export default waggleNavigator;

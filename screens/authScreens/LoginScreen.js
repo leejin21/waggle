@@ -1,16 +1,112 @@
-import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, TouchableOpacity } from "react-native";
 import { setIsSignedIn } from "../../stored/SignedIn";
 
-const LoginScreen = (props) => {
+import Colors from "../../constants/Colors";
+import CommonStyles from "../../constants/CommonStyles";
+const Text_input = (props) => {
     return (
-        <View>
-            <Text>This is LoginScreen</Text>
-            <Button title="로그인" onPress={() => setIsSignedIn("true")}></Button>
-            <Button title="회원가입(Go to TermsNConditions)" onPress={() => props.navigation.navigate("TermsNC")}></Button>
+        <View style={styles.text_input__wrapper}>
+            <Text style={styles.text_input__text}>{props.what}</Text>
+            <TextInput
+                underlineColorAndroid="transparent"
+                placeholderTextColor="white"
+                style={styles.text_input__input}
+                autoCapitalize="none"
+                onChangeText={props.onChangeText}
+                value={props.value}
+                placeholder={props.placeholder}
+            ></TextInput>
         </View>
     );
 };
-const styles = StyleSheet.create({});
+
+const LoginScreen = (props) => {
+    const [id, setId] = useState("");
+    const [pw, setPw] = useState("");
+
+    return (
+        <View style={styles.body}>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                <View style={styles.body__middle}>
+                    {/* <Text_input what="ID" onChangeText={(id) => setId(id)} value={id} placeholder="이메일을 적어주세요!"></Text_input> */}
+                    <View style={styles.text_input__wrapper}>
+                        <Text style={styles.text_input__text}>ID</Text>
+                        <TextInput
+                            style={{ ...CommonStyles.grey_button }}
+                            placeholder="이메일을 적어주세요."
+                            placeholderTextColor={Colors.text_grey}
+                            onChangeText={(id) => setId(id)}
+                            defaultValue={id}
+                        />
+                    </View>
+                    <View style={styles.text_input__wrapper}>
+                        <Text style={{ ...styles.text_input__text, marginLeft: 15 }}>PW</Text>
+                        <TextInput
+                            style={{ ...CommonStyles.grey_button }}
+                            placeholder="비밀번호를 적어주세요."
+                            placeholderTextColor={Colors.text_grey}
+                            onChangeText={(pw) => setPw(pw)}
+                            defaultValue={pw}
+                            secureTextEntry
+                        ></TextInput>
+                    </View>
+                    {/* submit 할 때 데이터 leak 안하도록.. */}
+                    <TouchableOpacity onPress={() => setIsSignedIn("true")} style={styles.login__button}>
+                        <Text style={styles.login__text}>로그인</Text>
+                    </TouchableOpacity>
+                </View>
+            </TouchableWithoutFeedback>
+
+            <View style={styles.body__end}>
+                <TouchableOpacity onPress={() => props.navigation.navigate("TermsNC")} style={CommonStyles.bottom_button}>
+                    <Text style={{ ...CommonStyles.bold_text }}>회원가입</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+};
+const styles = StyleSheet.create({
+    body: {
+        paddingTop: 10,
+        backgroundColor: Colors.body_grey,
+        flex: 1,
+    },
+    body__middle: {
+        flex: 5,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    text_input__wrapper: {
+        margin: 15,
+    },
+
+    text_input__text: {
+        fontFamily: "noto_bold",
+        fontSize: 18,
+        marginLeft: 20,
+        marginBottom: 5,
+        color: "white",
+    },
+    login__button: {
+        ...CommonStyles.grey_button,
+        marginTop: 30,
+        alignItems: "center",
+        justifyContent: "center",
+        width: 130,
+    },
+    login__text: {
+        fontFamily: "noto_bold",
+        textAlignVertical: "center",
+        textAlign: "center",
+        fontSize: 17,
+        color: "white",
+    },
+    body__end: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+});
 
 export default LoginScreen;

@@ -1,54 +1,71 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
+import Colors from "../../constants/Colors";
+import CommonStyles from "../../constants/CommonStyles";
 import Card from "../../components/Card";
 
+// TODO view 또는 touchable opacity로 바꿔주기
 const TermsNConditionsScreenops = (props) => {
     const [agreed, setAgreed] = useState(false);
-    var terms_agree_style = { backgroundColor: "#FFD13B", ...styles.terms_agree_style };
-    var sign_in__text = { ...styles.sign_in__text, color: "#9e9e9e" };
-    var sign_in__press = () => {};
-    var terms_agree__press = () => setAgreed((agreed) => true);
 
-    if (agreed === true) {
-        // console.log("agreed true");
-        terms_agree_style = { backgroundColor: "#565656", ...styles.terms_agree_style };
-        sign_in__text = { ...styles.sign_in__text, color: "white" };
-        sign_in__press = () => props.navigation.navigate("Signup");
-        terms_agree__press = () => {};
-    }
-    // else {
-    //     console.log("agreed false");
-    // }
+    // Terms_agreed button
+    const Terms_agreed = (props) => {
+        if (agreed === false) {
+            // 동의 버튼 안 누른 경우: 버튼 형식
+            return (
+                <TouchableOpacity style={{ ...styles.terms_agree_style, ...{ backgroundColor: Colors.deep_yellow } }} onPress={() => setAgreed((agreed) => true)}>
+                    <Text style={styles.terms_agree__text}>약관에 동의합니다</Text>
+                </TouchableOpacity>
+            );
+        } else {
+            // 동의 버튼 이미 누른 경우: 다시 누를 수 없게
+            return (
+                <View style={{ ...styles.terms_agree_style, ...{ backgroundColor: Colors.mid_grey } }} onPress={() => {}}>
+                    <Text style={styles.terms_agree__text}>약관에 동의합니다</Text>
+                </View>
+            );
+        }
+    };
+
+    // Sign_in button
+    const Sign_in = (props) => {
+        if (agreed === false) {
+            return (
+                // 동의 버튼 안 누른 경우: 회원가입 못하게
+                <View style={{ ...CommonStyles.bottom_button, backgroundColor: Colors.mid_grey }}>
+                    <Text style={{ ...CommonStyles.bold_text, color: Colors.text_grey }}>이메일로 회원가입</Text>
+                </View>
+            );
+        } else {
+            return (
+                // 동의 버튼 누른 경우: 회원가입 가능하게 버튼으로
+                <TouchableOpacity style={{ ...CommonStyles.bottom_button }} onPress={props.onPress}>
+                    <Text style={{ ...CommonStyles.bold_text, color: "black" }}>이메일로 회원가입</Text>
+                </TouchableOpacity>
+            );
+        }
+    };
 
     return (
         <View style={styles.body}>
             <Card>
+                {/* 이 자리에는 미리 설정해둔 약관 조항들 넣어두기 */}
                 <Text style={styles.card__text}>약관</Text>
                 <Text style={styles.card__text}>1항.</Text>
             </Card>
             <View style={styles.remain}>
-                <TouchableOpacity style={terms_agree_style} onPress={terms_agree__press}>
-                    <Text style={styles.terms_agree__text}>약관에 동의합니다</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.sign_in__style} onPress={sign_in__press}>
-                    <Text style={sign_in__text}>이메일로 회원가입</Text>
-                </TouchableOpacity>
+                <Terms_agreed></Terms_agreed>
+                <Sign_in onPress={() => props.navigation.navigate("Signup")}></Sign_in>
             </View>
         </View>
     );
 };
 
-const common_styles = StyleSheet.create({
-    text: {
-        fontFamily: "noto_bold",
-    },
-});
-
 const styles = StyleSheet.create({
     body: {
         paddingTop: 10,
-        backgroundColor: "#303030",
+        backgroundColor: Colors.body_grey,
         flex: 1,
     },
 
@@ -69,26 +86,9 @@ const styles = StyleSheet.create({
         width: "60%",
         alignSelf: "center",
     },
-    terms_agree__clickable: {
-        backgroundColor: "#FFD13B",
-    },
-    terms_agree__nonclickable: {
-        backgroundColor: "#565656",
-    },
     terms_agree__text: {
-        ...common_styles.text,
+        ...CommonStyles.bold_text,
         fontSize: 22,
-        textAlign: "center",
-    },
-    sign_in__style: {
-        backgroundColor: "#565656",
-        padding: 40,
-        paddingBottom: 45,
-    },
-    sign_in__text: {
-        ...common_styles.text,
-        textAlign: "center",
-        fontSize: 30,
     },
 });
 
