@@ -1,6 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
+const Menu = () => {
+    return(
+
+    );
+};
+
 const SelectMenuButton = ({navigation}) => {
     return(
         <TouchableOpacity activeOpacity={0.8} 
@@ -11,10 +17,27 @@ const SelectMenuButton = ({navigation}) => {
     );
 };
 
+/* text인 부분 대부분 백엔드에서 정보 읽어오는 걸로 바꿔야 */
 const BasketScreen = (props) => {
     return (
-        <View>
-            <SelectMenuButton navigation={props.navigation}/>
+        <View style={styles.container}>
+            <View style={styles.top}>
+                <Text style={styles.text}>ABC 레스토랑</Text>
+            </View>
+            <View style={styles.mid}>
+                <View style={{flex: 1}}>
+                    <Text style={styles.text}>메인 메뉴</Text>
+                    <Menu/>
+                </View>
+                <View style={{flex: 1}}>
+                    <Text style={styles.text}>오직 와글에서만 무료!</Text>
+                    <Text style={styles.text}>사이드 메뉴</Text>
+                    <Menu/>
+                </View>
+            </View>
+            <View style={styles.bottom}>
+                <SelectMenuButton navigation={props.navigation}/>
+            </View>
         </View>
     );
 };
