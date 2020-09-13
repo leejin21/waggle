@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const Menu = () => {
     return(
-
+        <Text style={styles.text}>나는 메뉴다</Text>
     );
 };
 

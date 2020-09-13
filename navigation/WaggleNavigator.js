@@ -64,7 +64,7 @@ const waggleNavigator = () => {
     // Main or Auth
     // |_ Settings
 
-    const isSignedIn = false;
+    const isSignedIn = true;
     return <NavigationContainer>{isSignedIn ? <MainStack></MainStack> : <AuthStack></AuthStack>}</NavigationContainer>;
 };
 
