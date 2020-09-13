@@ -7,6 +7,16 @@ const Menu = () => {
     );
 };
 
+const GoBackButton = ({navigation}) => {
+    return(
+        <TouchableOpacity activeOpacity={0.8} 
+        style={styles.button} 
+        onPress={() => navigation.goBack()}>  
+            <Text style={styles.text}>back</Text>
+        </TouchableOpacity>
+    );
+};
+
 const SelectMenuButton = ({navigation}) => {
     return(
         <TouchableOpacity activeOpacity={0.8} 
@@ -22,6 +32,7 @@ const BasketScreen = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.top}>
+                <GoBackButton navigation={props.navigation}/>
                 <Text style={styles.text}>ABC 레스토랑</Text>
             </View>
             <View style={styles.mid}>

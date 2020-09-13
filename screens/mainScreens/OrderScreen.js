@@ -7,6 +7,16 @@ const Menu = () => {
     );
 };
 
+const GoBackButton = ({navigation}) => {
+    return(
+        <TouchableOpacity activeOpacity={0.8} 
+        style={styles.button} 
+        onPress={() => navigation.goBack()}>  
+            <Text style={styles.text}>back</Text>
+        </TouchableOpacity>
+    );
+};
+
 const OrderButton = ({navigation}) => {
     return(
         <TouchableOpacity activeOpacity={0.8} 
@@ -22,6 +32,7 @@ const OrderScreen = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.top}>
+                <GoBackButton navigation={props.navigation}/>
                 <Text style={styles.text}>담은 메뉴를 확인해 주세요</Text>
             </View>
             <View style={styles.mid}>
