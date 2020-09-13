@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, TabRouter } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-// Screens import from each folders
+// import screens from each folders
 import CompleteRegisterScreen from "../screens/authScreens/CompleteRegisterScreen";
 import LoginScreen from "../screens/authScreens/LoginScreen";
 import SignupScreen from "../screens/authScreens/SignupScreen";
@@ -18,6 +18,9 @@ import FinishOrderScreen from "../screens/mainScreens/FinishOrderScreen";
 import CouponsScreen from "../screens/settingsScreens/CouponsScreen";
 import EditInfoScreen from "../screens/settingsScreens/EditInfoScreen";
 import MyPageScreen from "../screens/settingsScreens/MyPageScreen";
+
+// import signedIn from each folders
+import { getIsSignedIn } from "../stored/SignedIn";
 
 const Settings = createStackNavigator();
 const Auth = createStackNavigator();
@@ -60,6 +63,7 @@ const MainStack = () => {
 const waggleNavigator = () => {
     // Main or Auth
     // |_ Settings
+
     const isSignedIn = false;
     return <NavigationContainer>{isSignedIn ? <MainStack></MainStack> : <AuthStack></AuthStack>}</NavigationContainer>;
 };
