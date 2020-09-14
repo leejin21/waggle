@@ -48,7 +48,7 @@ const TermsNConditionsScreenops = (props) => {
     };
 
     return (
-        <View style={styles.body}>
+        <View style={CommonStyles.body}>
             <Card>
                 {/* 이 자리에는 미리 설정해둔 약관 조항들 넣어두기 */}
                 <Text style={styles.card__text}>약관</Text>
@@ -63,12 +63,6 @@ const TermsNConditionsScreenops = (props) => {
 };
 
 const styles = StyleSheet.create({
-    body: {
-        paddingTop: 10,
-        backgroundColor: Colors.body_grey,
-        flex: 1,
-    },
-
     card__text: {
         fontFamily: "noto_regular",
         fontSize: 25,

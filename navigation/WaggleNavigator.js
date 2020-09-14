@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, Button } from "react-native";
 import { NavigationContainer, TabRouter } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -23,6 +23,7 @@ import MyPageScreen from "../screens/settingsScreens/MyPageScreen";
 import { getIsSignedIn } from "../stored/SignedIn";
 
 import Colors from "../constants/Colors";
+import { headerOptions, logoHeaderOptions } from "../constants/Options";
 
 const Settings = createStackNavigator();
 const Auth = createStackNavigator();
@@ -66,37 +67,8 @@ const waggleNavigator = () => {
     // Main or Auth
     // |_ Settings
 
-    const isSignedIn = false;
+    const isSignedIn = true;
     return <NavigationContainer>{isSignedIn ? <MainStack></MainStack> : <AuthStack></AuthStack>}</NavigationContainer>;
-};
-
-const headerOptions = {
-    headerTintColor: "white",
-    headerBackTitleVisible: false,
-
-    headerStyle: {
-        backgroundColor: "black",
-        height: 150,
-        // 밑에 줄 그인 거 없애기 위함
-        shadowColor: "transparent",
-    },
-    headerTitleStyle: {
-        fontSize: 30,
-        fontFamily: "noto_bold",
-    },
-};
-
-const logoHeaderOptions = {
-    headerBackTitleVisible: false,
-    headerTitle: (props) => <Image style={{ width: 160, height: 80 }} source={require("../assets/images/logo.png")} resizeMode="contain"></Image>,
-    headerTitleStyle: {
-        flex: 1,
-        textAlign: "center",
-    },
-    headerStyle: {
-        ...headerOptions.headerStyle,
-        backgroundColor: Colors.body_grey,
-    },
 };
 
 const styles = StyleSheet.create({});

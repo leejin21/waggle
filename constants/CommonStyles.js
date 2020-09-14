@@ -24,5 +24,10 @@ const CommonStyles = StyleSheet.create({
         borderRadius: 30,
         color: "white",
     },
+    body: {
+        paddingTop: 10,
+        backgroundColor: Colors.body_grey,
+        flex: 1,
+    },
 });
 export default CommonStyles;
