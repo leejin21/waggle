@@ -1,6 +1,26 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
+/* container & presentational components
+backend, Menu와 연결해야 함
+
+class MenuContainer extends React.Component {
+    constructor(){
+        super();
+        this.state = { name:[], cost:[] }
+    }
+
+    componentDidMount(){
+        fetchMenu(name => this.setState({name}));
+        fetchMenu(cost => this.setState({cost}));
+    }
+
+    render(){
+        return <Menu name={this.state.name} cost={this.state.cost}/>
+    }
+}
+*/
+
 const Menu = () => {
     return(
         <Text style={styles.text}>나는 메뉴다</Text>
