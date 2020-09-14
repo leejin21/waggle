@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const LoginButton = ({onPress}) => {
+const LoginButton = ({navigation}) => {
     return(
         <TouchableOpacity activeOpacity={0.8} 
         style={styles.button} 
-        onPress={() => this.style = {height:200}/* 여기 잘 수정하면 될듯 (navigate) */}>
+        onPress={() => navigation.navigate("Login")}>  
             <Text style={styles.text}>로그인하기</Text>
         </TouchableOpacity>
     );
@@ -23,7 +23,7 @@ const CompleteRegisterScreen = (props) => {
                 <Text style={styles.text}>test@gmail.com</Text>
                 {/* 정보 받아와서 내용 수정되게끔 고쳐야 */}
             </View>
-            <View style={styles.bottom}><LoginButton/></View>
+            <View style={styles.bottom}><LoginButton navigation={props.navigation}/></View>
         </View>
     );
 };
