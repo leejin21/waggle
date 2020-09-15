@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, AccessibilityInfo, Alert } from "react-native";
-import PropTypes from 'prop-types';
+import React, {Component, useState} from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+
 
 /* container & presentational components
 backend, Menu와 연결해야 함
@@ -53,16 +53,18 @@ class Menu extends React.Component {
 };
 */
 
-const Menu = ({name, cost}) => {
-    return(
-        <TouchableOpacity style={styles.menu}
-        onPress={() => (
-            Alert.alert('alert', 'hi')
-        )}>
-            <Text style={styles.text}>{name}: {cost}</Text>
-        </TouchableOpacity>
-
-    );
+class Menu extends Component {
+    render(){
+        return(
+            <TouchableOpacity style={styles.menu}
+            onPress={() => (
+                Alert.alert('alert', 'hi')
+                
+            )}>
+                <Text style={styles.text}>{this.props.name}: {this.props.cost}</Text>
+            </TouchableOpacity>
+        );
+    }
 };
 
 const GoBackButton = ({navigation}) => {
