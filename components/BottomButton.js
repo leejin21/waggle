@@ -1,9 +1,16 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import Colors from "../constants/Colors";
 
-// TODO 제대로 정리하기: in login screen and buttom button
-const ButtomButton = (props) => {
-    return <View style={styles.ButtomButton}>{props.children}</View>;
+const BottomButton = (props) => {
+    // props: yellow, onPress
+    return props.yellow ? (
+        <TouchableOpacity style={styles.bottom_button} onPress={props.onPress}>
+            {props.children}
+        </TouchableOpacity>
+    ) : (
+        <View style={{ ...styles.bottom_button, backgroundColor: Colors.mid_grey }}>{props.children}</View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -16,4 +23,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ButtomButton;
+export default BottomButton;

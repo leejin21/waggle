@@ -57,7 +57,7 @@ const MainStack = () => {
             <Main.Screen name="Basket" component={BasketScreen}></Main.Screen>
             <Main.Screen name="Order" component={OrderScreen}></Main.Screen>
             <Main.Screen name="RestVideo" component={RestaurantVideoScreen}></Main.Screen>
-            <Main.Screen name="FinishOrder" component={FinishOrderScreen}></Main.Screen>
+            <Main.Screen name="FinishOrder" component={FinishOrderScreen} options={{ headerShown: false }}></Main.Screen>
             <Main.Screen name="Settings" component={SettingsStack}></Main.Screen>
         </Main.Navigator>
     );
