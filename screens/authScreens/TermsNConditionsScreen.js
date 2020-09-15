@@ -34,14 +34,14 @@ const TermsNConditionsScreenops = (props) => {
         if (agreed === false) {
             return (
                 // 동의 버튼 안 누른 경우: 회원가입 못하게
-                <BottomButton yellow={false}>
+                <BottomButton active={false}>
                     <Text style={{ ...CommonStyles.bold_text, color: Colors.text_grey }}>이메일로 회원가입</Text>
                 </BottomButton>
             );
         } else {
             return (
                 // 동의 버튼 누른 경우: 회원가입 가능하게 버튼으로
-                <BottomButton yellow={true} onPress={props.onPress}>
+                <BottomButton active={true} onPress={props.onPress}>
                     <Text style={{ ...CommonStyles.bold_text, color: "black" }}>이메일로 회원가입</Text>
                 </BottomButton>
             );

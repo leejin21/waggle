@@ -15,7 +15,7 @@ const FinishOrderScreen = (props) => {
                 <Text style={styles.text}>사이드 메뉴는 [마이페이지]-[쿠폰함]에 지금되었어요!{"\n"} 식당에 방문하여 쿠폰을 제시해주세요.</Text>
             </View>
             <View style={CommonStyles.body__end}></View>
-            <BottomButton yellow={true} onPress={() => props.navigation.navigate("HomeMain")}>
+            <BottomButton active={true} onPress={() => props.navigation.navigate("HomeMain")}>
                 <Text style={CommonStyles.bold_text}>홈으로 가기</Text>
             </BottomButton>
         </View>

@@ -49,7 +49,7 @@ const RestaurantVideoScreen = (props) => {
                 <Text style={{ color: "white" }}>VIDEO PART</Text>
             </View>
             <View style={styles.button__wrapper}>
-                <BottomButton yellow={true} onPress={() => props.navigation.navigate("Basket")}>
+                <BottomButton active={true} onPress={() => props.navigation.navigate("Basket")}>
                     <Text style={CommonStyles.bold_text}>메뉴 선택</Text>
                 </BottomButton>
             </View>

@@ -39,7 +39,7 @@ const LoginScreen = (props) => {
             </TouchableWithoutFeedback>
 
             <View style={CommonStyles.body__end}>
-                <ButtomButton yellow={true} onPress={() => props.navigation.navigate("TermsNC")}>
+                <ButtomButton active={true} onPress={() => props.navigation.navigate("TermsNC")}>
                     <Text style={{ ...CommonStyles.bold_text }}>회원가입</Text>
                 </ButtomButton>
             </View>
