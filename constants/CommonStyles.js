@@ -31,7 +31,6 @@ const CommonStyles = StyleSheet.create({
         // padding, height, width, borderRadius는 따로 지정을 해줘야 편함
         padding: 3,
         margin: 5,
-
         height: DIAMETER,
         width: DIAMETER,
         borderRadius: DIAMETER * 2,

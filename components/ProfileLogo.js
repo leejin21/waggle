@@ -14,7 +14,7 @@ const ProfileLogo = (props) => {
     // props: touchable, navigation
     return props.touchable === true ? (
         <TouchableHighlight
-            style={CommonStyles.yellow_circle}
+            style={{ ...CommonStyles.yellow_circle, ...props.style }}
             onPress={() =>
                 props.navigation.navigate("Settings", {
                     name: "MyPage",
