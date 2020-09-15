@@ -1,3 +1,4 @@
+// USE:: main: home main
 import React, { useState } from "react";
 import { View, Text, ImageBackground, TouchableHighlight, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";

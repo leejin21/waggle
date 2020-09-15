@@ -1,3 +1,5 @@
+// USE:: auth screens: register, terms and conditions
+//    :: settings screens: coupon, edit info
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
