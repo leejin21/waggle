@@ -20,7 +20,7 @@ const imageDatas = [
 const HomeMainScreen = (props) => {
     props.navigation.setOptions({
         ...logoHeaderOptions,
-        headerRight: () => <ProfileLogo touchable={true} navigation={props.navigation}></ProfileLogo>,
+        headerRight: () => <ProfileLogo touchable={true} navigation={props.navigation} style={{ marginRight: 12 }}></ProfileLogo>,
     });
 
     return (

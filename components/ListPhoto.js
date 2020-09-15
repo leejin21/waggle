@@ -10,6 +10,7 @@ const BORDER_RADIUS = 20;
 const HEART_SIZE = 20;
 
 const HeartIcon = (props) => {
+    // props: heart_filled
     const [color, setColor] = useState(props.heart_filled ? "red" : Colors.text_grey);
     // TODO 변경된 정보 저장했다가 스크린 넘어갈 때 db로 fetch해서 저장하기
     // SERVER TODO db에서 넘겨줄 때, 해당 데이터 위주로 sort시켜야 함
@@ -31,14 +32,21 @@ const ListPhoto = (props) => {
 
     return (
         <View style={styles.container}>
-            <TouchableHighlight style={styles.image__wrapper} onPress={() => props.navigation.navigate("RestVideo")}>
+            <TouchableHighlight
+                style={styles.image__wrapper}
+                onPress={() =>
+                    props.navigation.navigate("RestVideo", {
+                        title: props.rest_name,
+                    })
+                }
+            >
                 <ImageBackground source={props.item} style={{ ...styles.image__photo, width: ITEM_WIDTH, height: ITEM_HEIGHT }} imageStyle={{ height: PHOTO_HEIGHT, marginTop: GAP }}>
                     <AntDesign name="caretright" size={ICON_SIZE} color={Colors.deep_yellow} />
                 </ImageBackground>
             </TouchableHighlight>
             <View style={styles.info__wrapper}>
                 <Text style={styles.info__name}>{props.rest_name}</Text>
-                <HeartIcon heart_filled={props.heart_filled} style={styles.info__heart}></HeartIcon>
+                <HeartIcon heart_filled={props.heart_filled} style={{ flex: 1 }}></HeartIcon>
             </View>
         </View>
     );
@@ -76,9 +84,7 @@ const styles = StyleSheet.create({
         flex: 6,
         textAlign: "center",
     },
-    info__heart: {
-        flex: 1,
-    },
 });
 
 export default ListPhoto;
+export { HeartIcon };
