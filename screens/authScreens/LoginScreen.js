@@ -4,46 +4,26 @@ import { setIsSignedIn } from "../../stored/SignedIn";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
-const Text_input = (props) => {
-    return (
-        <View style={styles.text_input__wrapper}>
-            <Text style={styles.text_input__text}>{props.what}</Text>
-            <TextInput
-                underlineColorAndroid="transparent"
-                placeholderTextColor="white"
-                style={styles.text_input__input}
-                autoCapitalize="none"
-                onChangeText={props.onChangeText}
-                value={props.value}
-                placeholder={props.placeholder}
-            ></TextInput>
-        </View>
-    );
-};
+
+import ButtomButton from "../../components/BottomButton";
 
 const LoginScreen = (props) => {
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
 
     return (
-        <View style={styles.body}>
+        <View style={CommonStyles.body}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <View style={styles.body__middle}>
+                <View style={CommonStyles.body__middle}>
                     {/* <Text_input what="ID" onChangeText={(id) => setId(id)} value={id} placeholder="이메일을 적어주세요!"></Text_input> */}
                     <View style={styles.text_input__wrapper}>
                         <Text style={styles.text_input__text}>ID</Text>
-                        <TextInput
-                            style={{ ...CommonStyles.grey_button }}
-                            placeholder="이메일을 적어주세요."
-                            placeholderTextColor={Colors.text_grey}
-                            onChangeText={(id) => setId(id)}
-                            defaultValue={id}
-                        />
+                        <TextInput style={CommonStyles.grey_button} placeholder="이메일을 적어주세요." placeholderTextColor={Colors.text_grey} onChangeText={(id) => setId(id)} defaultValue={id} />
                     </View>
                     <View style={styles.text_input__wrapper}>
                         <Text style={{ ...styles.text_input__text, marginLeft: 15 }}>PW</Text>
                         <TextInput
-                            style={{ ...CommonStyles.grey_button }}
+                            style={CommonStyles.grey_button}
                             placeholder="비밀번호를 적어주세요."
                             placeholderTextColor={Colors.text_grey}
                             onChangeText={(pw) => setPw(pw)}
@@ -58,25 +38,15 @@ const LoginScreen = (props) => {
                 </View>
             </TouchableWithoutFeedback>
 
-            <View style={styles.body__end}>
-                <TouchableOpacity onPress={() => props.navigation.navigate("TermsNC")} style={CommonStyles.bottom_button}>
+            <View style={CommonStyles.body__end}>
+                <ButtomButton yellow={true} onPress={() => props.navigation.navigate("TermsNC")}>
                     <Text style={{ ...CommonStyles.bold_text }}>회원가입</Text>
-                </TouchableOpacity>
+                </ButtomButton>
             </View>
         </View>
     );
 };
 const styles = StyleSheet.create({
-    body: {
-        paddingTop: 10,
-        backgroundColor: Colors.body_grey,
-        flex: 1,
-    },
-    body__middle: {
-        flex: 5,
-        alignItems: "center",
-        justifyContent: "center",
-    },
     text_input__wrapper: {
         margin: 15,
     },
@@ -101,11 +71,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 17,
         color: "white",
-    },
-    body__end: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
     },
 });
 

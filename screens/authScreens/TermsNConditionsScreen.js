@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import Card from "../../components/Card";
+import BottomButton from "../../components/BottomButton";
 
 // TODO view 또는 touchable opacity로 바꿔주기
 const TermsNConditionsScreenops = (props) => {
@@ -33,22 +34,22 @@ const TermsNConditionsScreenops = (props) => {
         if (agreed === false) {
             return (
                 // 동의 버튼 안 누른 경우: 회원가입 못하게
-                <View style={{ ...CommonStyles.bottom_button, backgroundColor: Colors.mid_grey }}>
+                <BottomButton yellow={false}>
                     <Text style={{ ...CommonStyles.bold_text, color: Colors.text_grey }}>이메일로 회원가입</Text>
-                </View>
+                </BottomButton>
             );
         } else {
             return (
                 // 동의 버튼 누른 경우: 회원가입 가능하게 버튼으로
-                <TouchableOpacity style={{ ...CommonStyles.bottom_button }} onPress={props.onPress}>
+                <BottomButton yellow={true} onPress={props.onPress}>
                     <Text style={{ ...CommonStyles.bold_text, color: "black" }}>이메일로 회원가입</Text>
-                </TouchableOpacity>
+                </BottomButton>
             );
         }
     };
 
     return (
-        <View style={styles.body}>
+        <View style={CommonStyles.body}>
             <Card>
                 {/* 이 자리에는 미리 설정해둔 약관 조항들 넣어두기 */}
                 <Text style={styles.card__text}>약관</Text>
@@ -63,12 +64,6 @@ const TermsNConditionsScreenops = (props) => {
 };
 
 const styles = StyleSheet.create({
-    body: {
-        paddingTop: 10,
-        backgroundColor: Colors.body_grey,
-        flex: 1,
-    },
-
     card__text: {
         fontFamily: "noto_regular",
         fontSize: 25,
