@@ -1,3 +1,5 @@
+// USE:: mainScreens :basket, order, finish order
+
 import React, { useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
