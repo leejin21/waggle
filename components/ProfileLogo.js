@@ -2,44 +2,33 @@ import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
+import CommonStyles from "../constants/CommonStyles";
 import Colors from "../constants/Colors";
 
+// const DIAMETER = 60;
+
 const ProfileLogo = (props) => {
-    var Wrapper = () => (
-        <View style={styles.profile__wrapper}>
+    // props: touchable, navigation
+    return props.touchable === true ? (
+        <TouchableHighlight
+            style={CommonStyles.yellow_circle}
+            onPress={() =>
+                props.navigation.navigate("Settings", {
+                    name: "MyPage",
+                })
+            }
+            underlayColor={Colors.dark_orange}
+            activeOpacity={0.7}
+        >
+            <Text style={styles.profile__text}>MY</Text>
+        </TouchableHighlight>
+    ) : (
+        <View style={CommonStyles.yellow_circle}>
             <Text style={styles.profile__text}>MY</Text>
         </View>
     );
-    if (props.touchable === true) {
-        Wrapper = () => (
-            <TouchableHighlight
-                style={styles.profile__wrapper}
-                onPress={() =>
-                    props.navigation.navigate("Settings", {
-                        name: "MyPage",
-                    })
-                }
-                underlayColor={Colors.dark_orange}
-                activeOpacity={0.7}
-            >
-                <Text style={styles.profile__text}>MY</Text>
-            </TouchableHighlight>
-        );
-    }
-    return <Wrapper></Wrapper>;
 };
 const styles = StyleSheet.create({
-    profile__wrapper: {
-        padding: 3,
-        height: 60,
-        width: 60,
-        borderRadius: 120,
-        backgroundColor: Colors.deep_yellow,
-        margin: 5,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-
     profile__text: {
         fontSize: 20,
         fontFamily: "noto_bold",

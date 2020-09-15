@@ -5,6 +5,8 @@ import { setIsSignedIn } from "../../stored/SignedIn";
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 
+import ButtomButton from "../../components/BottomButton";
+
 const LoginScreen = (props) => {
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
@@ -12,7 +14,7 @@ const LoginScreen = (props) => {
     return (
         <View style={CommonStyles.body}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <View style={styles.body__middle}>
+                <View style={CommonStyles.body__middle}>
                     {/* <Text_input what="ID" onChangeText={(id) => setId(id)} value={id} placeholder="이메일을 적어주세요!"></Text_input> */}
                     <View style={styles.text_input__wrapper}>
                         <Text style={styles.text_input__text}>ID</Text>
@@ -36,20 +38,15 @@ const LoginScreen = (props) => {
                 </View>
             </TouchableWithoutFeedback>
 
-            <View style={styles.body__end}>
-                <TouchableOpacity onPress={() => props.navigation.navigate("TermsNC")} style={CommonStyles.bottom_button}>
+            <View style={CommonStyles.body__end}>
+                <ButtomButton yellow={true} onPress={() => props.navigation.navigate("TermsNC")}>
                     <Text style={{ ...CommonStyles.bold_text }}>회원가입</Text>
-                </TouchableOpacity>
+                </ButtomButton>
             </View>
         </View>
     );
 };
 const styles = StyleSheet.create({
-    body__middle: {
-        flex: 5,
-        alignItems: "center",
-        justifyContent: "center",
-    },
     text_input__wrapper: {
         margin: 15,
     },
@@ -74,11 +71,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 17,
         color: "white",
-    },
-    body__end: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
     },
 });
 

@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 
 import Colors from "./Colors";
+
+const DIAMETER = 60;
+
 const CommonStyles = StyleSheet.create({
     bold_text: {
         textAlign: "center",
@@ -24,10 +27,32 @@ const CommonStyles = StyleSheet.create({
         borderRadius: 30,
         color: "white",
     },
+    yellow_circle: {
+        // padding, height, width, borderRadius는 따로 지정을 해줘야 편함
+        padding: 3,
+        margin: 5,
+
+        height: DIAMETER,
+        width: DIAMETER,
+        borderRadius: DIAMETER * 2,
+        backgroundColor: Colors.deep_yellow,
+        alignItems: "center",
+        justifyContent: "center",
+    },
     body: {
         paddingTop: 10,
         backgroundColor: Colors.body_grey,
         flex: 1,
+    },
+    body__middle: {
+        flex: 5,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    body__end: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
     },
 });
 export default CommonStyles;
