@@ -54,13 +54,22 @@ class Menu extends React.Component {
 */
 
 class Menu extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            selected: false
+        }
+    }
+    
+    handleClick = (state) => {
+        this.setState({selected: state.selected? false:true});
+        Alert.alert('alert', state.selected.toString());
+    }
+
     render(){
         return(
             <TouchableOpacity style={styles.menu}
-            onPress={() => (
-                Alert.alert('alert', 'hi')
-                
-            )}>
+            onPress={() => this.handleClick(this.state)}>
                 <Text style={styles.text}>{this.props.name}: {this.props.cost}</Text>
             </TouchableOpacity>
         );
