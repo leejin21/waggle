@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, AccessibilityInfo, Alert } from "react-native";
 import PropTypes from 'prop-types';
 
 /* container & presentational components
@@ -55,7 +55,10 @@ class Menu extends React.Component {
 
 const Menu = ({name, cost}) => {
     return(
-        <TouchableOpacity style={styles.menu}>
+        <TouchableOpacity style={styles.menu}
+        onPress={() => (
+            Alert.alert('alert', 'hi')
+        )}>
             <Text style={styles.text}>{name}: {cost}</Text>
         </TouchableOpacity>
 
