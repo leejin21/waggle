@@ -38,7 +38,9 @@ const SelectMenuButton = ({navigation}) => {
     return(
         <TouchableOpacity activeOpacity={0.8} 
         style={styles.button} 
-        onPress={() => navigation.navigate("Order")}>  
+        onPress={() => 
+            navigation.navigate("Order")
+        }>  
             <Text style={styles.text}>메뉴 담기</Text>
         </TouchableOpacity>
     );

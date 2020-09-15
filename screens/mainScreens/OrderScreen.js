@@ -28,29 +28,29 @@ const OrderButton = ({navigation}) => {
 };
 
 /* text인 부분 대부분 백엔드에서 or 전 화면에서 정보 읽어오는 걸로 바꿔야 */
-const OrderScreen = (props) => {
+const OrderScreen = ({route, navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.top}>
-                <GoBackButton navigation={props.navigation}/>
+                <GoBackButton navigation={navigation}/>
                 <Text style={styles.text}>담은 메뉴를 확인해 주세요</Text>
             </View>
             <View style={styles.mid}>
-                <View style={{flex: 1}}>
+                <View style={styles.mid}>
                     <Text style={styles.text}>메인 메뉴</Text>
                     <Menu/>
                 </View>
-                <View style={{flex: 1}}>
+                <View style={styles.mid}>
                     <Text style={styles.text}>+ 사이드 메뉴</Text>
                     <Menu/>  
                 </View>
-                <View style={{flex: 1}}>
+                <View style={styles.mid}>
                     <Text style={styles.text}>= 총합 </Text>
                     <Text style={styles.text}>(메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
                 </View>
             </View>
             <View style={styles.bottom}>
-                <OrderButton navigation={props.navigation}/>
+                <OrderButton navigation={navigation}/>
             </View>
         </View>
     );
