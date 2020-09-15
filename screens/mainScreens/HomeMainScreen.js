@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, StyleSheet, FlatList, Image } from "react-native";
+import { View, Text, Button, StyleSheet, FlatList, Dimensions } from "react-native";
 import Colors from "../../constants/Colors";
 
 import { logoHeaderOptions } from "../../constants/Options";
@@ -8,11 +8,13 @@ import ListPhoto from "../../components/ListPhoto";
 
 import CommonStyles from "../../constants/CommonStyles";
 
+const SCREEN_WIDTH = Dimensions.get("window").width;
+
 const imageDatas = [
-    require("../../assets/images/thumbnails/bibimbap.jpg"),
-    require("../../assets/images/thumbnails/meat.jpg"),
-    require("../../assets/images/thumbnails/mexican.jpg"),
-    require("../../assets/images/thumbnails/earlgreycake.jpg"),
+    { name: "ABC레스토랑", heart_filled: true, photo: require("../../assets/images/thumbnails/bibimbap.jpg") },
+    { name: "가나다식당", heart_filled: false, photo: require("../../assets/images/thumbnails/meat.jpg") },
+    { name: "로제찜닭", heart_filled: false, photo: require("../../assets/images/thumbnails/mexican.jpg") },
+    { name: "로제떡볶이랄라랄랄랄랄랄", heart_filled: false, photo: require("../../assets/images/thumbnails/earlgreycake.jpg") },
 ];
 
 const HomeMainScreen = (props) => {
@@ -24,13 +26,14 @@ const HomeMainScreen = (props) => {
     return (
         <View style={styles.body}>
             <FlatList
+                key={"_"}
+                numColumns={2}
                 data={imageDatas}
                 renderItem={({ item }) => {
-                    return <ListPhoto source={item} />;
+                    return <ListPhoto ITEM_WIDTH={SCREEN_WIDTH / 2} item={item.photo} navigation={props.navigation} rest_name={item.name} heart_filled={item.heart_filled} />;
                 }}
                 keyExtractor={(item, index) => index.toString()}
             ></FlatList>
-            <Button title="Go to RestVideo Screen" onPress={() => props.navigation.navigate("RestVideo")}></Button>
         </View>
     );
 };
@@ -38,7 +41,9 @@ const HomeMainScreen = (props) => {
 const styles = StyleSheet.create({
     body: {
         ...CommonStyles.body,
+        paddingHorizontal: 10,
         flexDirection: "column",
+        alignItems: "center",
     },
 });
 
