@@ -1,58 +1,6 @@
 import React, {Component, useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 
-
-/* container & presentational components
-backend, Menu와 연결해야 함
-
-class MenuContainer extends React.Component {
-    constructor(props){
-        super(props); // name, cost는 배열 (str, num) 
-        this.state = { name: props.name, cost: props.cost }
-    }
-
-    componentDidMount(){
-        fetchMenu(name => this.setState({name}));
-        fetchMenu(cost => this.setState({cost}));
-    }
-
-
-    render(){
-        return(
-            this.props.map( obj => 
-            (<Text style={styles.text}>{obj.name}: {obj.cost}</Text>))
-        );
-    }
-}
-*/
-
-/*
-class Menu extends React.Component {
-    constructor(props){
-        super(props);
-        this.state ={
-            ary:  [
-                {
-                    name: "된장찌개", 
-                    value: 5000
-                }, 
-                {
-                    name: "김치찌개", 
-                    value: 6000
-                }
-            ]        
-        }
-    }
-
-    render(){
-        const {menuary} = this.state.ary;
-        return(
-           <Text style={styles.text}>{menuary.name}</Text>
-         );
-    }; 
-};
-*/
-
 class Menu extends Component {
     constructor(props){
         super(props);
@@ -63,7 +11,7 @@ class Menu extends Component {
     
     handleClick = (state) => {
         this.setState({selected: state.selected? false:true});
-        Alert.alert('alert', state.selected.toString());
+        Alert.alert('is selected?', "! "+state.selected.toString());
     }
 
     render(){
