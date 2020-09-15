@@ -24,7 +24,7 @@ const FinishOrderScreen = (props) => {
 const styles = StyleSheet.create({
     body: {
         ...CommonStyles.body,
-        paddingTop: 40,
+        paddingTop: 100,
         alignItems: "center",
         justifyContent: "center",
     },
