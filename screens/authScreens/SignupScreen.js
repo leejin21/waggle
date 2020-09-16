@@ -2,74 +2,74 @@ import React from "react";
 import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 
 import { TextInput } from "react-native-gesture-handler";
+
+import Colors from "../../constants/Colors";
+import CommonStyles from "../../constants/CommonStyles";
+import Card from "../../components/Card";
+import BottomButton from "../../components/BottomButton";
+
 /*
 import DatePicker from "react-native-date-picker";
 import CheckBox from "@react-native-community/checkbox";
 */
 
-const SignupButton = ({navigation}) => {
- /*   const navigateToComplete = () => {
-        const {navigate} = this.props.navigation;
-        navigate("CompleteRegister");
-    };
-
-onPress={() => this.navigateToComplete()}*/
+const SignupButton = (props) => {
     return(
-        <TouchableOpacity activeOpacity={0.8} 
-        style={styles.button} onPress={()=> navigation.navigate("CompleteRegister")}>       
-            <Text style={styles.text}>가입 하기</Text>
-        </TouchableOpacity>
+        <BottomButton active={true} onPress={props.onPress}>
+            <Text style={{ ...CommonStyles.bold_text, color: "black" }}>가입하기</Text>
+        </BottomButton>
     );
 };
 
 const SignUpScreen = (props) => {   
     return (
-        <View style={styles.container}>
-            <View style={styles.top}><Text style={styles.text}>정보입력</Text></View>
-            <View style={styles.mid}>
-                <View style={styles.elem}>
-                    <Text style={styles.text}>이름</Text>
-                    <TextInput textContentType="name" returnKeyType="next" style={styles.textinput}/>
-                </View>
-                <View style={styles.elem}>
-                    <Text style={styles.text}>이메일</Text>
-                    <TextInput textContentType="emailAddress" keyboardType="email-address" returnKeyType="next" style={styles.textinput}/>
-                </View>
-                <View style={styles.elem}>
-                    <Text style={styles.text}>비밀번호</Text>
-                    <TextInput textContentType="newPassword" returnKeyType="next" secureTextEntry={true} style={styles.textinput}/>
-                </View>
-                <View style={styles.elem}>
-                    <Text style={styles.text}>연락처</Text>
-                    <TextInput textContentType="telephoneNumber" keyboardType="number-pad" returnKeyType="done" style={styles.textinput}/>
-                </View>
-    
+        <View style={CommonStyles.body}>
+            <View style={CommonStyles.body__middle}>
+                <Card>
+                    <View style={styles.elem}>
+                        <Text style={styles.card__text}>이름</Text>
+                        <TextInput textContentType="name" returnKeyType="next" style={styles.textinput}/>
+                    </View>
+                    <View style={styles.elem}>
+                        <Text style={styles.card__text}>이메일</Text>
+                        <TextInput textContentType="emailAddress" keyboardType="email-address" returnKeyType="next" style={styles.textinput}/>
+                    </View>
+                    <View style={styles.elem}>
+                        <Text style={styles.card__text}>비밀번호</Text>
+                        <TextInput textContentType="newPassword" returnKeyType="next" secureTextEntry={true} style={styles.textinput}/>
+                    </View>
+                    <View style={styles.elem}>
+                        <Text style={styles.card__text}>연락처</Text>
+                        <TextInput textContentType="telephoneNumber" keyboardType="number-pad" returnKeyType="done" style={styles.textinput}/>
+                    </View>
+                </Card>
             </View>
-            <View style={styles.bottom}><SignupButton navigation={props.navigation}/></View>
+            <View style={CommonStyles.body__end}><SignupButton onPress={() => props.navigation.navigate("CompleteRegister")}/></View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "black"
+    card__text: {
+        fontFamily: "noto_regular",
+        fontSize: 25,
+        color: Colors.text_grey
     },
-    top: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
+    remain: {
+        flex: 2,
+        marginTop: 25,
+        justifyContent: "space-between",
+        alignContent: "center",
     },
-    mid: {
-        flex: 4,
-        justifyContent: "center",
-        alignItems: "center",
-        top: -80
+    terms_agree_style: {
+        borderRadius: 70,
+        padding: 15,
+        width: "60%",
+        alignSelf: "center",
     },
-    bottom: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+    terms_agree__text: {
+        ...CommonStyles.bold_text,
+        fontSize: 22,
     },
 
     elem: {
@@ -77,22 +77,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        borderBottomWidth: 7,
-        padding: 5
+        borderBottomWidth: 2,
+        borderBottomColor: Colors.text_grey,
+        padding: 6
     },
 
-    button: {
-        width: "100%",
-        height: 110,
-        backgroundColor: "orange",
-        justifyContent: "center",
-        alignItems: "center",
-        position: 'absolute',
-        bottom: 0
-    },
-    touched: {
-        backgroundColor: "#ee5555"
-    },
     text: {
         color: "white",
         fontSize: 20,
@@ -100,10 +89,12 @@ const styles = StyleSheet.create({
     },
     textinput: { 
         height: 40, 
-        width: 300, 
+        width: 210, 
         color: "white",
-        borderColor: 'orange', 
-        borderWidth: 1 }
+        borderColor: 'transparent',
+        borderWidth: 1,
+        fontSize: 25 
+    }
 });
 
 export default SignUpScreen;

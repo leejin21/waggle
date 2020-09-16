@@ -43,9 +43,9 @@ const AuthStack = () => {
     return (
         <Auth.Navigator initialRouteName="Login">
             <Auth.Screen name="Login" component={LoginScreen} options={logoHeaderOptions}></Auth.Screen>
-            <Auth.Screen name="Signup" component={SignupScreen}></Auth.Screen>
+            <Auth.Screen name="Signup" component={SignupScreen} options={{ title: "정보입력", ...headerOptions }}></Auth.Screen>
             <Auth.Screen name="TermsNC" component={TermsNConditionsScreen} options={{ title: "약관동의", ...headerOptions }}></Auth.Screen>
-            <Auth.Screen name="CompleteRegister" component={CompleteRegisterScreen}></Auth.Screen>
+            <Auth.Screen name="CompleteRegister" component={CompleteRegisterScreen} options={{ headerShown: false }}></Auth.Screen>
         </Auth.Navigator>
     );
 };
@@ -67,7 +67,7 @@ const waggleNavigator = () => {
     // Main or Auth
     // |_ Settings
 
-    const isSignedIn = true;
+    const isSignedIn = false;
     return <NavigationContainer>{isSignedIn ? <MainStack></MainStack> : <AuthStack></AuthStack>}</NavigationContainer>;
 };
 
