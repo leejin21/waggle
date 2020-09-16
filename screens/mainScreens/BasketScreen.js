@@ -1,6 +1,11 @@
 import React, {Component, useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 
+import Colors from "../../constants/Colors";
+import CommonStyles from "../../constants/CommonStyles";
+import Card from "../../components/Card";
+import BottomButton from "../../components/BottomButton";
+
 class Menu extends Component {
     constructor(props){
         super(props);
@@ -25,26 +30,13 @@ class Menu extends Component {
     }
 };
 
-const GoBackButton = ({navigation}) => {
+const SelectMenuButton = (props) => {
     return(
-        <TouchableOpacity activeOpacity={0.8} 
-        style={styles.button} 
-        onPress={() => navigation.goBack()}>  
-            <Text style={styles.text}>back</Text>
-        </TouchableOpacity>
+        <BottomButton active={true} onPress={props.onPress}>
+            <Text style={{ ...CommonStyles.bold_text, color: "black" }}>메뉴담기</Text>
+        </BottomButton>
     );
 };
-
-const SelectMenuButton = ({navigation}) => {
-    return(
-        <TouchableOpacity activeOpacity={0.8} 
-        style={styles.button} 
-        onPress={() => navigation.navigate("Order")}>  
-            <Text style={styles.text}>메뉴 담기</Text>
-        </TouchableOpacity>
-    );
-};
-
 /* menu를 백엔드에서 읽어오고, OrderScreen으로 넘기는 작업 해야 */
 class BasketScreen extends Component{
     constructor(props){
@@ -53,69 +45,42 @@ class BasketScreen extends Component{
 
     render(){
         return (
-            <View style={styles.container}>
-                <View style={styles.top}>
-                    <GoBackButton navigation={this.props.navigation}/>
-                    <Text style={styles.text}>ABC 레스토랑</Text>
-                </View>
-                <View style={styles.mid}>
+            <View style={CommonStyles.body}>
+                <View style={CommonStyles.body__middle}>
                     <View style={styles.mid}>
-                        <Text style={styles.text}>메인 메뉴</Text>
-                        <Menu name="된장찌개" cost={5500}/>
-                        <Menu name="김치찌개" cost={6000}/>
-                    </View>
-                    <View style={styles.mid}>
-                        <Text style={styles.text}>오직 와글에서만 무료!</Text>
-                        <Text style={styles.text}>사이드 메뉴</Text>
-                        
+                        <View style={styles.mid}>
+                            <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
+                            <Menu name="된장찌개" cost={5500}/>
+                            <Menu name="김치찌개" cost={6000}/>
+                        </View>
+                        <View style={styles.mid}>
+                            <Card>
+                                <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow}]}>오직 와글에서만 무료!</Text>
+                                <Text style={[CommonStyles.bold_text, {color: "white"}]}>사이드 메뉴</Text>
+                            </Card>
+                        </View>
                     </View>
                 </View>
-                <View style={styles.bottom}>
-                    <SelectMenuButton navigation={this.props.navigation}/>
+                <View style={CommonStyles.body__end}>
+                    <SelectMenuButton onPress={() => this.props.navigation.navigate("Order")}/>
                 </View>
             </View>
         );
     }
 };
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "black"
-    },
-    top: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    },
     mid: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center"
     },
-    bottom: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
 
-    button: {
-        width: "100%",
-        height: 110,
-        backgroundColor: "orange",
-        justifyContent: "center",
-        alignItems: "center",
-        position: 'absolute',
-        bottom: 0
-    },
     menu: {
         width: 150,
         height: 45,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "green"
-    },
-    touched: {
-        backgroundColor: "#ee5555"
     },
     text: {
         color: "#fff",

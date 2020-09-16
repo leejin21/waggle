@@ -1,93 +1,75 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
+import Colors from "../../constants/Colors";
+import CommonStyles from "../../constants/CommonStyles";
+import CheckCircle from "../../components/CheckCircle";
+import BottomButton from "../../components/BottomButton";
+
 const Menu = () => {
     return(
-        <Text style={styles.text}>나는 메뉴다</Text>
+        <View>
+            <CheckCircle SIZE={80} touchable={false}/>
+            <Text style={styles.text}>나는 메뉴다</Text>
+        </View>   
     );
 };
 
-const GoBackButton = ({navigation}) => {
-    return(
-        <TouchableOpacity activeOpacity={0.8} 
-        style={styles.button} 
-        onPress={() => navigation.goBack()}>  
-            <Text style={styles.text}>back</Text>
-        </TouchableOpacity>
-    );
-};
 
-const OrderButton = ({navigation}) => {
+const OrderButton = (props) => {
     return(
-        <TouchableOpacity activeOpacity={0.8} 
-        style={styles.button} 
-        onPress={() => navigation.navigate("FinishOrder")}>  
-            <Text style={styles.text}>주문하기</Text>
-        </TouchableOpacity>
+        <BottomButton active={true} onPress={props.onPress}>
+            <Text style={{ ...CommonStyles.bold_text, color: "black" }}>주문하기</Text>
+        </BottomButton>
     );
 };
 
 /* text인 부분 대부분 백엔드에서 or 전 화면에서 정보 읽어오는 걸로 바꿔야 */
 const OrderScreen = ({route, navigation}) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.top}>
-                <GoBackButton navigation={navigation}/>
-                <Text style={styles.text}>담은 메뉴를 확인해 주세요</Text>
-            </View>
-            <View style={styles.mid}>
-                <View style={styles.mid}>
-                    <Text style={styles.text}>메인 메뉴</Text>
-                    <Menu/>
+        <View style={CommonStyles.body}>
+            <View style={CommonStyles.body__middle}>
+                <View style={styles.f2}>
+                    <View style={styles.f1}>
+                        <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
+                        <Menu/>
+                    </View>
+                    <View style={styles.f1}>
+                         <Text style={[CommonStyles.bold_text, {color: "white"}]}>+ 사이드 메뉴</Text>
+                        <Menu/>  
+                    </View>   
                 </View>
-                <View style={styles.mid}>
-                    <Text style={styles.text}>+ 사이드 메뉴</Text>
-                    <Menu/>  
-                </View>
-                <View style={styles.mid}>
-                    <Text style={styles.text}>= 총합 </Text>
+                <View style={styles.f1}>
+                    <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow}]}>= 총합 </Text>
                     <Text style={styles.text}>(메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
                 </View>
             </View>
-            <View style={styles.bottom}>
-                <OrderButton navigation={navigation}/>
+            <View style={CommonStyles.body__end}>
+                <OrderButton onPress={() => navigation.navigate("FinishOrder")}/>
             </View>
         </View>
     );
 };
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "black"
-    },
-    top: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    },
     mid: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center"
     },
-    bottom: {
+    f1: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        width: "100%",
+        paddingHorizontal: 50
+    },
+    f2: {
+        flex: 2,
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        width: "100%",
     },
 
-    button: {
-        width: "100%",
-        height: 110,
-        backgroundColor: "orange",
-        justifyContent: "center",
-        alignItems: "center",
-        position: 'absolute',
-        bottom: 0
-    },
-    touched: {
-        backgroundColor: "#ee5555"
-    },
     text: {
         color: "#fff",
         fontSize: 20,
