@@ -13,13 +13,11 @@ const Menu = () => {
 };
 
 
-const OrderButton = ({navigation}) => {
+const OrderButton = (props) => {
     return(
-        <TouchableOpacity activeOpacity={0.8} 
-        style={styles.button} 
-        onPress={() => navigation.navigate("FinishOrder")}>  
-            <Text style={styles.text}>주문하기</Text>
-        </TouchableOpacity>
+        <BottomButton active={true} onPress={props.onPress}>
+            <Text style={{ ...CommonStyles.bold_text, color: "black" }}>주문하기</Text>
+        </BottomButton>
     );
 };
 
@@ -43,7 +41,7 @@ const OrderScreen = ({route, navigation}) => {
                 </View>
             </View>
             <View style={styles.bottom}>
-                <OrderButton navigation={navigation}/>
+                <OrderButton onPress={() => navigation.navigate("FinishOrder")}/>
             </View>
         </View>
     );
