@@ -30,16 +30,13 @@ class Menu extends Component {
     }
 };
 
-const SelectMenuButton = ({navigation}) => {
+const SelectMenuButton = (props) => {
     return(
-        <TouchableOpacity activeOpacity={0.8} 
-        style={styles.button} 
-        onPress={() => navigation.navigate("Order")}>  
-            <Text style={styles.text}>메뉴 담기</Text>
-        </TouchableOpacity>
+        <BottomButton active={true} onPress={props.onPress}>
+            <Text style={{ ...CommonStyles.bold_text, color: "black" }}>메뉴담기</Text>
+        </BottomButton>
     );
 };
-
 /* menu를 백엔드에서 읽어오고, OrderScreen으로 넘기는 작업 해야 */
 class BasketScreen extends Component{
     constructor(props){
@@ -63,7 +60,7 @@ class BasketScreen extends Component{
                     </View>
                 </View>
                 <View style={styles.bottom}>
-                    <SelectMenuButton navigation={this.props.navigation}/>
+                    <SelectMenuButton onPress={() => this.props.navigation.navigate("Order")}/>
                 </View>
             </View>
         );
