@@ -4,7 +4,9 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 const Card = (props) => {
-    return <View style={styles.card}>{props.children}</View>;
+    // props: style
+
+    return <View style={{ ...styles.card, ...props.style }}>{props.children}</View>;
 };
 
 const styles = StyleSheet.create({

@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Colors from "../constants/Colors";
 
 const BottomButton = (props) => {
-    // props: yellow, onPress,
+    // props: active, onPress,
     //        style_back_color(optional: in case of changing background color, ex: {backgroundColor: Colors.mid_grey})
     return props.active ? (
         <TouchableOpacity style={{ ...styles.bottom_button, ...props.style_back_color }} onPress={props.onPress}>
