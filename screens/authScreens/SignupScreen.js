@@ -24,7 +24,6 @@ const SignupButton = (props) => {
 const SignUpScreen = (props) => {   
     return (
         <View style={styles.container}>
-            <View style={styles.top}><Text style={styles.text}>정보입력</Text></View>
             <View style={styles.mid}>
                 <View style={styles.elem}>
                     <Text style={styles.text}>이름</Text>
