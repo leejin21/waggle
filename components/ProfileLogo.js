@@ -15,7 +15,7 @@ const ProfileLogo = (props) => {
             style={{ ...CommonStyles.yellow_circle, ...props.style }}
             onPress={() =>
                 props.navigation.navigate("Settings", {
-                    name: "MyPage",
+                    screen: "MyPage",
                 })
             }
             underlayColor={Colors.dark_orange}
