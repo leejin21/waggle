@@ -8,7 +8,10 @@ import BottomButton from "../../components/BottomButton";
 
 const Menu = () => {
     return(
-        <Text style={styles.text}>나는 메뉴다</Text>
+        <View>
+            <CheckCircle SIZE={80} touchable={false}/>
+            <Text style={styles.text}>나는 메뉴다</Text>
+        </View>   
     );
 };
 
@@ -55,13 +58,16 @@ const styles = StyleSheet.create({
     },
     f1: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        width: "100%",
+        paddingHorizontal: 50
     },
     f2: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
+        flex: 2,
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        width: "100%",
     },
 
     text: {
