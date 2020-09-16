@@ -23,51 +23,53 @@ const SignupButton = (props) => {
 
 const SignUpScreen = (props) => {   
     return (
-        <View style={styles.container}>
-            <View style={styles.mid}>
-                <View style={styles.elem}>
-                    <Text style={styles.text}>이름</Text>
-                    <TextInput textContentType="name" returnKeyType="next" style={styles.textinput}/>
-                </View>
-                <View style={styles.elem}>
-                    <Text style={styles.text}>이메일</Text>
-                    <TextInput textContentType="emailAddress" keyboardType="email-address" returnKeyType="next" style={styles.textinput}/>
-                </View>
-                <View style={styles.elem}>
-                    <Text style={styles.text}>비밀번호</Text>
-                    <TextInput textContentType="newPassword" returnKeyType="next" secureTextEntry={true} style={styles.textinput}/>
-                </View>
-                <View style={styles.elem}>
-                    <Text style={styles.text}>연락처</Text>
-                    <TextInput textContentType="telephoneNumber" keyboardType="number-pad" returnKeyType="done" style={styles.textinput}/>
-                </View>
-    
+        <View style={CommonStyles.body}>
+            <View style={CommonStyles.body__middle}>
+                <Card>
+                    <View style={styles.elem}>
+                        <Text style={styles.card__text}>이름</Text>
+                        <TextInput textContentType="name" returnKeyType="next" style={styles.textinput}/>
+                    </View>
+                    <View style={styles.elem}>
+                        <Text style={styles.card__text}>이메일</Text>
+                        <TextInput textContentType="emailAddress" keyboardType="email-address" returnKeyType="next" style={styles.textinput}/>
+                    </View>
+                    <View style={styles.elem}>
+                        <Text style={styles.card__text}>비밀번호</Text>
+                        <TextInput textContentType="newPassword" returnKeyType="next" secureTextEntry={true} style={styles.textinput}/>
+                    </View>
+                    <View style={styles.elem}>
+                        <Text style={styles.card__text}>연락처</Text>
+                        <TextInput textContentType="telephoneNumber" keyboardType="number-pad" returnKeyType="done" style={styles.textinput}/>
+                    </View>
+                </Card>
             </View>
-            <View style={styles.bottom}><SignupButton onPress={() => props.navigation.navigate("CompleteRegister")}/></View>
+            <View style={CommonStyles.body__end}><SignupButton onPress={() => props.navigation.navigate("CompleteRegister")}/></View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "black"
+    card__text: {
+        fontFamily: "noto_regular",
+        fontSize: 25,
+        color: Colors.text_grey
     },
-    top: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
+    remain: {
+        flex: 2,
+        marginTop: 25,
+        justifyContent: "space-between",
+        alignContent: "center",
     },
-    mid: {
-        flex: 4,
-        justifyContent: "center",
-        alignItems: "center",
-        top: -80
+    terms_agree_style: {
+        borderRadius: 70,
+        padding: 15,
+        width: "60%",
+        alignSelf: "center",
     },
-    bottom: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+    terms_agree__text: {
+        ...CommonStyles.bold_text,
+        fontSize: 22,
     },
 
     elem: {
@@ -75,22 +77,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        borderBottomWidth: 7,
-        padding: 5
+        borderBottomWidth: 2,
+        borderBottomColor: Colors.text_grey,
+        padding: 6
     },
 
-    button: {
-        width: "100%",
-        height: 110,
-        backgroundColor: "orange",
-        justifyContent: "center",
-        alignItems: "center",
-        position: 'absolute',
-        bottom: 0
-    },
-    touched: {
-        backgroundColor: "#ee5555"
-    },
     text: {
         color: "white",
         fontSize: 20,
@@ -98,10 +89,12 @@ const styles = StyleSheet.create({
     },
     textinput: { 
         height: 40, 
-        width: 300, 
+        width: 210, 
         color: "white",
-        borderColor: 'orange', 
-        borderWidth: 1 }
+        borderColor: 'transparent',
+        borderWidth: 1,
+        fontSize: 25 
+    }
 });
 
 export default SignUpScreen;

@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
-import Card from "../../components/Card";
 import BottomButton from "../../components/BottomButton";
+import ProfileLogo from "../../components/ProfileLogo";
 
 const LoginButton = (props) => {
     return(
@@ -16,57 +16,62 @@ const LoginButton = (props) => {
 
 const CompleteRegisterScreen = (props) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.top}>
-                <Text style={styles.text}>가입완료</Text>
-                <Text style={styles.text}>이제 와글로 멋진 식사를 즐겨보세요!</Text>
+        <View style={styles.body}>
+            <View style={CommonStyles.body__middle}>
+                <View style={styles.f2}>
+                    <Text style={styles.h2}>가입완료</Text>
+                    <Text style={styles.text}>이제 와글로 멋진 식사를 즐겨보세요!</Text>
+                </View>
+                <View style={styles.f2}>
+                
+                    <Text style={styles.text}>김눈송</Text>
+                    <Text style={styles.text}>test@gmail.com</Text>
+                    {/* 정보 받아와서 내용 수정되게끔 고쳐야 */}
+                </View>
+                <View style={styles.f1}></View>
             </View>
-            <View style={styles.mid}>
-                <Text style={styles.text}>김눈송</Text>
-                <Text style={styles.text}>test@gmail.com</Text>
-                {/* 정보 받아와서 내용 수정되게끔 고쳐야 */}
-            </View>
-            <View style={styles.bottom}><LoginButton onPress={() => props.navigation.navigate("Login")}/></View>
+            <View style={styles.body_end}><LoginButton onPress={() => props.navigation.navigate("Login")}/></View>
         </View>
     );
 };
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "black"
-    },
-    top: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    mid: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    bottom: {
-        flex: 1,
-        justifyContent: "center",
+    body: {
+        ...CommonStyles.body,
+        paddingTop: 100,
         alignItems: "center",
+        justifyContent: "center",
     },
-
-    button: {
+    body_end: {
+        ...CommonStyles.body__end,
         width: "100%",
-        height: 110,
-        backgroundColor: "orange",
-        justifyContent: "center",
         alignItems: "center",
-        position: 'absolute',
-        bottom: 0
+        justifyContent: "center",
     },
-    touched: {
-        backgroundColor: "#ee5555"
+    h2: {
+        margin: 10,
+        textAlign: "center",
+        fontFamily: "noto_bold",
+        color: "white",
+        fontSize: 35,
     },
     text: {
-        color: "#fff",
-        fontSize: 20,
-        fontWeight: "bold"
+        margin: 5,
+        textAlign: "center",
+        fontFamily: "noto_regular",
+        color: "white",
+        fontSize: 15,
+    },
+
+    // 2 2 1
+    f1: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    f2: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
     }
 });
 
