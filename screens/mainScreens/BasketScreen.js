@@ -30,16 +30,6 @@ class Menu extends Component {
     }
 };
 
-const GoBackButton = ({navigation}) => {
-    return(
-        <TouchableOpacity activeOpacity={0.8} 
-        style={styles.button} 
-        onPress={() => navigation.goBack()}>  
-            <Text style={styles.text}>back</Text>
-        </TouchableOpacity>
-    );
-};
-
 const SelectMenuButton = ({navigation}) => {
     return(
         <TouchableOpacity activeOpacity={0.8} 
