@@ -29,14 +29,45 @@ const Settings = createStackNavigator();
 const Auth = createStackNavigator();
 const Main = createStackNavigator();
 
-const SettingsStack = () => {
-    return (
-        <Settings.Navigator initialRouteName="MyPage">
-            <Settings.Screen name="MyPage" component={MyPageScreen}></Settings.Screen>
-            <Settings.Screen name="Coupons" component={CouponsScreen}></Settings.Screen>
-            <Settings.Screen name="EditInfo" component={EditInfoScreen}></Settings.Screen>
-        </Settings.Navigator>
-    );
+const SettingsScreen = {
+    // screens/settingsScreens 에 해당하는 설정 화면들
+    MyPage: {
+        component: MyPageScreen,
+        options: { title: "마이페이지" },
+    },
+    Coupons: {
+        component: CouponsScreen,
+        options: { title: "쿠폰함" },
+    },
+
+    EditInfo: {
+        component: EditInfoScreen,
+        options: { title: "정보수정" },
+    },
+};
+
+const MainScreen = {
+    // screens/mainScreens 에 해당하는 메인 화면들
+    HomeMain: {
+        component: HomeMainScreen,
+        options: {},
+    },
+    Basket: {
+        component: BasketScreen,
+        options: { title: "식당이름", ...headerOptions },
+    },
+    Order: {
+        component: OrderScreen,
+        options: { title: "담은 메뉴를 확인해 주세요", ...headerOptions },
+    },
+    RestVideo: {
+        component: RestaurantVideoScreen,
+        options: {},
+    },
+    FinishOrder: {
+        component: FinishOrderScreen,
+        options: { headerShown: false },
+    },
 };
 
 const AuthStack = () => {
@@ -53,12 +84,9 @@ const AuthStack = () => {
 const MainStack = () => {
     return (
         <Main.Navigator initialRouteName="HomeMain">
-            <Main.Screen name="HomeMain" component={HomeMainScreen}></Main.Screen>
-            <Main.Screen name="Basket" component={BasketScreen} options={{ title: "식당이름", ...headerOptions}}></Main.Screen>
-            <Main.Screen name="Order" component={OrderScreen} options={{ title: "담은 메뉴를 확인해 주세요", ...headerOptions}}></Main.Screen>
-            <Main.Screen name="RestVideo" component={RestaurantVideoScreen}></Main.Screen>
-            <Main.Screen name="FinishOrder" component={FinishOrderScreen} options={{ headerShown: false }}></Main.Screen>
-            <Main.Screen name="Settings" component={SettingsStack}></Main.Screen>
+            {Object.entries({ ...MainScreen, ...SettingsScreen }).map(([name, others]) => (
+                <Main.Screen key={name} name={name} component={others.component} options={others.options} />
+            ))}
         </Main.Navigator>
     );
 };

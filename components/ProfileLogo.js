@@ -11,16 +11,7 @@ import Colors from "../constants/Colors";
 const ProfileLogo = (props) => {
     // props: touchable, navigation(only touchable=true), SIZE
     return props.touchable === true ? (
-        <TouchableHighlight
-            style={{ ...CommonStyles.yellow_circle, ...props.style }}
-            onPress={() =>
-                props.navigation.navigate("Settings", {
-                    name: "MyPage",
-                })
-            }
-            underlayColor={Colors.dark_orange}
-            activeOpacity={0.7}
-        >
+        <TouchableHighlight style={{ ...CommonStyles.yellow_circle, ...props.style }} onPress={() => props.navigation.navigate("MyPage")} underlayColor={Colors.dark_orange} activeOpacity={0.7}>
             <Text style={styles.profile__text}>MY</Text>
         </TouchableHighlight>
     ) : (
