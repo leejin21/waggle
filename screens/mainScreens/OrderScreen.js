@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
-import Card from "../../components/Card";
+import CheckCircle from "../../components/CheckCircle";
 import BottomButton from "../../components/BottomButton";
 
 const Menu = () => {
@@ -24,61 +24,46 @@ const OrderButton = (props) => {
 /* text인 부분 대부분 백엔드에서 or 전 화면에서 정보 읽어오는 걸로 바꿔야 */
 const OrderScreen = ({route, navigation}) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.top}></View>
-            <View style={styles.mid}>
-                <View style={styles.mid}>
-                    <Text style={styles.text}>메인 메뉴</Text>
-                    <Menu/>
+        <View style={CommonStyles.body}>
+            <View style={CommonStyles.body__middle}>
+                <View style={styles.f2}>
+                    <View style={styles.f1}>
+                        <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
+                        <Menu/>
+                    </View>
+                    <View style={styles.f1}>
+                         <Text style={[CommonStyles.bold_text, {color: "white"}]}>+ 사이드 메뉴</Text>
+                        <Menu/>  
+                    </View>   
                 </View>
-                <View style={styles.mid}>
-                    <Text style={styles.text}>+ 사이드 메뉴</Text>
-                    <Menu/>  
-                </View>
-                <View style={styles.mid}>
-                    <Text style={styles.text}>= 총합 </Text>
+                <View style={styles.f1}>
+                    <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow}]}>= 총합 </Text>
                     <Text style={styles.text}>(메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
                 </View>
             </View>
-            <View style={styles.bottom}>
+            <View style={CommonStyles.body__end}>
                 <OrderButton onPress={() => navigation.navigate("FinishOrder")}/>
             </View>
         </View>
     );
 };
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "black"
-    },
-    top: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    },
     mid: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center"
     },
-    bottom: {
+    f1: {
         flex: 1,
-        justifyContent: "center",
         alignItems: "center",
+        justifyContent: "center"
+    },
+    f2: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
     },
 
-    button: {
-        width: "100%",
-        height: 110,
-        backgroundColor: "orange",
-        justifyContent: "center",
-        alignItems: "center",
-        position: 'absolute',
-        bottom: 0
-    },
-    touched: {
-        backgroundColor: "#ee5555"
-    },
     text: {
         color: "#fff",
         fontSize: 20,
