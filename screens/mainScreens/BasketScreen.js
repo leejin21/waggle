@@ -1,6 +1,11 @@
 import React, {Component, useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 
+import Colors from "../../constants/Colors";
+import CommonStyles from "../../constants/CommonStyles";
+import Card from "../../components/Card";
+import BottomButton from "../../components/BottomButton";
+
 class Menu extends Component {
     constructor(props){
         super(props);
@@ -54,10 +59,7 @@ class BasketScreen extends Component{
     render(){
         return (
             <View style={styles.container}>
-                <View style={styles.top}>
-                    <GoBackButton navigation={this.props.navigation}/>
-                    <Text style={styles.text}>ABC 레스토랑</Text>
-                </View>
+                <View style={styles.top}></View>
                 <View style={styles.mid}>
                     <View style={styles.mid}>
                         <Text style={styles.text}>메인 메뉴</Text>

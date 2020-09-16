@@ -54,8 +54,8 @@ const MainStack = () => {
     return (
         <Main.Navigator initialRouteName="HomeMain">
             <Main.Screen name="HomeMain" component={HomeMainScreen}></Main.Screen>
-            <Main.Screen name="Basket" component={BasketScreen}></Main.Screen>
-            <Main.Screen name="Order" component={OrderScreen}></Main.Screen>
+            <Main.Screen name="Basket" component={BasketScreen} options={{ title: "식당이름", ...headerOptions}}></Main.Screen>
+            <Main.Screen name="Order" component={OrderScreen} options={{ title: "담은 메뉴를 확인해 주세요", ...headerOptions}}></Main.Screen>
             <Main.Screen name="RestVideo" component={RestaurantVideoScreen}></Main.Screen>
             <Main.Screen name="FinishOrder" component={FinishOrderScreen} options={{ headerShown: false }}></Main.Screen>
             <Main.Screen name="Settings" component={SettingsStack}></Main.Screen>
@@ -67,7 +67,7 @@ const waggleNavigator = () => {
     // Main or Auth
     // |_ Settings
 
-    const isSignedIn = false;
+    const isSignedIn = true;
     return <NavigationContainer>{isSignedIn ? <MainStack></MainStack> : <AuthStack></AuthStack>}</NavigationContainer>;
 };
 

@@ -1,6 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
+import Colors from "../../constants/Colors";
+import CommonStyles from "../../constants/CommonStyles";
+import Card from "../../components/Card";
+import BottomButton from "../../components/BottomButton";
+
 const Menu = () => {
     return(
         <Text style={styles.text}>나는 메뉴다</Text>
@@ -31,10 +36,7 @@ const OrderButton = ({navigation}) => {
 const OrderScreen = ({route, navigation}) => {
     return (
         <View style={styles.container}>
-            <View style={styles.top}>
-                <GoBackButton navigation={navigation}/>
-                <Text style={styles.text}>담은 메뉴를 확인해 주세요</Text>
-            </View>
+            <View style={styles.top}></View>
             <View style={styles.mid}>
                 <View style={styles.mid}>
                     <Text style={styles.text}>메인 메뉴</Text>
