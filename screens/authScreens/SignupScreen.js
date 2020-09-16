@@ -13,18 +13,11 @@ import DatePicker from "react-native-date-picker";
 import CheckBox from "@react-native-community/checkbox";
 */
 
-const SignupButton = ({navigation}) => {
- /*   const navigateToComplete = () => {
-        const {navigate} = this.props.navigation;
-        navigate("CompleteRegister");
-    };
-
-onPress={() => this.navigateToComplete()}*/
+const SignupButton = (props) => {
     return(
-        <TouchableOpacity activeOpacity={0.8} 
-        style={styles.button} onPress={()=> navigation.navigate("CompleteRegister")}>       
-            <Text style={styles.text}>가입 하기</Text>
-        </TouchableOpacity>
+        <BottomButton active={true} onPress={props.onPress}>
+            <Text style={{ ...CommonStyles.bold_text, color: "black" }}>가입하기</Text>
+        </BottomButton>
     );
 };
 
@@ -51,7 +44,7 @@ const SignUpScreen = (props) => {
                 </View>
     
             </View>
-            <View style={styles.bottom}><SignupButton navigation={props.navigation}/></View>
+            <View style={styles.bottom}><SignupButton onPress={() => props.navigation.navigate("CompleteRegister")}/></View>
         </View>
     );
 };

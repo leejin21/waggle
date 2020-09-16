@@ -6,13 +6,11 @@ import CommonStyles from "../../constants/CommonStyles";
 import Card from "../../components/Card";
 import BottomButton from "../../components/BottomButton";
 
-const LoginButton = ({navigation}) => {
+const LoginButton = (props) => {
     return(
-        <TouchableOpacity activeOpacity={0.8} 
-        style={styles.button} 
-        onPress={() => navigation.navigate("Login")}>  
-            <Text style={styles.text}>로그인하기</Text>
-        </TouchableOpacity>
+        <BottomButton active={true} onPress={props.onPress}>
+            <Text style={{ ...CommonStyles.bold_text, color: "black" }}>로그인하기</Text>
+        </BottomButton>
     );
 };
 
@@ -28,7 +26,7 @@ const CompleteRegisterScreen = (props) => {
                 <Text style={styles.text}>test@gmail.com</Text>
                 {/* 정보 받아와서 내용 수정되게끔 고쳐야 */}
             </View>
-            <View style={styles.bottom}><LoginButton navigation={props.navigation}/></View>
+            <View style={styles.bottom}><LoginButton onPress={() => props.navigation.navigate("Login")}/></View>
         </View>
     );
 };
