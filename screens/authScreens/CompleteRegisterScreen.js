@@ -1,6 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
+import Colors from "../../constants/Colors";
+import CommonStyles from "../../constants/CommonStyles";
+import Card from "../../components/Card";
+import BottomButton from "../../components/BottomButton";
+
 const LoginButton = ({navigation}) => {
     return(
         <TouchableOpacity activeOpacity={0.8} 

@@ -2,6 +2,12 @@ import React from "react";
 import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 
 import { TextInput } from "react-native-gesture-handler";
+
+import Colors from "../../constants/Colors";
+import CommonStyles from "../../constants/CommonStyles";
+import Card from "../../components/Card";
+import BottomButton from "../../components/BottomButton";
+
 /*
 import DatePicker from "react-native-date-picker";
 import CheckBox from "@react-native-community/checkbox";
