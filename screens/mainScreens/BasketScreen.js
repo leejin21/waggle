@@ -41,6 +41,7 @@ const SelectMenuButton = (props) => {
 class BasketScreen extends Component{
     constructor(props){
         super(props);
+        props.navigation.setOptions({title: props.route.params.title});
     }
 
     render(){
