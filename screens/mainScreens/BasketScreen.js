@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         height: 45,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "green"
+        backgroundColor: Colors.deep_yellow
     },
     text: {
         color: "#fff",
