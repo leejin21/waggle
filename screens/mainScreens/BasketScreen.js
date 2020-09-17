@@ -62,7 +62,7 @@ class BasketScreen extends Component{
                     </View>
                 </View>
                 <View style={CommonStyles.body__end}>
-                    <SelectMenuButton onPress={() => this.props.navigation.navigate("Order")}/>
+                    <SelectMenuButton onPress={() => this.props.navigation.navigate("Order", {main_name: ['된장찌개', '김치찌개'], main_price: [5500, 6000], side_name: ['사이다', '라면'], side_price: [2000, 3000]})}/>
                 </View>
             </View>
         );
