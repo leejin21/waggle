@@ -42,7 +42,7 @@ const SettingsScreen = {
 
     EditInfo: {
         component: EditInfoScreen,
-        options: { title: "정보수정" },
+        options: { title: "정보수정", ...headerOptions },
     },
 };
 
