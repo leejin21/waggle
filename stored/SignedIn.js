@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 const setIsSignedIn = async (value) => {
     try {
         await AsyncStorage.setItem("isSignedIn", value);
+        console.log("isSignedIn " + value);
     } catch (e) {
         console.log("error: setIsSignedIn", e);
     }
@@ -16,5 +17,7 @@ const getIsSignedIn = async () => {
         console.log("error: getIsSignedIn", e);
     }
 
-    console.log("Done.");
+    console.log("Done getIsSignedIn");
 };
+
+export { setIsSignedIn, getIsSignedIn };

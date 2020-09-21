@@ -1,3 +1,4 @@
+// 음식점 리스트에 접근: 하트 쳐둔 것 관련 정보 받기, 하트 쳐둔 것 대로 정렬?
 import React, { useEffect, useState } from "react";
 import { View, Text, Button, StyleSheet, FlatList, Dimensions } from "react-native";
 import Colors from "../../constants/Colors";
