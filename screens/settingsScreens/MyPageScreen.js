@@ -28,8 +28,14 @@ const MyPageScreen = (props) => {
                 <BottomButton onPress={() => props.navigation.navigate("Coupons")} active={true} style_back_color={styles.mid__button}>
                     <Text style={styles.button_text}>쿠폰함</Text>
                 </BottomButton>
+                <BottomButton onPress={() => props.navigation.navigate("Stamps")} active={true} style_back_color={styles.mid__button}>
+                    <Text style={styles.button_text}>스탬프함</Text>
+                </BottomButton>
                 <BottomButton onPress={() => props.navigation.navigate("EditInfo")} active={true} style_back_color={styles.mid__button}>
                     <Text style={styles.button_text}>정보수정</Text>
+                </BottomButton>
+                <BottomButton onPress={() => props.navigation.navigate("Inquiry")} active={true} style_back_color={styles.mid__button}>
+                    <Text style={styles.button_text}>문의하기</Text>
                 </BottomButton>
             </View>
 

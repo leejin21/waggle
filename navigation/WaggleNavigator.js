@@ -1,3 +1,6 @@
+// FIXME Require cycle: navigation\WaggleNavigator.js -> screens\authScreens\CompleteRegisterScreen.js -> navigation\WaggleNavigator.js
+// FIXME Require cycle: navigation\WaggleNavigator.js -> screens\authScreens\LoginScreen.js -> navigation\WaggleNavigator.js
+// FIXME Require cycle: navigation\WaggleNavigator.js -> screens\settingsScreens\MyPageScreen.js -> navigation\WaggleNavigator.js
 import React, { useState, useReducer } from "react";
 import { StyleSheet, Image, Button } from "react-native";
 import { NavigationContainer, TabRouter } from "@react-navigation/native";
@@ -18,6 +21,8 @@ import FinishOrderScreen from "../screens/mainScreens/FinishOrderScreen";
 import CouponsScreen from "../screens/settingsScreens/CouponsScreen";
 import EditInfoScreen from "../screens/settingsScreens/EditInfoScreen";
 import MyPageScreen from "../screens/settingsScreens/MyPageScreen";
+import StampScreen from "../screens/settingsScreens/StampScreen";
+import InquiryScreen from "../screens/settingsScreens/InquiryScreen";
 
 // import signedIn from each folders
 
@@ -44,6 +49,14 @@ const SettingsScreen = {
     EditInfo: {
         component: EditInfoScreen,
         options: { title: "정보수정", ...headerOptions },
+    },
+    Stamps: {
+        component: StampScreen,
+        options: { title: "스탬프함" },
+    },
+    Inquiry: {
+        component: InquiryScreen,
+        options: { title: "문의하기", ...headerOptions },
     },
 };
 
