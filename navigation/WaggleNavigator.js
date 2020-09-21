@@ -23,6 +23,7 @@ import EditInfoScreen from "../screens/settingsScreens/EditInfoScreen";
 import MyPageScreen from "../screens/settingsScreens/MyPageScreen";
 import StampScreen from "../screens/settingsScreens/StampScreen";
 import InquiryScreen from "../screens/settingsScreens/InquiryScreen";
+import ReviewScreen from "../screens/settingsScreens/ReviewScreen";
 
 // import signedIn from each folders
 
@@ -57,6 +58,9 @@ const SettingsScreen = {
     Inquiry: {
         component: InquiryScreen,
         options: { title: "문의하기", ...headerOptions },
+    },
+    Review: {
+        component: ReviewScreen,
     },
 };
 
