@@ -7,8 +7,6 @@ import { headerOptions } from "../../constants/Options";
 
 import CardButton from "../../components/CardButton";
 
-import CardTemplate from "../../templates/CardTemplate";
-
 const stampDatas = [
     { name: "ABC레스토랑", collected: '2', all: '10'},
     { name: "가나다레스토랑", collected: '1', all: '10'}
