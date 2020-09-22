@@ -1,5 +1,10 @@
-// use: editinfo, stamptocoupon, inquiry screens
-// (with little modification)(header) signup screen
+// use: editinfo, stamptocoupon, inquiry screens, signup screen
+// need some variety
+
+// header; all-black / grey
+// header 설정도 여기로 옮기자
+
+// card; full / explanation space
 
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
@@ -17,8 +22,11 @@ const BottomButton_1 = (props) => {
 };
 
 const CardTemplate = (props) => {   
-    // props; cardview, buttonname, toWhere, navigation
-    return (
+    // props; 
+    // (default) cardview, buttonname, toWhere, navigation, isFullcard
+    // (if isFullcard is false) detailtxt
+    return props.isFullcard? 
+    (
         <View style={{...CommonStyles.body, width: "100%"}}>
             <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
                 <Card style={{width:"95%", marginBottom: 15}}>
@@ -28,6 +36,25 @@ const CardTemplate = (props) => {
             <View style={{ ...CommonStyles.body__end, width: "100%" }}>
                 <BottomButton_1 name={props.buttonname} onPress={() => props.navigation.navigate(props.toWhere)}/>
             </View>
+        </View>
+    ):
+    (
+        <View style={{...CommonStyles.body, width: "100%"}}>
+        <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
+            <View style={{...CommonStyles.body, width: "100%"}}>
+                <Text style={CommonStyles.small_text}>
+                    {props.detailtxt}
+                </Text>
+            </View>
+            <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
+                <Card style={{width:"95%", marginBottom: 15}}>
+                    {props.cardview}
+                </Card>
+            </View>
+        </View>
+        <View style={{ ...CommonStyles.body__end, width: "100%" }}>
+            <BottomButton_1 name={props.buttonname} onPress={() => props.navigation.navigate(props.toWhere)}/>
+        </View>
         </View>
     );
 };
