@@ -37,7 +37,9 @@ const EditInfoScreen = (props) => {
         cardview={<EditInfoView></EditInfoView>} 
         buttonname={"수정완료"}
         toWhere={"HomeMain"}
-        navigation={props.navigation}/>
+        navigation={props.navigation}
+        isFullcard={true}
+        />
     );
 }
 

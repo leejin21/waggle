@@ -33,6 +33,7 @@ const InquiryScreen = (props) => {
         buttonname={"전송하기"}
         toWhere={"HomeMain"} //일단 HomeMain으로
         navigation={props.navigation}
+        isFullcard={true}
         />
     );
 }
