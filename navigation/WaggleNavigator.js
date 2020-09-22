@@ -23,11 +23,12 @@ import EditInfoScreen from "../screens/settingsScreens/EditInfoScreen";
 import MyPageScreen from "../screens/settingsScreens/MyPageScreen";
 import StampScreen from "../screens/settingsScreens/StampScreen";
 import InquiryScreen from "../screens/settingsScreens/InquiryScreen";
+import ReviewScreen from "../screens/settingsScreens/ReviewScreen";
 
 // import signedIn from each folders
 
 import Colors from "../constants/Colors";
-import { headerOptions, logoHeaderOptions } from "../constants/Options";
+import { headerOptions, logoHeaderOptions, reviewOptions } from "../constants/Options";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const AuthContext = React.createContext();
@@ -57,6 +58,11 @@ const SettingsScreen = {
     Inquiry: {
         component: InquiryScreen,
         options: { title: "문의하기", ...headerOptions },
+    },
+    Review: {
+        component: ReviewScreen,
+        options: reviewOptions,
+        // options: title: setOptions로 ReviewScreen에서.
     },
 };
 

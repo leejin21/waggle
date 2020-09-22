@@ -31,4 +31,17 @@ const logoHeaderOptions = {
     },
 };
 
-export { headerOptions, logoHeaderOptions };
+const reviewOptions = {
+    ...headerOptions,
+    headerTintColor: Colors.text_grey,
+    headerStyle: {
+        ...headerOptions.headerStyle,
+        backgroundColor: Colors.mid_grey,
+    },
+    headerTitleStyle: {
+        ...headerOptions.headerTitleStyle,
+        color: Colors.deep_yellow,
+    },
+};
+
+export { headerOptions, logoHeaderOptions, reviewOptions };
