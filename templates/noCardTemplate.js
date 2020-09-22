@@ -20,7 +20,7 @@ const BottomButton_1 = (props) => {
     );
 };
 
-const noCardTemplate = (props) => {   
+const NoCardTemplate = (props) => {   
     // props; 
     // (default) bodyview, buttonname, toWhere, navigation, needButton
     return props.needButton? 
@@ -44,4 +44,4 @@ const noCardTemplate = (props) => {
     );
 };
 
-export default noCardTemplate;
+export default NoCardTemplate;
