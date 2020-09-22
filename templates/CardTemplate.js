@@ -16,7 +16,7 @@ const BottomButton_1 = (props) => {
 };
 
 const CardTemplate = (props) => {   
-    // props; cardview, buttonname, toWhere
+    // props; cardview, buttonname, toWhere, navigation
     return (
         <View style={{...CommonStyles.body, width: "100%"}}>
             <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
