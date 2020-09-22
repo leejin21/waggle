@@ -6,11 +6,12 @@ import CommonStyles from "../../constants/CommonStyles";
 import CheckCircle from "../../components/CheckCircle";
 import BottomButton from "../../components/BottomButton";
 
-const Menu = () => {
+const Menu = ({menu_name, menu_price}) => {
     return(
         <View>
             <CheckCircle SIZE={80} touchable={false}/>
-            <Text style={styles.text}>나는 메뉴다</Text>
+            <Text style={styles.text}>{menu_name}</Text>
+            <Text style={styles.text}>{''+menu_price}</Text>
         </View>   
     );
 };
@@ -32,11 +33,11 @@ const OrderScreen = ({route, navigation}) => {
                 <View style={styles.f2}>
                     <View style={styles.f1}>
                         <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
-                        <Menu/>
+                        <Menu menu_name={route.params.main_name} menu_price={route.params.main_price}/>
                     </View>
                     <View style={styles.f1}>
                          <Text style={[CommonStyles.bold_text, {color: "white"}]}>+ 사이드 메뉴</Text>
-                        <Menu/>  
+                        <Menu menu_name={route.params.side_name} menu_price={route.params.side_price}/>  
                     </View>   
                 </View>
                 <View style={styles.f1}>

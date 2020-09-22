@@ -41,6 +41,7 @@ const SelectMenuButton = (props) => {
 class BasketScreen extends Component{
     constructor(props){
         super(props);
+        props.navigation.setOptions({title: props.route.params.title});
     }
 
     render(){
@@ -62,7 +63,28 @@ class BasketScreen extends Component{
                     </View>
                 </View>
                 <View style={CommonStyles.body__end}>
-                    <SelectMenuButton onPress={() => this.props.navigation.navigate("Order")}/>
+                    <SelectMenuButton onPress={() => 
+                        this.props.navigation.navigate("Order", 
+                        {   //label 배열도 만들어서 hotspot으로 
+                            //(select되는 경우 그 메뉴 index와 일치하는 label 배열 값 selected(bool)로 바꾸기)
+                            //
+                            //Menu의 handleClick에서 조절돼야 함
+                            main_name: 
+                            ['된장찌개', 
+                            '김치찌개'], 
+                            
+                            main_price: 
+                            [5500, 
+                            6000], 
+                            
+                            side_name: 
+                            ['사이다', 
+                            '라면'], 
+                            
+                            side_price: 
+                            [2000, 
+                            3000]
+                        })}/>
                 </View>
             </View>
         );
@@ -80,7 +102,7 @@ const styles = StyleSheet.create({
         height: 45,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "green"
+        backgroundColor: Colors.deep_yellow
     },
     text: {
         color: "#fff",

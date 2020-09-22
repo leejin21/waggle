@@ -72,7 +72,7 @@ const MainScreen = {
     },
     Basket: {
         component: BasketScreen,
-        options: { title: "식당이름", ...headerOptions },
+        options: { ...headerOptions },
     },
     Order: {
         component: OrderScreen,
