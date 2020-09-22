@@ -1,5 +1,3 @@
-
-/*
 // 일단 그냥 SignupScreen 카피 수준
 
 import React from "react";
@@ -95,7 +93,5 @@ const styles = StyleSheet.create({
         fontSize: 25 
     }
 });
-
-*/
 
 export default EditInfoScreen;
