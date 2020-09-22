@@ -7,22 +7,25 @@ import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";
 
 import Card from "../components/Card";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 
 const CardButton = (props) => {
     // props: name, collected, all
     // card -> touchablehighlight
     // collected, all -> stringify
     return (
-        <Card style={styles.card}> 
-            <View style={styles.card__title}>
-                <Text style={styles.card__title__txt}>{props.name}</Text>
-            </View>
+        <TouchableOpacity>
+            <Card style={styles.card}> 
+                <View style={styles.card__title}>
+                    <Text style={styles.card__title__txt}>{props.name}</Text>
+                </View>
 
-            <View style={styles.card__body}>
-                <Text style={styles.card__body__txt}>{props.collected + ' / ' + props.all}</Text>
-            </View>
-        </Card>
+                <View style={styles.card__body}>
+                    <Text style={styles.card__body__txt}>{props.collected + ' / ' + props.all}</Text>
+                </View>
+            </Card>
+        </TouchableOpacity>
+
     );
 };
 const styles = StyleSheet.create({
