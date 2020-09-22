@@ -5,7 +5,7 @@ import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import { headerOptions } from "../../constants/Options";
 
-const StamptoCouponScreen = (props) => {
+const InquiryScreen = (props) => {
     props.navigation.setOptions({
         ...headerOptions,
         headerTintColor: Colors.text_grey,
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default StamptoCouponScreen;
+export default InquiryScreen;
