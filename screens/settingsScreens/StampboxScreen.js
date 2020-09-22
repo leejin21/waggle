@@ -15,8 +15,8 @@ const stampDatas = [
 
 const StampboxView = () => {
     return(
-        <View style={styles.body}>
-        <Text style={styles.exp_text}>클릭시 상세 정보를 알 수 있어요.</Text>
+        <View style={{ width: "100%" }}>
+        <Text style={CommonStyles.small_text}>클릭시 상세 정보를 알 수 있어요.</Text>
         <FlatList
             key="_"
             data={stampDatas}
@@ -31,24 +31,12 @@ const StampboxView = () => {
 }
 
 const StampboxScreen = (props) => {
-    props.navigation.setOptions({
-        ...headerOptions,
-        headerTintColor: Colors.text_grey,
-        headerStyle: {
-            ...headerOptions.headerStyle,
-            backgroundColor: Colors.mid_grey,
-        },
-        headerTitleStyle: {
-            ...headerOptions.headerTitleStyle,
-            color: "white",
-        },
-    });
-
     return (
         <NoCardTemplate
         bodyview={<StampboxView></StampboxView>}
         needButton={false}
         navigation={props.navigation}
+        isHeaderBlack={false}
         />
     );
 }

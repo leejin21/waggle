@@ -8,9 +8,10 @@
 
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-
+import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";
 import BottomButton from "../components/BottomButton";
+import { headerOptions } from "../constants/Options";
 
 const BottomButton_1 = (props) => {
     return(
@@ -22,7 +23,23 @@ const BottomButton_1 = (props) => {
 
 const NoCardTemplate = (props) => {   
     // props; 
-    // (default) bodyview, buttonname, toWhere, navigation, needButton
+    // (default) bodyview, buttonname, toWhere, navigation, needButton, isHeaderBlack
+    props.navigation.setOptions(
+        props.isHeaderBlack? ({}):
+        ({
+            ...headerOptions,
+            headerTintColor: Colors.text_grey,
+            headerStyle: {
+                ...headerOptions.headerStyle,
+                backgroundColor: props.headerColor
+            },
+            headerTitleStyle: {
+                ...headerOptions.headerTitleStyle,
+                color: "white",
+            },
+        })
+    );
+
     return props.needButton? 
     (
         <View style={{...CommonStyles.body, width: "100%"}}>
