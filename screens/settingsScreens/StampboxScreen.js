@@ -16,17 +16,17 @@ const stampDatas = [
 const StampboxView = () => {
     return(
         <View style={{ width: "100%" }}>
-        <Text style={CommonStyles.small_text}>클릭시 상세 정보를 알 수 있어요.</Text>
-        <FlatList
-            key="_"
-            data={stampDatas}
-            renderItem={({ item }) => {
-                return <CardButton name={item.storeName} collected={item.collected} all={item.all}></CardButton>;
-            }}
-            keyExtractor={(item, index) => index.toString()}
-            style={{ width: "100%" }}
-        ></FlatList>
-    </View>
+            <Text style={{...CommonStyles.small_text, paddingVertical: 20}}>클릭시 상세 정보를 알 수 있어요.</Text>
+            <FlatList
+                key="_"
+                data={stampDatas}
+                renderItem={({ item }) => {
+                    return <CardButton name={item.storeName} collected={item.collected} all={item.all}></CardButton>;
+                }}
+                keyExtractor={(item, index) => index.toString()}
+                style={{ width: "100%" }}
+            ></FlatList>
+        </View>
     );
 }
 
@@ -43,7 +43,7 @@ const StampboxScreen = (props) => {
             color: "white",
         },
     });
-    
+
     return (
         <NoCardTemplate
         bodyview={<StampboxView></StampboxView>}

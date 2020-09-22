@@ -28,7 +28,7 @@ const NoCardTemplate = (props) => {
     return props.needButton? 
     (
         <View style={{...CommonStyles.body, width: "100%"}}>
-            <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
+            <View style={{ ...CommonStyles.body__middle, justifyContent: "flex-start", width: "100%" }}>
                 {props.bodyview}
             </View>
             <View style={{ ...CommonStyles.body__end, width: "100%" }}>
@@ -38,7 +38,7 @@ const NoCardTemplate = (props) => {
     ):
     (
         <View style={{...CommonStyles.body, width: "100%"}}>
-            <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
+            <View style={{ ...CommonStyles.body__middle, justifyContent: "flex-start", width: "100%" }}>
                 {props.bodyview}
             </View>
             <View style={{ ...CommonStyles.body__end, width: "100%" }}/>
