@@ -1,60 +1,36 @@
 // USE:: settings screens: stampboxscreen
 
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";
-import { headerOptions } from "../constants/Options";
 
-import Card from "../components/Card";
-import { FlatList, TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
-const Coupon = (props) => {
-    // props: usable, name, content, useDate, ICON_SIZE
-    const [usable, setUsable] = useState(props.usable);
-    const [removed, setRemoved] = useState(false);
-    // TODO removed=== true일때, View로 처리하고 화면에서 나가거나 할 때(일단 이 경우로 removed를 고려하겠음) fetch해서 바꾸도록 할 지, 아니면 그 자리에서 바로 fetch할 지
-
-    return removed ? (
-        <View></View>
-    ) : (
-        <Card style={styles.card}>
+const CardButton = (props) => {
+    // props: name, collected, all
+    // card -> touchablehighlight
+    // collected, all -> stringify
+    return (
+        <TouchableHighlight style={styles.card}> 
             <View style={styles.card__title}>
                 <Text style={styles.card__title__txt}>{props.name}</Text>
-                <TouchableHighlight
-                    style={{ width: props.ICON_SIZE, height: props.ICON_SIZE, borderRadius: props.ICON_SIZE }}
-                    underlayColor={Colors.body_grey}
-                    onPress={() => {
-                        setRemoved((removed) => true);
-                    }}
-                >
-                    <MaterialIcons name="cancel" size={props.ICON_SIZE} color={Colors.text_grey} />
-                </TouchableHighlight>
             </View>
-            <View style={styles.card__title__border}></View>
+
             <View style={styles.card__body}>
-                <Text style={styles.card__body__txt}>{props.content}</Text>
+                <Text style={styles.card__body__txt}>{props.collected + ' / ' + props.all}</Text>
             </View>
-            {usable ? (
-                <TouchableOpacity style={styles.card__button} onPress={() => setUsable((usable) => false)}>
-                    <Text style={{ ...styles.card__button__txt, color: "black" }}>사이드메뉴 무료증정권 사용하기</Text>
-                    <Text style={{ ...styles.card__button__date, color: "black" }}>{"~ " + props.useDate}</Text>
-                </TouchableOpacity>
-            ) : (
-                <View style={{ ...styles.card__button, backgroundColor: "black" }}>
-                    <Text style={styles.card__button__txt}>사용완료</Text>
-                    <Text style={styles.card__button__date}>{props.useDate}</Text>
-                </View>
-            )}
-        </Card>
+        </TouchableHighlight>
     );
 };
 const styles = StyleSheet.create({
-    // Coupon comp의 styles
     // TODO 핸드폰 dimenstion size에 따라 달라질 수 있으므로 비율로 margin, padding 다 조정하기(b/c card__button)
     card: {
+        backgroundColor: "#565656",
+        marginHorizontal: 10,
+        borderRadius: 40,
+
         width: "95%",
         flex: 0,
         marginTop: 10,
@@ -116,4 +92,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Coupon;
+export default CardButton;
