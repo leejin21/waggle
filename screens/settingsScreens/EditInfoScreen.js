@@ -1,3 +1,5 @@
+
+/*
 // 일단 그냥 SignupScreen 카피 수준
 
 import React from "react";
@@ -9,11 +11,6 @@ import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import Card from "../../components/Card";
 import BottomButton from "../../components/BottomButton";
-
-/*
-import DatePicker from "react-native-date-picker";
-import CheckBox from "@react-native-community/checkbox";
-*/
 
 const EditInfoButton = (props) => {
     return(
@@ -98,5 +95,7 @@ const styles = StyleSheet.create({
         fontSize: 25 
     }
 });
+
+*/
 
 export default EditInfoScreen;
