@@ -1,4 +1,5 @@
-// use: editinfo, stamp, inquiry screens
+// use: editinfo, stamptocoupon, inquiry screens
+// (with little modification)(header) signup screen
 
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";

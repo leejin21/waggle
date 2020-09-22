@@ -5,6 +5,14 @@ import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import { headerOptions } from "../../constants/Options";
 
+import CardTemplate from "../../templates/CardTemplate";
+
+const StampView = () => {
+    return(
+        <View></View>
+    );
+}
+
 const StamptoCouponScreen = (props) => {
     props.navigation.setOptions({
         ...headerOptions,
@@ -20,7 +28,12 @@ const StamptoCouponScreen = (props) => {
     });
     
     return (
-        <View></View>
+        <CardTemplate
+        cardview={<StampView></StampView>}
+        buttonname={"쿠폰발급하기"}
+        toWhere={"HomeMain"} //일단 HomeMain으로
+        navigation={props.navigation}
+        />
     );
 }
 

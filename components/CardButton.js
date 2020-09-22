@@ -6,6 +6,7 @@ import { View, Text, StyleSheet } from "react-native";
 import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";
 
+import Card from "../components/Card";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 const CardButton = (props) => {
@@ -13,7 +14,7 @@ const CardButton = (props) => {
     // card -> touchablehighlight
     // collected, all -> stringify
     return (
-        <TouchableHighlight style={styles.card}> 
+        <Card style={styles.card}> 
             <View style={styles.card__title}>
                 <Text style={styles.card__title__txt}>{props.name}</Text>
             </View>
@@ -21,7 +22,7 @@ const CardButton = (props) => {
             <View style={styles.card__body}>
                 <Text style={styles.card__body__txt}>{props.collected + ' / ' + props.all}</Text>
             </View>
-        </TouchableHighlight>
+        </Card>
     );
 };
 const styles = StyleSheet.create({

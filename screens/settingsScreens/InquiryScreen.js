@@ -5,6 +5,14 @@ import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import { headerOptions } from "../../constants/Options";
 
+import CardTemplate from "../../templates/CardTemplate";
+
+const InquiryView = () => {
+    return(
+        <View></View>
+    );
+}
+
 const InquiryScreen = (props) => {
     props.navigation.setOptions({
         ...headerOptions,
@@ -20,7 +28,12 @@ const InquiryScreen = (props) => {
     });
     
     return (
-        <View></View>
+        <CardTemplate
+        cardview={<InquiryView></InquiryView>}
+        buttonname={"전송하기"}
+        toWhere={"HomeMain"} //일단 HomeMain으로
+        navigation={props.navigation}
+        />
     );
 }
 
