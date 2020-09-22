@@ -1,74 +1,85 @@
-import React, { useContext } from "react";
-import { View, Text, Button, StyleSheet, FlatList, Image, TouchableHighlight } from "react-native";
-
-import BottomButton from "../../components/BottomButton";
-import { AuthContext } from "../../navigation/WaggleNavigator";
+import React, { useContext, useState } from "react";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
-import { headerOptions } from "../../constants/Options";
 
+import BottomButton from "../../components/BottomButton";
 import Card from "../../components/Card";
-import { Pick } from "../../components/ReviewComps";
-import ProfileLogo from "../../components/ProfileLogo";
-
-const DIAMETER = 70;
+import { Pick, Menu, Star, ReviewButtonGroup } from "../../components/ReviewComps";
 
 const orderedMenuData = [
-    { name: "비빔밥", photo: require("../../assets/images/thumbnails/bibimbap.jpg") },
-    { name: "고기", photo: require("../../assets/images/thumbnails/meat.jpg") },
-    { name: "타코", photo: require("../../assets/images/thumbnails/mexican.jpg") },
-    { name: "얼그레이 케이크", photo: require("../../assets/images/thumbnails/earlgreycake.jpg") },
+    { id: 0, name: "비빔밥", photo: require("../../assets/images/thumbnails/bibimbap.jpg") },
+    { id: 1, name: "고기", photo: require("../../assets/images/thumbnails/meat.jpg") },
+    { id: 2, name: "타코", photo: require("../../assets/images/thumbnails/mexican.jpg") },
+    { id: 3, name: "얼그레이 케이크", photo: require("../../assets/images/thumbnails/earlgreycake.jpg") },
 ];
 
+const sliceMenuName = (name) => {
+    let menu_name = name;
+    if (name.length > 5) {
+        // TODO 디자인팀 문의
+        let m_list = name.split(" ");
+        if (m_list.length === 2 && m_list[0] <= 5 && m_list[0] <= 5) {
+            menu_name += m_list[0] + "\n" + m_list[1];
+        } else {
+            menu_name = name.slice(0, name.length / 2) + "\n" + name.slice(name.length / 2);
+        }
+    }
+    return menu_name;
+};
+
 const ReviewScreen = (props) => {
-    props.navigation.setOptions({
-        ...headerOptions,
-        headerTintColor: Colors.text_grey,
-        headerStyle: {
-            ...headerOptions.headerStyle,
-            backgroundColor: Colors.mid_grey,
-        },
-        headerTitleStyle: {
-            ...headerOptions.headerTitleStyle,
-            color: Colors.deep_yellow,
-        },
-        title: props.route.params.title,
-    });
+    props.navigation.setOptions({ title: props.route.params.title });
+
+    // TODO useContext, useReducer 이용해서 정리하기
+    const [curMenu, setCurMenu] = useState(0);
+    const [starPoint, setStarPoint] = useState([true, true, true, false, false]);
+    const [saltReview, setSaltReview] = useState(-1);
+    const [amountReview, setAmountReview] = useState(-1);
+    const [otherReview, setOtherReview] = useState(-1);
+
+    const setStarPointState = (i) => {
+        setStarPoint((starPoint) => {
+            return starPoint.map((x, id) => (id <= i ? true : false));
+        });
+    };
     return (
         <View style={{ ...CommonStyles.body, width: "100%" }}>
             <View style={styles.body__middle}>
-                <Card style={{ ...styles.pick__card, height: "25%", flex: 0 }}>
+                <Card style={{ ...styles.card, height: "25%", flex: 0 }}>
                     <Pick></Pick>
                     <FlatList
                         key={"_"}
                         data={orderedMenuData}
                         horizontal={true}
                         renderItem={({ item }) => {
-                            let menu_name = item.name;
-                            if (item.name.length > 5) {
-                                // TODO 디자인팀 문의
-                                let m_list = item.name.split(" ");
-                                if (m_list.length === 2 && m_list[0] <= 5 && m_list[0] <= 5) {
-                                    menu_name += m_list[0] + "\n" + m_list[1];
-                                } else {
-                                    menu_name = item.name.slice(0, item.name.length / 2) + "\n" + item.name.slice(item.name.length / 2);
-                                }
-                            }
-                            return (
-                                <View style={styles.pick__menu__wrapper}>
-                                    <TouchableHighlight style={styles.pick__image__wrapper} underlayColor={Colors.high_pink} onPress={() => {}}>
-                                        <Image source={item.photo} style={styles.pick__image} imageStyle={{ width: DIAMETER, height: DIAMETER, borderRadius: DIAMETER * 2 }}></Image>
-                                    </TouchableHighlight>
-                                    <Text style={styles.pick__menu__text}>{menu_name}</Text>
-                                </View>
-                            );
+                            return <Menu photo={item.photo} menu_name={sliceMenuName(item.name)} setCurMenu={setCurMenu} id={item.id} active={curMenu == item.id ? true : false}></Menu>;
                         }}
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={(item) => item.id.toString()}
                         style={{ marginBottom: -15 }}
                     ></FlatList>
                 </Card>
-                <Card style={{ ...styles.pick__card, flex: 0 }}></Card>
+                <Card style={{ ...styles.card, ...styles.review__card }}>
+                    <View style={styles.review__star}>
+                        {starPoint.map((x, star_id) => {
+                            const name = x ? "star" : "star-border";
+                            return <Star name={name} id={star_id} key={star_id} setStarPointState={setStarPointState}></Star>;
+                        })}
+                    </View>
+                    <View style={styles.review__section}>
+                        <ReviewButtonGroup tags={["싱거워요", "적당해요", "짜요"]} direction="row" setState={setSaltReview} state={saltReview}></ReviewButtonGroup>
+                        <ReviewButtonGroup tags={["양 적어요", "적당해요", "양 많아요"]} direction="row" setState={setAmountReview} state={amountReview}></ReviewButtonGroup>
+                    </View>
+                    <View style={styles.review__section}>
+                        <ReviewButtonGroup
+                            tags={["눅눅해요", "소스가 덜 묻어있어요", "너무 식어서 왔어요", "요청이 누락됐어요"]}
+                            direction="column"
+                            setState={setOtherReview}
+                            state={otherReview}
+                        ></ReviewButtonGroup>
+                    </View>
+                </Card>
             </View>
 
             <View style={CommonStyles.body__end}>
@@ -79,6 +90,7 @@ const ReviewScreen = (props) => {
         </View>
     );
 };
+
 const styles = StyleSheet.create({
     body__middle: {
         ...CommonStyles.body__middle,
@@ -86,44 +98,28 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         justifyContent: "flex-start",
     },
-    pick__card: {
+    card: {
         width: "95%",
         marginTop: 10,
         marginBottom: 10,
         alignItems: "center",
     },
-
-    pick__menu__wrapper: {
-        marginTop: 5,
-        marginHorizontal: 7,
-        alignItems: "center",
-    },
-    pick__image__wrapper: {
-        borderRadius: DIAMETER * 2,
-
-        width: (DIAMETER * 11) / 10,
-        height: (DIAMETER * 11) / 10,
-        borderRadius: (DIAMETER * 2 * 11) / 10,
-        alignItems: "center",
+    review__card: {
+        flex: 0,
         justifyContent: "center",
+        paddingTop: 15,
+        paddingBottom: 5,
     },
-    pick__image: {
-        resizeMode: "cover",
+    review__star: {
+        flexDirection: "row",
+        marginBottom: 10,
+    },
+    review__section: {
+        marginVertical: 3,
+        width: "100%",
         alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "black",
-        borderRadius: DIAMETER * 2,
-        width: DIAMETER,
-        height: DIAMETER,
+        // backgroundColor: "pink",
     },
-    pick__menu__text: {
-        fontSize: 13,
-        fontFamily: "noto_bold",
-        color: "white",
-        textAlign: "center",
-        marginVertical: 5,
-    },
-
     button_text: {
         ...CommonStyles.bold_text,
         color: Colors.light_grey,

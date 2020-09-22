@@ -28,7 +28,7 @@ import ReviewScreen from "../screens/settingsScreens/ReviewScreen";
 // import signedIn from each folders
 
 import Colors from "../constants/Colors";
-import { headerOptions, logoHeaderOptions } from "../constants/Options";
+import { headerOptions, logoHeaderOptions, reviewOptions } from "../constants/Options";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const AuthContext = React.createContext();
@@ -61,6 +61,8 @@ const SettingsScreen = {
     },
     Review: {
         component: ReviewScreen,
+        options: reviewOptions,
+        // options: title: setOptions로 ReviewScreen에서.
     },
 };
 
