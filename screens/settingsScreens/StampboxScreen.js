@@ -9,8 +9,8 @@ import NoCardTemplate from "../../templates/NoCardTemplate";
 import CardButton from "../../components/CardButton";
 
 const stampDatas = [
-    { name: "ABC레스토랑", collected: '2', all: '10'},
-    { name: "가나다레스토랑", collected: '1', all: '10'}
+    { name: 'ABC레스토랑', collected: '2', all: '10'},
+    { name: '가나다레스토랑', collected: '1', all: '10'}
 ]
 
 const StampboxView = () => {
@@ -21,7 +21,7 @@ const StampboxView = () => {
                 key="_"
                 data={stampDatas}
                 renderItem={({ item }) => {
-                    return <CardButton name={item.storeName} collected={item.collected} all={item.all}></CardButton>;
+                    return <CardButton name={item.name} collected={item.collected} all={item.all}></CardButton>;
                 }}
                 keyExtractor={(item, index) => index.toString()}
                 style={{ width: "100%" }}

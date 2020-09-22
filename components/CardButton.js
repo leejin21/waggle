@@ -37,6 +37,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         padding: 10,
         marginBottom: 10,
+
+        flexDirection: "row"
     },
     card__title: {
         flexDirection: "row",
@@ -45,11 +47,9 @@ const styles = StyleSheet.create({
     },
     card__title__txt: {
         ...CommonStyles.bold_text,
-        fontSize: 27,
-        paddingTop: 20,
+        fontSize: 22,
         color: Colors.deep_yellow,
-        flex: 1,
-        paddingLeft: 50,
+        paddingLeft: 15
     },
     card__title__border: {
         marginTop: 20,
@@ -58,16 +58,16 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     card__body: {
-        marginHorizontal: 30,
         paddingVertical: 15,
         paddingHorizontal: 5,
-        alignItems: "flex-start",
+        alignItems: "center",
         justifyContent: "center",
+        width: "93%",
     },
     card__body__txt: {
         ...CommonStyles.bold_text,
         color: "white",
-        fontSize: 18,
+        fontSize: 20,
         fontFamily: "noto_bold",
     },
     card__button: {
