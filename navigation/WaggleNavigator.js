@@ -50,7 +50,7 @@ const SettingsScreen = {
     },
     Stampbox: {
         component: StampboxScreen,
-        options: { title: "스탬프함", ...headerOptions },
+        options: { title: "스탬프함" },
     },
     StampCoupon: {
         component: StamptoCouponScreen,

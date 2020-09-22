@@ -31,6 +31,19 @@ const StampboxView = () => {
 }
 
 const StampboxScreen = (props) => {
+    props.navigation.setOptions({
+        ...headerOptions,
+        headerTintColor: Colors.text_grey,
+        headerStyle: {
+            ...headerOptions.headerStyle,
+            backgroundColor: Colors.mid_grey,
+        },
+        headerTitleStyle: {
+            ...headerOptions.headerTitleStyle,
+            color: "white",
+        },
+    });
+    
     return (
         <NoCardTemplate
         bodyview={<StampboxView></StampboxView>}

@@ -24,21 +24,6 @@ const BottomButton_1 = (props) => {
 const NoCardTemplate = (props) => {   
     // props; 
     // (default) bodyview, buttonname, toWhere, navigation, needButton, isHeaderBlack
-    props.navigation.setOptions(
-        props.isHeaderBlack? ({}):
-        ({
-            ...headerOptions,
-            headerTintColor: Colors.text_grey,
-            headerStyle: {
-                ...headerOptions.headerStyle,
-                backgroundColor: props.headerColor
-            },
-            headerTitleStyle: {
-                ...headerOptions.headerTitleStyle,
-                color: "white",
-            },
-        })
-    );
 
     return props.needButton? 
     (
