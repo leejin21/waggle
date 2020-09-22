@@ -3,9 +3,9 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import CommonStyles from "../../constants/CommonStyles";
-import Card from "../../components/Card";
-import BottomButton from "../../components/BottomButton";
+import CommonStyles from "../constants/CommonStyles";
+import Card from "../components/Card";
+import BottomButton from "../components/BottomButton";
 
 const BottomButton_1 = (props) => {
     return(
