@@ -23,7 +23,7 @@ const StampView = () => {
         );
     }
     return(
-        <View style={{...styles.view_out, zIndex: 0}}>
+        <View style={{...styles.view_out, zIndex: 0}}> 
             <View style={{...styles.view_in, zIndex: 2}}>
                 <Circle_check/><Circle_check/><Circle_check/>
             </View>
