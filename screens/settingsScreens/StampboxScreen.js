@@ -14,8 +14,10 @@ const stampDatas = [
 ]
 
 const StampboxView = (props) => {
+    const navi = props.navigation;
+
     const renderItem = ({item}) => (
-        <CardButton name={item.name} collected={item.collected} all={item.all} navigation={props.navigation}/>
+        <CardButton name={item.name} collected={item.collected} all={item.all} navigation={navi}/>
     );
 
     return(
@@ -46,11 +48,12 @@ const StampboxScreen = (props) => {
         },
     });
 
+    const navi = props.navigation;
+
     return (
         <NoCardTemplate
-        bodyview={<StampboxView naivgation={props.navigation}></StampboxView>}
+        bodyview={<StampboxView navigation={navi}/>}
         needButton={false}
-        navigation={props.navigation}
         isHeaderBlack={false}
         />
     );
