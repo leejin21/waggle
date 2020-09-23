@@ -13,16 +13,18 @@ const stampDatas = [
     { name: '가나다레스토랑', collected: '1', all: '10'}
 ]
 
-const StampboxView = () => {
+const StampboxView = (props) => {
+    const renderItem = ({item}) => (
+        <CardButton name={item.name} collected={item.collected} all={item.all} navigation={props.navigation}/>
+    );
+
     return(
         <View style={{ width: "100%" }}>
             <Text style={{...CommonStyles.small_text, paddingVertical: 20}}>클릭시 상세 정보를 알 수 있어요.</Text>
             <FlatList
                 key="_"
                 data={stampDatas}
-                renderItem={({ item }) => {
-                    return <CardButton name={item.name} collected={item.collected} all={item.all}></CardButton>;
-                }}
+                renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
                 style={{ width: "100%" }}
             ></FlatList>
@@ -46,7 +48,7 @@ const StampboxScreen = (props) => {
 
     return (
         <NoCardTemplate
-        bodyview={<StampboxView></StampboxView>}
+        bodyview={<StampboxView naivgation={props.navigation}></StampboxView>}
         needButton={false}
         navigation={props.navigation}
         isHeaderBlack={false}

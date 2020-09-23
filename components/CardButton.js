@@ -10,11 +10,11 @@ import Card from "../components/Card";
 import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 
 const CardButton = (props) => {
-    // props: name, collected, all
+    // props: name, collected, all, navigation
     // card -> touchablehighlight
     // collected, all -> stringify
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate("StampCoupon")}>
             <Card style={styles.card}> 
                 <View style={styles.card__title}>
                     <Text style={styles.card__title__txt}>{props.name}</Text>
