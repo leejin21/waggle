@@ -11,6 +11,13 @@ const CommonStyles = StyleSheet.create({
         color: "black",
         fontSize: 30,
     },
+    small_text: {
+        margin: 5,
+        textAlign: "center",
+        fontFamily: "noto_regular",
+        color: "white",
+        fontSize: 15,
+    },
     bottom_button: {
         backgroundColor: Colors.deep_yellow,
         padding: 40,

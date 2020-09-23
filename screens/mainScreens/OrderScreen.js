@@ -1,3 +1,5 @@
+// nocardtemplate 적용하기
+
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 

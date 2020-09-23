@@ -21,7 +21,8 @@ import FinishOrderScreen from "../screens/mainScreens/FinishOrderScreen";
 import CouponsScreen from "../screens/settingsScreens/CouponsScreen";
 import EditInfoScreen from "../screens/settingsScreens/EditInfoScreen";
 import MyPageScreen from "../screens/settingsScreens/MyPageScreen";
-import StampScreen from "../screens/settingsScreens/StampScreen";
+import StampboxScreen from "../screens/settingsScreens/StampboxScreen";
+import StamptoCouponScreen from "../screens/settingsScreens/StamptoCouponScreen";
 import InquiryScreen from "../screens/settingsScreens/InquiryScreen";
 import ReviewScreen from "../screens/settingsScreens/ReviewScreen";
 
@@ -51,9 +52,13 @@ const SettingsScreen = {
         component: EditInfoScreen,
         options: { title: "정보수정", ...headerOptions },
     },
-    Stamps: {
-        component: StampScreen,
+    Stampbox: {
+        component: StampboxScreen,
         options: { title: "스탬프함" },
+    },
+    StampCoupon: {
+        component: StamptoCouponScreen,
+        options: { ...headerOptions },
     },
     Inquiry: {
         component: InquiryScreen,
@@ -64,6 +69,7 @@ const SettingsScreen = {
         options: reviewOptions,
         // options: title: setOptions로 ReviewScreen에서.
     },
+
 };
 
 const MainScreen = {
