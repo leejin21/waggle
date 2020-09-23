@@ -54,7 +54,7 @@ const SettingsScreen = {
     },
     StampCoupon: {
         component: StamptoCouponScreen,
-        options: { title: "식당이름", ...headerOptions },
+        options: { ...headerOptions },
     },
     Inquiry: {
         component: InquiryScreen,

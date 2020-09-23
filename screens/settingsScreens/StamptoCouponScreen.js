@@ -53,6 +53,7 @@ const StamptoCouponScreen = (props) => {
             ...headerOptions.headerTitleStyle,
             color: "white",
         },
+        title: props.route.params.title
     });
     
     return (

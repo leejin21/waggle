@@ -14,7 +14,7 @@ const CardButton = (props) => {
     // card -> touchablehighlight
     // collected, all -> stringify
     return (
-        <TouchableOpacity onPress={() => props.navigation.navigate("StampCoupon")}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("StampCoupon", {title: props.name})}>
             <Card style={styles.card}> 
                 <View style={styles.card__title}>
                     <Text style={styles.card__title__txt}>{props.name}</Text>
