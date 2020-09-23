@@ -31,7 +31,7 @@ const InquiryScreen = (props) => {
         <CardTemplate
         cardview={<InquiryView></InquiryView>}
         buttonname={"전송하기"}
-        toWhere={"HomeMain"} //일단 HomeMain으로
+        toWhere={"StampCoupon"} // StampCoupon 실험용
         navigation={props.navigation}
         isFullcard={true}
         />
