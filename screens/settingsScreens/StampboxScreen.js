@@ -6,7 +6,7 @@ import CommonStyles from "../../constants/CommonStyles";
 import { headerOptions } from "../../constants/Options";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
-import CardButton from "../../components/CardButton";
+import CardButton from "../../components/CardButton"; 
 
 const stampDatas = [
     { name: 'ABC레스토랑', collected: '2', all: '10'},
