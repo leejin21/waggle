@@ -24,7 +24,8 @@ const BottomButton_1 = (props) => {
 const CardTemplate = (props) => {   
     // props; 
     // (default) cardview, buttonname, toWhere, navigation, isFullcard
-    // (if isFullcard is false) detailtxt
+    // (if isFullcard is false) detailtxt, card_flex (detail부분이 1)
+
     return props.isFullcard? 
     (
         <View style={{...CommonStyles.body, width: "100%"}}>
@@ -46,8 +47,8 @@ const CardTemplate = (props) => {
                     {props.detailtxt}
                 </Text>
             </View>
-            <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
-                <Card style={{width:"95%", marginBottom: 15}}>
+            <View style={{ ...CommonStyles.body__middle, width: "100%", flex: props.card_flex }}>
+                <Card style={{width:"95%", marginBottom: 15, marginTop: 0}}>
                     {props.cardview}
                 </Card>
             </View>
