@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+// 로그인 post request => 로그인해서 token 받기
+
+import React, { useState, useContext } from "react";
 import { View, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, TouchableOpacity } from "react-native";
-import { setIsSignedIn } from "../../stored/SignedIn";
+import { AuthContext } from "../../navigation/WaggleNavigator";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
@@ -10,6 +12,8 @@ import ButtomButton from "../../components/BottomButton";
 const LoginScreen = (props) => {
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
+
+    const { signIn } = useContext(AuthContext);
 
     return (
         <View style={CommonStyles.body}>
@@ -32,7 +36,7 @@ const LoginScreen = (props) => {
                         ></TextInput>
                     </View>
                     {/* submit 할 때 데이터 leak 안하도록.. */}
-                    <TouchableOpacity onPress={() => setIsSignedIn("true")} style={styles.login__button}>
+                    <TouchableOpacity onPress={() => signIn({ id, pw })} style={styles.login__button}>
                         <Text style={styles.login__text}>로그인</Text>
                     </TouchableOpacity>
                 </View>

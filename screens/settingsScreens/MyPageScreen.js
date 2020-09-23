@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 
 import ProfileLogo from "../../components/ProfileLogo";
 import BottomButton from "../../components/BottomButton";
+import { AuthContext } from "../../navigation/WaggleNavigator";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import { logoHeaderOptions } from "../../constants/Options";
 
 const MyPageScreen = (props) => {
+    const { signOut } = useContext(AuthContext);
+
     props.navigation.setOptions({
         ...logoHeaderOptions,
         headerTitle: (props) => <ProfileLogo touchable={false} SIZE={70}></ProfileLogo>,
@@ -25,6 +28,7 @@ const MyPageScreen = (props) => {
                 <BottomButton onPress={() => props.navigation.navigate("Coupons")} active={true} style_back_color={styles.mid__button}>
                     <Text style={styles.button_text}>쿠폰함</Text>
                 </BottomButton>
+
                 <BottomButton onPress={() => props.navigation.navigate("Stampbox")} active={true} style_back_color={styles.mid__button}>
                     <Text style={styles.button_text}>스탬프함</Text>
                 </BottomButton>
@@ -37,7 +41,7 @@ const MyPageScreen = (props) => {
             </View>
 
             <View style={CommonStyles.body__end}>
-                <BottomButton onPress={() => {}} active={true} style_back_color={{ backgroundColor: "black" }}>
+                <BottomButton onPress={signOut} active={true} style_back_color={{ backgroundColor: "black" }}>
                     {/* TODO onPress 부분에서 로그아웃 진짜 설정해주기 */}
                     <Text style={styles.button_text}>로그아웃</Text>
                 </BottomButton>
