@@ -5,28 +5,13 @@ import { TextInput } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
-import Card from "../../components/Card";
-import BottomButton from "../../components/BottomButton";
 
-/*
-import DatePicker from "react-native-date-picker";
-import CheckBox from "@react-native-community/checkbox";
-*/
+import CardTemplate from "../../templates/CardTemplate";
 
-const SignupButton = (props) => {
+const SignupView = () => {
     return(
-        <BottomButton active={true} onPress={props.onPress}>
-            <Text style={{ ...CommonStyles.bold_text, color: "black" }}>가입하기</Text>
-        </BottomButton>
-    );
-};
-
-const SignUpScreen = (props) => {   
-    return (
-        <View style={CommonStyles.body}>
-            <View style={CommonStyles.body__middle}>
-                <Card>
-                    <View style={styles.elem}>
+        <View>
+            <View style={styles.elem}>
                         <Text style={styles.card__text}>이름</Text>
                         <TextInput textContentType="name" returnKeyType="next" style={styles.textinput}/>
                     </View>
@@ -42,34 +27,27 @@ const SignUpScreen = (props) => {
                         <Text style={styles.card__text}>연락처</Text>
                         <TextInput textContentType="telephoneNumber" keyboardType="number-pad" returnKeyType="done" style={styles.textinput}/>
                     </View>
-                </Card>
-            </View>
-            <View style={CommonStyles.body__end}><SignupButton onPress={() => props.navigation.navigate("CompleteRegister")}/></View>
         </View>
     );
-};
+}
+
+const SignupScreen = (props) => {
+    return(
+        <CardTemplate 
+        cardview={<SignupView></SignupView>} 
+        buttonname={"가입하기"}
+        toWhere={"CompleteRegister"}
+        navigation={props.navigation}
+        isFullcard={true}
+        />
+    );
+}
 
 const styles = StyleSheet.create({
     card__text: {
         fontFamily: "noto_regular",
         fontSize: 25,
         color: Colors.text_grey
-    },
-    remain: {
-        flex: 2,
-        marginTop: 25,
-        justifyContent: "space-between",
-        alignContent: "center",
-    },
-    terms_agree_style: {
-        borderRadius: 70,
-        padding: 15,
-        width: "60%",
-        alignSelf: "center",
-    },
-    terms_agree__text: {
-        ...CommonStyles.bold_text,
-        fontSize: 22,
     },
 
     elem: {
@@ -97,4 +75,5 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SignUpScreen;
+
+export default SignupScreen;
