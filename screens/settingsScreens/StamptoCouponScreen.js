@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
@@ -18,23 +19,22 @@ const StampView = () => {
     }
     const Circle_uncheck = () => {
         return(
-            <CheckCircle SIZE={circle_size} touchable={false} checked={false}></CheckCircle>
+            <TouchableHighlight style={styles.circle}/>
         );
     }
-
     return(
-        <View style={styles.view_out}>
-            <View style={styles.view_in}>
+        <View style={{...styles.view_out, zIndex: 0}}>
+            <View style={{...styles.view_in, zIndex: 2}}>
                 <Circle_check/><Circle_check/><Circle_check/>
             </View>
-            <View style={styles.view_in}>
+            <View style={{...styles.view_in, zIndex: 2}}>
                 <Circle_check/><Circle_check/><Circle_check/>
             </View>
-            <View style={styles.view_in}>
-                <Circle_check/><Circle_check/><Circle_check/>
+            <View style={{...styles.view_in, zIndex: 2}}>
+                <Circle_check/><Circle_check/><Circle_uncheck/>
             </View>
-            <View style={styles.view_in}>
-                <Circle_check/><Circle_check/><Circle_check/>
+            <View style={{...styles.view_in, zIndex: 2}}>
+                <Circle_uncheck/><Circle_uncheck/><Circle_uncheck/>
             </View>
         </View>
         
@@ -84,6 +84,13 @@ const styles = StyleSheet.create({
         height: "100%",
         flexDirection: "row",
         justifyContent: "space-around",
+    },
+
+    circle: {
+        height: circle_size,
+        width: circle_size,
+        borderRadius: circle_size * 2,
+        backgroundColor: "#2E2E2E"
     }
 });
 
