@@ -9,35 +9,50 @@ import CheckCircle from "../../components/CheckCircle";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
 
+const circle_size = 93;
+const margin_size = 20;
 // 반복 생성
 const Menu = ({menu_name, menu_price}) => {
     return(
-        <View>
-            <CheckCircle SIZE={80} touchable={false}/>
-            <Text style={styles.text}>{menu_name}</Text>
-            <Text style={styles.text}>{''+menu_price}</Text>
+        <View style={{width: circle_size+margin_size}}>
+            <CheckCircle SIZE={circle_size} touchable={false}/>
+            <Text style={CommonStyles.small_text}>{menu_name}</Text>
+            <Text style={CommonStyles.small_text}>{''+menu_price}</Text>
         </View>   
     );
 };
 
 const OrderView = ({route}) => {
     return (
-        <View style={{width: "100%", height: "100%"}}>
-        <View style={{width: "100%", height: "100%", flex:2}}>
-            <View style={{width: "100%", height: "100%", flex:1}}>
-                <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
-                <Menu menu_name={route.params.main_name} menu_price={route.params.main_price}/>
+    <View style={{width: "100%", height: "100%", paddingHorizontal: 30}}>
+
+        <View style={{width: "100%", height: "100%", flex:2.3}}>
+            <View style={{width: "100%", height: "100%", flex:1, }}>
+                <View style={{...styles.title_view, width: "100%", height: "100%", flex:1, borderTopColor:"white", borderTopWidth:1, alignItems:"flex-start"}}>
+                    <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 27}]}> 메인 메뉴</Text>
+                </View>
+                <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3}}>
+                    <Menu menu_name={route.params.main_name} menu_price={route.params.main_price}/>
+                </View>
             </View>
             <View style={{width: "100%", height: "100%", flex:1}}>
-                 <Text style={[CommonStyles.bold_text, {color: "white"}]}>+ 사이드 메뉴</Text>
-                <Menu menu_name={route.params.side_name} menu_price={route.params.side_price}/>  
+                <View style={{...styles.title_view, width: "100%", height: "100%", flex:1, alignItems:"flex-start"}}>
+                    <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 27}]}>+ 사이드 메뉴</Text>
+                </View>
+                <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3}}>
+                    <Menu menu_name={route.params.side_name} menu_price={route.params.side_price}/>  
+                </View>
             </View>   
         </View>
 
         <View style={{width: "100%", height: "100%", flex:1}}>
-            <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow}]}>= 총합 </Text>
-            <Text style={styles.text}>(메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
+        <View style={{...styles.title_view, width: "100%", height: "100%", justifyContent: "flex-start", alignItems:"flex-start", borderTopColor:"white", borderTopWidth:1, paddingTop: 10}}>
+            <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow, fontSize: 40}]}> = 총합 </Text>
+            <Text style={CommonStyles.small_text}>  (메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
         </View>
+
+        </View>
+
     </View>
 
     );
@@ -80,6 +95,22 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 20,
         fontWeight: "bold"
+    },
+
+    title_view: {
+        height: "100%",
+        width: "100%",
+        //borderBottomColor: "white",
+        //borderBottomWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 20
+    },
+    menu_view: {
+        height: "100%",
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "flex-start"        
     }
 });
 
