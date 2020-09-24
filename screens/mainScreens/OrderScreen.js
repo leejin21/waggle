@@ -9,6 +9,7 @@ import CheckCircle from "../../components/CheckCircle";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
 
+// 반복 생성
 const Menu = ({menu_name, menu_price}) => {
     return(
         <View>

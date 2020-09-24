@@ -2,12 +2,30 @@
 
 import React, {Component, useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import Card from "../../components/Card";
+import CheckCircle from "../../components/CheckCircle";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
+
+const circle_size = 93;
+
+// stamptocoupon의 circle_check/uncheck 활용
+// usestate도 같이 써서
+
+const Circle_check = () => {
+    return(
+        <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>
+    );
+}
+const Circle_uncheck = () => {
+    return(
+        <TouchableHighlight style={{...styles.circle, backgroundColor:"black"}}/>
+    );
+}
 
 class Menu extends Component {
     constructor(props){
@@ -25,9 +43,10 @@ class Menu extends Component {
 
     render(){
         return(
-            <TouchableOpacity style={styles.menu}
+            <TouchableOpacity
             onPress={() => this.handleClick(this.state)}>
-                <Text style={styles.text}>{this.props.name}: {this.props.cost}</Text>
+                {this.state.selected? <Circle_check/>:<Circle_uncheck/>}
+                <Text style={CommonStyles.small_text}>{this.props.name}: {this.props.cost}</Text>
             </TouchableOpacity>
         );
     }
@@ -110,6 +129,13 @@ const styles = StyleSheet.create({
         backgroundColor: "green",
         borderBottomColor: "white",
         width: "90%"
+    },
+
+    circle: {
+        height: circle_size,
+        width: circle_size,
+        borderRadius: circle_size * 2,
+        backgroundColor: "#2E2E2E"
     }
 }); 
 
