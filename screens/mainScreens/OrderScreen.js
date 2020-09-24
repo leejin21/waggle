@@ -14,7 +14,7 @@ const margin_size = 20;
 // 반복 생성
 const Menu = ({menu_name, menu_price}) => {
     return(
-        <View style={{width: circle_size+margin_size}}>
+        <View style={{width: circle_size+margin_size, justifyContent:"flex-start", alignItems:"center"}}>
             <CheckCircle SIZE={circle_size} touchable={false}/>
             <Text style={CommonStyles.small_text}>{menu_name}</Text>
             <Text style={CommonStyles.small_text}>{''+menu_price}</Text>
@@ -31,15 +31,15 @@ const OrderView = ({route}) => {
                 <View style={{...styles.title_view, width: "100%", height: "100%", flex:1, borderTopColor:"white", borderTopWidth:1, alignItems:"flex-start"}}>
                     <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 27}]}> 메인 메뉴</Text>
                 </View>
-                <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3}}>
+                <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3, paddingBottom:10}}>
                     <Menu menu_name={route.params.main_name} menu_price={route.params.main_price}/>
                 </View>
             </View>
-            <View style={{width: "100%", height: "100%", flex:1}}>
+            <View style={{width: "100%", height: "100%", flex:1, justifyContent:"flex-start", alignItems:"flex-start"}}>
                 <View style={{...styles.title_view, width: "100%", height: "100%", flex:1, alignItems:"flex-start"}}>
                     <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 27}]}>+ 사이드 메뉴</Text>
                 </View>
-                <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3}}>
+                <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3, paddingBottom:10}}>
                     <Menu menu_name={route.params.side_name} menu_price={route.params.side_price}/>  
                 </View>
             </View>   
@@ -100,11 +100,8 @@ const styles = StyleSheet.create({
     title_view: {
         height: "100%",
         width: "100%",
-        //borderBottomColor: "white",
-        //borderBottomWidth: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 20
     },
     menu_view: {
         height: "100%",
