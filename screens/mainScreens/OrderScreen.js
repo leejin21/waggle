@@ -20,7 +20,7 @@ const Menu = ({menu_name, menu_price}) => {
     );
 };
 
-const OrderView = (props) => {
+const OrderView = ({route}) => {
     return (
         <View style={CommonStyles.body__middle}>
         <View style={styles.f2}>
@@ -45,7 +45,7 @@ const OrderView = (props) => {
 const OrderScreen = (props) => {
     return(
         <NoCardTemplate
-        bodyview={<OrderView/>}
+        bodyview={<OrderView route={props.route}/>}
         needButton={true}
         buttonname={"주문하기"}
         toWhere={"FinishOrder"}

@@ -81,6 +81,7 @@ const BasketScreen = (props) => {
         buttonname={"메뉴담기"}
         navigation={props.navigation}
         toWhere={"Order"}
+        data={menu}
         isHeaderBlack={true}
         />
     );
