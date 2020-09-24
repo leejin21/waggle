@@ -8,6 +8,8 @@ import CommonStyles from "../../constants/CommonStyles";
 import CheckCircle from "../../components/CheckCircle";
 import BottomButton from "../../components/BottomButton";
 
+import NoCardTemplate from "../../templates/NoCardTemplate";
+
 const Menu = ({menu_name, menu_price}) => {
     return(
         <View>
@@ -18,6 +20,72 @@ const Menu = ({menu_name, menu_price}) => {
     );
 };
 
+const OrderView = (props) => {
+    return (
+        <View style={CommonStyles.body__middle}>
+        <View style={styles.f2}>
+            <View style={styles.f1}>
+                <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
+                <Menu menu_name={route.params.main_name} menu_price={route.params.main_price}/>
+            </View>
+            <View style={styles.f1}>
+                 <Text style={[CommonStyles.bold_text, {color: "white"}]}>+ 사이드 메뉴</Text>
+                <Menu menu_name={route.params.side_name} menu_price={route.params.side_price}/>  
+            </View>   
+        </View>
+        <View style={styles.f1}>
+            <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow}]}>= 총합 </Text>
+            <Text style={styles.text}>(메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
+        </View>
+    </View>
+
+    );
+}
+
+const OrderScreen = (props) => {
+    return(
+        <NoCardTemplate
+        bodyview={<OrderView/>}
+        needButton={true}
+        buttonname={"주문하기"}
+        toWhere={"FinishOrder"}
+        navigation={props.navigation}
+        isHeaderBlack={true}
+        />
+    );
+}
+
+const styles = StyleSheet.create({
+    mid: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    f1: {
+        flex: 1,
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        width: "100%",
+        paddingHorizontal: 50
+    },
+    f2: {
+        flex: 2,
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        width: "100%",
+    },
+
+    text: {
+        color: "#fff",
+        fontSize: 20,
+        fontWeight: "bold"
+    }
+});
+
+export default OrderScreen;
+
+/*
+// ---
 
 const OrderButton = (props) => {
     return(
@@ -27,7 +95,7 @@ const OrderButton = (props) => {
     );
 };
 
-/* text인 부분 대부분 백엔드에서 or 전 화면에서 정보 읽어오는 걸로 바꿔야 */
+// text인 부분 대부분 백엔드에서 or 전 화면에서 정보 읽어오는 걸로 바꿔야 
 const OrderScreen = ({route, navigation}) => {
     return (
         <View style={CommonStyles.body}>
@@ -81,3 +149,4 @@ const styles = StyleSheet.create({
 });
 
 export default OrderScreen;
+*/
