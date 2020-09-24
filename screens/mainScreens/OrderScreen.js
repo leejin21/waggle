@@ -6,7 +6,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import CheckCircle from "../../components/CheckCircle";
-import BottomButton from "../../components/BottomButton";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
 
@@ -22,18 +21,19 @@ const Menu = ({menu_name, menu_price}) => {
 
 const OrderView = ({route}) => {
     return (
-        <View style={CommonStyles.body__middle}>
-        <View style={styles.f2}>
-            <View style={styles.f1}>
+        <View style={{width: "100%", height: "100%"}}>
+        <View style={{width: "100%", height: "100%", flex:2}}>
+            <View style={{width: "100%", height: "100%", flex:1}}>
                 <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
                 <Menu menu_name={route.params.main_name} menu_price={route.params.main_price}/>
             </View>
-            <View style={styles.f1}>
+            <View style={{width: "100%", height: "100%", flex:1}}>
                  <Text style={[CommonStyles.bold_text, {color: "white"}]}>+ 사이드 메뉴</Text>
                 <Menu menu_name={route.params.side_name} menu_price={route.params.side_price}/>  
             </View>   
         </View>
-        <View style={styles.f1}>
+
+        <View style={{width: "100%", height: "100%", flex:1}}>
             <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow}]}>= 총합 </Text>
             <Text style={styles.text}>(메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
         </View>

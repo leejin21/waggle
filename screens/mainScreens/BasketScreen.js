@@ -38,6 +38,7 @@ const BasketView = (props) => {
         <View style={{width:"100%", height: "100%"}}>
             <View style={{flex: 5, width: "100%"}}>
                 <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
+                <View style={styles.border}/>
                 <Menu name="된장찌개" cost={5500}/>
                 <Menu name="김치찌개" cost={6000}/>
             </View>
@@ -104,7 +105,12 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 20,
         fontWeight: "bold"
+    },
+    border:{
+        backgroundColor: "green",
+        borderBottomColor: "white",
+        width: "90%"
     }
-});
+}); 
 
 export default BasketScreen;
