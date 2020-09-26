@@ -2,11 +2,29 @@
 
 import React, {Component, useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import Card from "../../components/Card";
-import BottomButton from "../../components/BottomButton";
+import CheckCircle from "../../components/CheckCircle";
+
+import NoCardTemplate from "../../templates/NoCardTemplate";
+
+const circle_size = 93;
+const padding_size = 40;
+
+// check가 되면 왜 왼쪽으로 가냐
+const Circle_check = () => {
+    return(
+        <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>
+    );
+}
+const Circle_uncheck = () => {
+    return(
+        <TouchableHighlight style={{...styles.circle, backgroundColor:"white", marginRight: padding_size}}/>
+    );
+}
 
 class Menu extends Component {
     constructor(props){
@@ -24,74 +42,77 @@ class Menu extends Component {
 
     render(){
         return(
-            <TouchableOpacity style={styles.menu}
-            onPress={() => this.handleClick(this.state)}>
-                <Text style={styles.text}>{this.props.name}: {this.props.cost}</Text>
+            <TouchableOpacity onPress={() => this.handleClick(this.state)} style={{width: circle_size + padding_size, justifyContent:"flex-start", alignItems:"flex-start"}}>
+                {this.state.selected? <Circle_check/>:<Circle_uncheck/>}
+                <Text style={CommonStyles.small_text}>{this.props.name}: {this.props.cost}</Text>
             </TouchableOpacity>
         );
     }
 };
 
-const SelectMenuButton = (props) => {
+const BasketView = (props) => {
     return(
-        <BottomButton active={true} onPress={props.onPress}>
-            <Text style={{ ...CommonStyles.bold_text, color: "black" }}>메뉴담기</Text>
-        </BottomButton>
-    );
-};
-/* menu를 백엔드에서 읽어오고, OrderScreen으로 넘기는 작업 해야 */
-class BasketScreen extends Component{
-    constructor(props){
-        super(props);
-        props.navigation.setOptions({title: props.route.params.title});
-    }
-
-    render(){
-        return (
-            <View style={CommonStyles.body}>
-                <View style={CommonStyles.body__middle}>
-                    <View style={styles.mid}>
-                        <View style={styles.mid}>
-                            <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
-                            <Menu name="된장찌개" cost={5500}/>
-                            <Menu name="김치찌개" cost={6000}/>
-                        </View>
-                        <View style={styles.mid}>
-                            <Card>
-                                <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow}]}>오직 와글에서만 무료!</Text>
-                                <Text style={[CommonStyles.bold_text, {color: "white"}]}>사이드 메뉴</Text>
-                            </Card>
-                        </View>
-                    </View>
+        <View style={{width:"100%", height: "100%"}}>
+            <View style={{flex: 5, width: "100%", paddingHorizontal: 20}}>
+                <View style={{...styles.title_view, flex: 1}}>
+                    <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
                 </View>
-                <View style={CommonStyles.body__end}>
-                    <SelectMenuButton onPress={() => 
-                        this.props.navigation.navigate("Order", 
-                        {   //label 배열도 만들어서 hotspot으로 
-                            //(select되는 경우 그 메뉴 index와 일치하는 label 배열 값 selected(bool)로 바꾸기)
-                            //
-                            //Menu의 handleClick에서 조절돼야 함
-                            main_name: 
-                            ['된장찌개', 
-                            '김치찌개'], 
-                            
-                            main_price: 
-                            [5500, 
-                            6000], 
-                            
-                            side_name: 
-                            ['사이다', 
-                            '라면'], 
-                            
-                            side_price: 
-                            [2000, 
-                            3000]
-                        })}/>
+                <View style={{...styles.menu_view, flex: 7}}>
+                    <Menu name="된장찌개" cost={5500}/>
+                    <Menu name="김치찌개" cost={6000}/>
                 </View>
             </View>
-        );
-    }
-};
+            <View style={{flex: 4, width: "100%"}}>
+                <Card style={{width: "94%", height: "100%", marginTop: 0, padding: 10, marginBottom: 20, marginHorizontal: 13}}>
+                    <View style={{...styles.title_view, flex:1}}>
+                        <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow}]}>오직 와글에서만 무료!</Text>
+                        <Text style={[CommonStyles.bold_text, {color: "white"}]}>사이드 메뉴</Text>
+                    </View>
+                    <View style={{...styles.menu_view, flex:2.2}}>
+
+                        <Menu name="사이다" cost={2000}/>
+                    </View>
+                </Card>
+            </View>
+        </View>
+    );
+}
+
+const BasketScreen = (props) => {
+    props.navigation.setOptions({title: props.route.params.title});
+
+    const menu = 
+    {  
+        main_name: 
+        ['된장찌개', 
+        '김치찌개'], 
+        
+        main_price: 
+        [5500, 
+        6000], 
+        
+        side_name: 
+        ['사이다', 
+        '라면'], 
+        
+        side_price: 
+        [2000, 
+        3000]
+    };
+
+    return(
+        <NoCardTemplate
+        bodyview={<BasketView/>}
+        needButton={true}
+        buttonname={"메뉴담기"}
+        navigation={props.navigation}
+        toWhere={"Order"}
+        data={menu}
+        isHeaderBlack={false}
+        />
+    );
+}
+
 const styles = StyleSheet.create({
     mid: {
         flex: 1,
@@ -110,7 +131,34 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 20,
         fontWeight: "bold"
+    },
+    border:{
+        backgroundColor: "green",
+        borderBottomColor: "white",
+        width: "90%"
+    },
+
+    circle: {
+        height: circle_size,
+        width: circle_size,
+        borderRadius: circle_size * 2,
+        backgroundColor: "#2E2E2E"
+    },
+    title_view: {
+        height: "100%",
+        width: "100%",
+        borderBottomColor: "white",
+        borderBottomWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 20
+    },
+    menu_view: {
+        height: "100%",
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "flex-start"        
     }
-});
+}); 
 
 export default BasketScreen;

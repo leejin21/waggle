@@ -23,7 +23,7 @@ const BottomButton_1 = (props) => {
 
 const NoCardTemplate = (props) => {   
     // props; 
-    // (default) bodyview, buttonname, toWhere, navigation, needButton, isHeaderBlack
+    // (default) bodyview, buttonname, toWhere, navigation, needButton, isHeaderBlack, data
 
     return props.needButton? 
     (
@@ -32,7 +32,7 @@ const NoCardTemplate = (props) => {
                 {props.bodyview}
             </View>
             <View style={{ ...CommonStyles.body__end, width: "100%" }}>
-                <BottomButton_1 name={props.buttonname} onPress={() => props.navigation.navigate(props.toWhere)}/>
+                <BottomButton_1 name={props.buttonname} onPress={() => props.navigation.navigate(props.toWhere, props.data)}/>
             </View>
         </View>
     ):
