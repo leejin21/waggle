@@ -50,7 +50,7 @@ class Menu extends Component {
     }
 };
 
-const BasketView = (props) => {
+const BasketView = ({main_menu, side_menu}) => {
     return(
         <View style={{width:"100%", height: "100%"}}>
             <View style={{flex: 5, width: "100%", paddingHorizontal: 20}}>
@@ -58,8 +58,7 @@ const BasketView = (props) => {
                     <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
                 </View>
                 <View style={{...styles.menu_view, flex: 7}}>
-                    <Menu name="된장찌개" cost={5500}/>
-                    <Menu name="김치찌개" cost={6000}/>
+                    {main_menu.map((item) => {return <Menu name={item.name} cost={item.price} />})}
                 </View>
             </View>
             <View style={{flex: 4, width: "100%"}}>
@@ -69,8 +68,7 @@ const BasketView = (props) => {
                         <Text style={[CommonStyles.bold_text, {color: "white"}]}>사이드 메뉴</Text>
                     </View>
                     <View style={{...styles.menu_view, flex:2.2}}>
-
-                        <Menu name="사이다" cost={2000}/>
+                        {side_menu.map((item) => {return <Menu name={item.name} cost={item.price} />})}
                     </View>
                 </Card>
             </View>
@@ -100,9 +98,21 @@ const BasketScreen = (props) => {
         3000]
     };
 
+    // data
+    const main_menu = [
+        {name: "된장찌개", price: 5500},
+        {name: "김치찌개", price: 6000}
+    ]
+    const side_menu = [
+        {name: "사이다", price: 2000},
+        {name: "라면", price: 3000}
+    ]
+
+
+
     return(
         <NoCardTemplate
-        bodyview={<BasketView/>}
+        bodyview={<BasketView main_menu={main_menu} side_menu={side_menu}/>}
         needButton={true}
         buttonname={"메뉴담기"}
         navigation={props.navigation}
