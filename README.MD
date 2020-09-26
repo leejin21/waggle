@@ -22,6 +22,8 @@ expo install react-native-gesture-handler react-native-reanimated react-native-s
 npm install @react-navigation/stack
 # 20.09.08 추가
 expo install @react-native-community/async-storage
+# 20.09.26 추가
+npm i react-native-modal
 ```
 
 ## Issues

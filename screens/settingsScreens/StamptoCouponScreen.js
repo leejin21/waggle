@@ -7,7 +7,7 @@ import CommonStyles from "../../constants/CommonStyles";
 import { headerOptions } from "../../constants/Options";
 import CheckCircle from "../../components/CheckCircle";
 
-import CardTemplate from "../../templates/CardTemplate";
+import CardTemplate_modal from "../../templates/CardTemplate_modal";
 
 const circle_size = 93;
 
@@ -19,14 +19,14 @@ const StampView = () => {
     const fullstampNum = 10;
     const laststampNum = 2;
 
-    const Circle = ({checked}) => {
+    const Circle = ({checked}) => { // exist props도 만드는 게 나을듯
         return(
         checked? <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>:<TouchableHighlight style={styles.circle}/>
         );
     }
 
     // 그냥 라인별 말고 다 한번에?
-    const RenderCircle = () => {
+    const RenderCircle = () => { // checked, exist 0/1 matrix 만드는 func
         // 차라리 하나씩 가면서 stampNum에 걸리는지, endNum에 걸리는지 한번에 보는게 낫지 않을까?
         // vector로 하는게 낫겠다...
 
@@ -38,16 +38,16 @@ const StampView = () => {
     return(
         <View style={{...styles.view_out, zIndex: 0}}> 
             <View style={{...styles.view_in, zIndex: 2}}>
-                {arr[0].map((n) => {return <Circle checked={n} />})}
+                {arr[0].map((n) => {return <Circle checked={n}/>})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                {arr[1].map((n) => {return <Circle checked={n} />})}
+                {arr[1].map((n) => {return <Circle checked={n}/>})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                {arr[2].map((n) => {return <Circle checked={n} />})}
+                {arr[2].map((n) => {return <Circle checked={n}/>})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                {arr[3].map((n) => {return <Circle checked={n} />})}
+                {arr[3].map((n) => {return <Circle checked={n}/>})}
             </View>
         </View>
         
@@ -70,7 +70,7 @@ const StamptoCouponScreen = (props) => {
     });
     
     return (
-        <CardTemplate
+        <CardTemplate_modal
         cardview={<StampView></StampView>}
         buttonname={"쿠폰발급하기"}
         toWhere={"HomeMain"} //일단 HomeMain으로
