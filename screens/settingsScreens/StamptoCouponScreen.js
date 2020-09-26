@@ -30,23 +30,24 @@ const StampView = () => {
         // 차라리 하나씩 가면서 stampNum에 걸리는지, endNum에 걸리는지 한번에 보는게 낫지 않을까?
         // vector로 하는게 낫겠다...
 
-
+        return [[0, 1, 1], [1, 1, 1], [0, 0, 0], [1, 1, 0]];
         
     }
+    const arr = [[0, 1, 1], [1, 1, 1], [0, 0, 0], [1, 1, 0]];
 
     return(
         <View style={{...styles.view_out, zIndex: 0}}> 
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle checked={0}/><Circle checked={0}/><Circle checked={1}/>
+                {arr[0].map((n) => {return <Circle checked={n} />})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle checked={0}/><Circle checked={0}/><Circle checked={1}/>
+                {arr[1].map((n) => {return <Circle checked={n} />})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle checked={0}/><Circle checked={0}/><Circle checked={1}/>
+                {arr[2].map((n) => {return <Circle checked={n} />})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle checked={0}/><Circle checked={0}/><Circle checked={1}/>
+                {arr[3].map((n) => {return <Circle checked={n} />})}
             </View>
         </View>
         
