@@ -12,29 +12,41 @@ import CardTemplate from "../../templates/CardTemplate";
 const circle_size = 93;
 
 const StampView = () => {
-    const Circle_check = () => {
+    const stamps = [
+        {id: 1, date: "20.09.15"},
+        {id: 2, date: "20.09.16"}
+    ]
+    const fullstampNum = 10;
+    const laststampNum = 2;
+
+    const Circle = ({checked}) => {
         return(
-            <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>
+        checked? <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>:<TouchableHighlight style={styles.circle}/>
         );
     }
-    const Circle_uncheck = () => {
-        return(
-            <TouchableHighlight style={styles.circle}/>
-        );
+
+    // 그냥 라인별 말고 다 한번에?
+    const RenderCircle = () => {
+        // 차라리 하나씩 가면서 stampNum에 걸리는지, endNum에 걸리는지 한번에 보는게 낫지 않을까?
+        // vector로 하는게 낫겠다...
+
+
+        
     }
+
     return(
         <View style={{...styles.view_out, zIndex: 0}}> 
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle_check/><Circle_check/><Circle_check/>
+                <Circle checked={0}/><Circle checked={0}/><Circle checked={1}/>
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle_check/><Circle_check/><Circle_check/>
+                <Circle checked={0}/><Circle checked={0}/><Circle checked={1}/>
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle_check/><Circle_check/><Circle_uncheck/>
+                <Circle checked={0}/><Circle checked={0}/><Circle checked={1}/>
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle_uncheck/><Circle_uncheck/><Circle_uncheck/>
+                <Circle checked={0}/><Circle checked={0}/><Circle checked={1}/>
             </View>
         </View>
         
