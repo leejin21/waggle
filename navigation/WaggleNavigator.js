@@ -50,7 +50,7 @@ const SettingsScreen = {
 
     EditInfo: {
         component: EditInfoScreen,
-        options: { title: "정보수정", ...headerOptions },
+        options: { title: "정보수정" },
     },
     Stampbox: {
         component: StampboxScreen,
@@ -58,11 +58,10 @@ const SettingsScreen = {
     },
     StampCoupon: {
         component: StamptoCouponScreen,
-        options: { ...headerOptions },
     },
     Inquiry: {
         component: InquiryScreen,
-        options: { title: "문의하기", ...headerOptions },
+        options: { title: "문의하기" },
     },
     Review: {
         component: ReviewScreen,
@@ -80,11 +79,15 @@ const MainScreen = {
     },
     Basket: {
         component: BasketScreen,
-        options: { ...headerOptions },
+        options: { ...headerOptions, 
+            headerTintColor: Colors.deep_yellow,  
+            headerStyle: {...headerOptions.headerStyle, backgroundColor: Colors.body_grey}},
     },
     Order: {
         component: OrderScreen,
-        options: { title: "담은 메뉴를 확인해 주세요", ...headerOptions },
+        options: { title: "담은 메뉴를 확인해 주세요", ...headerOptions,
+            headerTintColor: Colors.deep_yellow,  
+            headerStyle: {...headerOptions.headerStyle, backgroundColor: Colors.body_grey}},
     },
     RestVideo: {
         component: RestaurantVideoScreen,

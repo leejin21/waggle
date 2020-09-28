@@ -64,7 +64,7 @@ const StamptoCouponScreen = (props) => {
         },
         headerTitleStyle: {
             ...headerOptions.headerTitleStyle,
-            color: "white",
+            color: Colors.deep_yellow,
         },
         title: props.route.params.title
     });

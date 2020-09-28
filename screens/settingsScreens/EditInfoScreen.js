@@ -8,6 +8,7 @@ import CommonStyles from "../../constants/CommonStyles";
 
 import CardTemplate from "../../templates/CardTemplate";
 import ProfileLogo from "../../components/ProfileLogo";
+import { headerOptions } from "../../constants/Options";
 
 const EditInfoView = () => {
     return(
@@ -36,6 +37,19 @@ const EditInfoView = () => {
 }
 
 const EditInfoScreen = (props) => {
+    props.navigation.setOptions({
+        ...headerOptions,
+        headerTintColor: Colors.text_grey,
+        headerStyle: {
+            ...headerOptions.headerStyle,
+            backgroundColor: Colors.mid_grey,
+        },
+        headerTitleStyle: {
+            ...headerOptions.headerTitleStyle,
+            color: "white",
+        },
+    });
+
     return(
         <CardTemplate 
         cardview={<EditInfoView></EditInfoView>} 
