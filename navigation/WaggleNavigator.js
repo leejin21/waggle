@@ -81,7 +81,7 @@ const MainScreen = {
         component: BasketScreen,
         options: { ...headerOptions, 
             headerTintColor: Colors.deep_yellow,  
-            headerStyle: {...headerOptions.headerStyle, backgroundColor: Colors.body_grey}},
+            headerStyle: {...headerOptions.headerStyle, backgroundColor: Colors.body_grey, height: 122}},
     },
     Order: {
         component: OrderScreen,
