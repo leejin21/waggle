@@ -61,7 +61,7 @@ const ReviewButton = (props) => {
             <TouchableHighlight
                 style={review__button}
                 onPress={() => {
-                    console.log("level", props.id);
+                    // console.log("level", props.id);
                     props.dispatch({ type: props.action_type, level: props.id });
                 }}
             >
@@ -75,17 +75,17 @@ const ReviewButton = (props) => {
             onPress={
                 props.direction === "row"
                     ? () => {
-                          console.log("level", props.id);
+                          //   console.log("level", props.id);
                           props.dispatch({ type: props.action_type, level: props.id });
                       }
                     : () => {
                           // direction==column일 경우 누른 버튼 다시 누르면 누름 취소되게 함
                           if (props.state === props.id) {
                               // 원래 눌린 버튼 == 현재 누른 버튼일 때 누름 취소
-                              console.log("level", -1);
+                              //   console.log("level", -1);
                               props.dispatch({ type: props.action_type, level: -1 });
                           } else {
-                              console.log("level", props.id);
+                              //   console.log("level", props.id);
                               props.dispatch({ type: props.action_type, level: props.id });
                           }
                       }

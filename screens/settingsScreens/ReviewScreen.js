@@ -29,6 +29,16 @@ const sliceMenuName = (name) => {
     return menu_name;
 };
 
+const allCompleted = (menuReview) => {
+    // return false if 하나라도 false 있으면 else true
+    for (let i = 0; i < menuReview.length; i++) {
+        if (menuReview[i].complete === false) {
+            if (menuReview[i].saltReview === -1 || menuReview[i].amountReview === -1) return false;
+        }
+    }
+    return true;
+};
+
 const ReviewScreen = (props) => {
     props.navigation.setOptions({ title: props.route.params.title });
     const [state, dispatch] = React.useReducer(
@@ -39,15 +49,17 @@ const ReviewScreen = (props) => {
                     // SECTION 리뷰할 메뉴
                     const salt_review = prevState.menuReview[prevState.curMenu].saltReview;
                     const amount_review = prevState.menuReview[prevState.curMenu].amountReview;
+                    menu_review[prevState.curMenu] = { ...menu_review[prevState.curMenu], complete: true };
 
                     if (salt_review < 0 || salt_review >= 3) {
+                        // FIXME alert가 안됨
                         Alert.alert("리뷰 미작성", "간이 적당한 지 리뷰를 남겨주세요!");
                     } else if (amount_review < 0 || amount_review >= 3) {
                         Alert.alert("리뷰 미작성", "양이 적당한 지 리뷰를 남겨주세요!");
                     } else {
-                        console.log(prevState);
+                        // console.log(prevState);
                         return {
-                            ...prevState,
+                            menuReview: menu_review,
                             curMenu: action.curMenu,
                         };
                     }
@@ -93,6 +105,7 @@ const ReviewScreen = (props) => {
                     saltReview: -1,
                     amountReview: -1,
                     otherReview: -1,
+                    complete: false,
                 };
             }),
             curMenu: 0,
@@ -162,9 +175,15 @@ const ReviewScreen = (props) => {
             </View>
 
             <View style={CommonStyles.body__end}>
-                <BottomButton active={true} style_back_color={{ backgroundColor: Colors.black_grey }}>
-                    <Text style={styles.button_text}>눈송슐랭 평가완료!</Text>
-                </BottomButton>
+                {allCompleted(state.menuReview) ? (
+                    <BottomButton active={true} style_back_color={{ backgroundColor: Colors.deep_yellow }} onPress={() => props.navigation.goBack()}>
+                        <Text style={{ ...styles.button_text, color: "black" }}>눈송슐랭 평가완료!</Text>
+                    </BottomButton>
+                ) : (
+                    <BottomButton active={false} style_back_color={{ backgroundColor: "black" }}>
+                        <Text style={styles.button_text}>눈송슐랭 평가완료!</Text>
+                    </BottomButton>
+                )}
             </View>
         </View>
     );
