@@ -1,7 +1,7 @@
 // USE: all except for main:home main, settings:edit info
 
 import React from "react";
-import { View, Text, TouchableHighlight, Image, StyleSheet, Dimensions } from "react-native";
+import { View, Text, TouchableHighlight, ImageBackground, StyleSheet, Dimensions } from "react-native";
 import Colors from "../constants/Colors";
 
 import { MaterialIcons } from "@expo/vector-icons";
@@ -20,15 +20,17 @@ const Pick = (props) => {
 };
 
 const Menu = (props) => {
-    // props: active, photo, menu_name, setCurMenuState, id
+    // props: active, photo, menu_name, setCurMenuState, id,  dispatch, action_type
     return (
         <View style={styles.pick__menu__wrapper}>
             <TouchableHighlight
                 style={props.active ? { ...styles.pick__image__wrapper, backgroundColor: Colors.high_pink } : styles.pick__image__wrapper}
                 underlayColor={Colors.high_pink}
-                onPress={() => props.setCurMenu(() => props.id)}
+                onPress={() => {
+                    props.dispatch({ type: props.action_type, curMenu: props.id });
+                }}
             >
-                <Image source={props.photo} style={styles.pick__image} imageStyle={{ width: DIAMETER, height: DIAMETER, borderRadius: DIAMETER * 2 }}></Image>
+                <ImageBackground source={props.photo} style={styles.pick__image} imageStyle={{ width: DIAMETER, height: DIAMETER, borderRadius: DIAMETER * 2 }}></ImageBackground>
             </TouchableHighlight>
             <Text style={styles.pick__menu__text}>{props.menu_name}</Text>
         </View>
@@ -36,23 +38,33 @@ const Menu = (props) => {
 };
 
 const Star = (props) => {
-    // props: name, id, setStarPointState
+    // props: name, id, setStarPointState, dispatch, action_type
     return (
-        <TouchableWithoutFeedback onPress={() => props.setStarPointState(props.id)}>
+        <TouchableWithoutFeedback
+            onPress={() => {
+                props.dispatch({ type: props.action_type, star: props.id });
+            }}
+        >
             <MaterialIcons name={props.name} size={SCREEN_WIDTH / 7} color={Colors.deep_yellow}></MaterialIcons>
         </TouchableWithoutFeedback>
     );
 };
 
 const ReviewButton = (props) => {
-    // props: id, wing, content, active, direction, state, setState
+    // props: id, wing, content, active, direction, state, dispatch, action_type
     const review__button = props.active ? { ...styles.review__button, backgroundColor: Colors.deep_yellow } : styles.review__button;
     const review__button__col = props.active ? { ...styles.review__button__col, backgroundColor: Colors.deep_yellow } : styles.review__button__col;
 
     return props.wing ? (
         <View style={styles.review__wing__wrapper}>
             <View style={styles.review__button__wing}></View>
-            <TouchableHighlight style={review__button} onPress={() => props.setState(props.id)}>
+            <TouchableHighlight
+                style={review__button}
+                onPress={() => {
+                    // console.log("level", props.id);
+                    props.dispatch({ type: props.action_type, level: props.id });
+                }}
+            >
                 <Text style={styles.review__button__text}>{props.content}</Text>
             </TouchableHighlight>
             <View style={styles.review__button__wing}></View>
@@ -62,16 +74,21 @@ const ReviewButton = (props) => {
             style={props.direction === "row" ? review__button : review__button__col}
             onPress={
                 props.direction === "row"
-                    ? () => props.setState(props.id)
-                    : () =>
+                    ? () => {
+                          //   console.log("level", props.id);
+                          props.dispatch({ type: props.action_type, level: props.id });
+                      }
+                    : () => {
                           // direction==column일 경우 누른 버튼 다시 누르면 누름 취소되게 함
-                          props.setState(() => {
-                              if (props.state === props.id) {
-                                  // 원래 눌린 버튼 == 현재 누른 버튼일 때 누름 취소
-                                  return -1;
-                              }
-                              return props.id;
-                          })
+                          if (props.state === props.id) {
+                              // 원래 눌린 버튼 == 현재 누른 버튼일 때 누름 취소
+                              //   console.log("level", -1);
+                              props.dispatch({ type: props.action_type, level: -1 });
+                          } else {
+                              //   console.log("level", props.id);
+                              props.dispatch({ type: props.action_type, level: props.id });
+                          }
+                      }
             }
         >
             <Text style={styles.review__button__text}>{props.content}</Text>
@@ -80,7 +97,7 @@ const ReviewButton = (props) => {
 };
 
 const ReviewButtonGroup = (props) => {
-    // props: tags, direction, setState, state
+    // props: tags, direction, state, dispatch, action_type
     return (
         <View style={props.direction === "row" ? styles.review__group : { ...styles.review__group, flexDirection: "column" }}>
             {props.tags.map((x, id) => {
@@ -92,7 +109,19 @@ const ReviewButtonGroup = (props) => {
                 if (id === props.state) {
                     active = true;
                 }
-                return <ReviewButton wing={wing} active={active} direction={props.direction} content={x} key={id} id={id} setState={props.setState} state={props.state}></ReviewButton>;
+                return (
+                    <ReviewButton
+                        wing={wing}
+                        active={active}
+                        direction={props.direction}
+                        content={x}
+                        key={id}
+                        id={id}
+                        dispatch={props.dispatch}
+                        state={props.state}
+                        action_type={props.action_type}
+                    ></ReviewButton>
+                );
             })}
         </View>
     );

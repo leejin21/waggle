@@ -12,7 +12,7 @@ const BottomButton = (props) => {
             {props.children}
         </TouchableOpacity>
     ) : (
-        <View style={{ ...styles.bottom_button, backgroundColor: Colors.mid_grey }}>{props.children}</View>
+        <View style={{ ...styles.bottom_button, backgroundColor: Colors.mid_grey, ...props.style_back_color }}>{props.children}</View>
     );
 };
 
