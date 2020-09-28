@@ -7,11 +7,15 @@ import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 
 import CardTemplate from "../../templates/CardTemplate";
+import ProfileLogo from "../../components/ProfileLogo";
 
 const EditInfoView = () => {
     return(
         <View>
-            <View style={styles.elem}>
+                    <View style={{width: "100%", justifyContent: "center", alignItems: "center"}}>
+                        <ProfileLogo touchable={false} SIZE={70}></ProfileLogo>
+                    </View>
+                    <View style={styles.elem}>
                         <Text style={styles.card__text}>이름</Text>
                         <TextInput textContentType="name" returnKeyType="next" style={styles.textinput}/>
                     </View>

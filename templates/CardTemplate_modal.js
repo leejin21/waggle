@@ -8,7 +8,7 @@ import CommonStyles from "../constants/CommonStyles";
 import Card from "../components/Card";
 import BottomButton from "../components/BottomButton";
 
-import Modal from "react-native-modal";
+//import Modal from "react-native-modal";
 
 const BottomButton_2 = (props) => {
     return(
@@ -51,7 +51,7 @@ const CardTemplate_modal = (props) => {
             </View>
         </View>
         <View style={{ ...CommonStyles.body__end, width: "100%" }}>
-            <BottomButton_1 name={props.buttonname} onPress={() => props.navigation.navigate(props.toWhere)}/>
+            <BottomButton_2 name={props.buttonname} onPress={() => props.navigation.navigate(props.toWhere)}/>
         </View>
         </View>
     );
