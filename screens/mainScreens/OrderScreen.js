@@ -24,20 +24,20 @@ const Menu = ({menu_name, menu_price}) => {
 
 const OrderView = ({route}) => {
     return (
-    <View style={{width: "100%", height: "100%", paddingHorizontal: 30}}>
+    <View style={{width: "100%", height: "100%", paddingHorizontal: 30, alignItems: "center"}}>
 
-        <View style={{width: "100%", height: "100%", flex:2.3}}>
+        <View style={{width: "93%", height: "100%", flex:2.3}}>
             <View style={{width: "100%", height: "100%", flex:1, }}>
                 <View style={{...styles.title_view, width: "100%", height: "100%", flex:1, borderTopColor:"white", borderTopWidth:1, alignItems:"flex-start"}}>
-                    <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 27}]}> 메인 메뉴</Text>
+                    <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 25}]}> 메인 메뉴</Text>
                 </View>
                 <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3, paddingBottom:10}}>
                     <Menu menu_name={route.params.main_name} menu_price={route.params.main_price}/>
                 </View>
             </View>
-            <View style={{width: "100%", height: "100%", flex:1, justifyContent:"flex-start", alignItems:"flex-start"}}>
+            <View style={{width: "90%", height: "100%", flex:1, justifyContent:"flex-start", alignItems:"flex-start"}}>
                 <View style={{...styles.title_view, width: "100%", height: "100%", flex:1, alignItems:"flex-start"}}>
-                    <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 27}]}>+ 사이드 메뉴</Text>
+                    <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 25}]}>+ 사이드 메뉴</Text>
                 </View>
                 <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3, paddingBottom:10}}>
                     <Menu menu_name={route.params.side_name} menu_price={route.params.side_price}/>  
@@ -45,10 +45,10 @@ const OrderView = ({route}) => {
             </View>   
         </View>
 
-        <View style={{width: "100%", height: "100%", flex:1}}>
+        <View style={{width: "93%", height: "100%", flex:1}}>
         <View style={{...styles.title_view, width: "100%", height: "100%", justifyContent: "flex-start", alignItems:"flex-start", borderTopColor:"white", borderTopWidth:1, paddingTop: 10}}>
-            <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow, fontSize: 40}]}> = 총합 </Text>
-            <Text style={CommonStyles.small_text}>  (메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
+            <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow, fontSize: 44}]}> = 총합 </Text>
+            <Text style={{...CommonStyles.small_text, fontSize: 13}}>  (메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
         </View>
 
         </View>
