@@ -81,26 +81,6 @@ const BasketView = ({main_menu, side_menu}) => {
 const BasketScreen = (props) => {
     props.navigation.setOptions({title: props.route.params.title});
 
-    const menu = 
-    {  
-        main_name: 
-        ['된장찌개', 
-        '김치찌개'], 
-        
-        main_price: 
-        [5500, 
-        6000], 
-        
-        side_name: 
-        ['사이다', 
-        '라면'], 
-        
-        side_price: 
-        [2000, 
-        3000]
-    };
-
-    // data
     const main_menu = [
         {name: "된장찌개", price: 5500},
         {name: "김치찌개", price: 6000},
@@ -112,8 +92,7 @@ const BasketScreen = (props) => {
         {name: "사이다", price: 2000},
         {name: "라면", price: 3000}
     ]
-
-
+    const ex = {name: "이름", price: 0};
 
     return(
         <NoCardTemplate
@@ -122,7 +101,7 @@ const BasketScreen = (props) => {
         buttonname={"메뉴담기"}
         navigation={props.navigation}
         toWhere={"Order"}
-        data={menu}
+        data={{name: [main_menu[0].name, main_menu[1].name], price: ex.price}}
         isHeaderBlack={false}
         />
     );

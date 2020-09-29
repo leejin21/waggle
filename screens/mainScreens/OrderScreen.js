@@ -29,10 +29,10 @@ const OrderView = ({route}) => {
         <View style={{width: "93%", height: "100%", flex:2.3}}>
             <View style={{width: "100%", height: "100%", flex:1, }}>
                 <View style={{...styles.title_view, width: "100%", height: "100%", flex:1, borderTopColor:"white", borderTopWidth:1, alignItems:"flex-start"}}>
-                    <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 25}]}> 메인 메뉴</Text>
+    <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 25}]}> 메인 메뉴{route.params.menu}</Text>
                 </View>
                 <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3, paddingBottom:10}}>
-                    <Menu menu_name={route.params.main_name} menu_price={route.params.main_price}/>
+                    <Menu menu_name={route.params.name[1]} menu_price={route.params.price}/>
                 </View>
             </View>
             <View style={{width: "90%", height: "100%", flex:1, justifyContent:"flex-start", alignItems:"flex-start"}}>
