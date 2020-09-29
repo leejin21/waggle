@@ -11,13 +11,13 @@ import CardTemplate_modal from "../../templates/CardTemplate_modal";
 
 const circle_size = 93;
 
-const StampView = () => {
+const StampView = ({fullstampNum, laststampNum}) => {
     const stamps = [
         {id: 1, date: "20.09.15"},
         {id: 2, date: "20.09.16"}
     ]
-    const fullstampNum = 10; // 12개 중 fullstampNum개는 exist = true
-    const laststampNum = 2;  // fullstampNum개 중 laststampNum개는 checked = true
+    //const fullstampNum = 10; // 12개 중 fullstampNum개는 exist = true
+    //const laststampNum = 2;  // fullstampNum개 중 laststampNum개는 checked = true
     // 아니면 exist면 1, 거기에다가 checked면 1 더해서 2로 할까?
 
     const Circle = ({num}) => { // bool인 checked, exist 받음
@@ -28,7 +28,7 @@ const StampView = () => {
             return <TouchableHighlight style={styles.circle}/>;
         }
         // exist=false: return nothing
-        return null;
+        return <TouchableHighlight style={{...styles.circle, backgroundColor: "#565656"}}/>;
     }
 
     const MakeArray = () => {
@@ -86,7 +86,7 @@ const StamptoCouponScreen = (props) => {
     
     return (
         <CardTemplate_modal
-        cardview={<StampView></StampView>}
+        cardview={<StampView fullstampNum={props.route.params.fullstampNum} laststampNum={props.route.params.laststampNum}></StampView>}
         buttonname={"쿠폰발급하기"}
         toWhere={"HomeMain"} //일단 HomeMain으로
         navigation={props.navigation}
