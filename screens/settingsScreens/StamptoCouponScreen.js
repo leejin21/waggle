@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, Alert } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
@@ -16,45 +16,53 @@ const StampView = () => {
         {id: 1, date: "20.09.15"},
         {id: 2, date: "20.09.16"}
     ]
-    const fullstampNum = 10;
-    const laststampNum = 2;
+    const fullstampNum = 10; // 12개 중 fullstampNum개는 exist = true
+    const laststampNum = 2;  // fullstampNum개 중 laststampNum개는 checked = true
+    // 아니면 exist면 1, 거기에다가 checked면 1 더해서 2로 할까?
 
-    const Circle = ({checked, exist}) => { // bool인 checked, exist 받음
-        if(exist){
-            if(checked){
+    const Circle = ({num}) => { // bool인 checked, exist 받음
+        if(num > 0){ // exist
+            if(num > 1){ // checked
                 return <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>;
             }
             return <TouchableHighlight style={styles.circle}/>;
         }
         // exist=false: return nothing
-        return ;
-    
-        //checked? <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>:<TouchableHighlight style={styles.circle}/>
+        return null;
     }
 
-    // 그냥 라인별 말고 다 한번에?
-    const RenderCircle = () => { // checked, exist 0/1 matrix 만드는 func
-        // 차라리 하나씩 가면서 stampNum에 걸리는지, endNum에 걸리는지 한번에 보는게 낫지 않을까?
-        // vector로 하는게 낫겠다...
+    const MakeArray = () => {
+        var arr = [];
+        var num = 0;
+        for(i=0; i<12; i++){
+            if(i<fullstampNum){
+                num++;
+                if(i<laststampNum){
+                    num++;
+                }
+            }
+            arr.push(num);
+            num = 0;
+        }
 
-        return [[0, 1, 1], [1, 1, 1], [0, 0, 0], [1, 1, 0]];
-        
+        return arr;
     }
-    const arr = [[0, 1, 1], [1, 1, 1], [0, 0, 0], [1, 1, 0]];
+
+    const arr = MakeArray();
 
     return(
         <View style={{...styles.view_out, zIndex: 0}}> 
             <View style={{...styles.view_in, zIndex: 2}}>
-                {arr[0].map((n) => {return <Circle checked={n}/>})}
+                {[arr[0], arr[1], arr[2]].map((n) => {return <Circle num={n}/>})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                {arr[1].map((n) => {return <Circle checked={n}/>})}
+                {[arr[3], arr[4], arr[5]].map((n) => {return <Circle num={n}/>})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                {arr[2].map((n) => {return <Circle checked={n}/>})}
+                {[arr[6], arr[7], arr[8]].map((n) => {return <Circle num={n}/>})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                {arr[3].map((n) => {return <Circle checked={n}/>})}
+                {[arr[9], arr[10], arr[11]].map((n) => {return <Circle num={n}/>})}
             </View>
         </View>
         
