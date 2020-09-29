@@ -19,10 +19,17 @@ const StampView = () => {
     const fullstampNum = 10;
     const laststampNum = 2;
 
-    const Circle = ({checked}) => { // exist props도 만드는 게 나을듯
-        return(
-        checked? <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>:<TouchableHighlight style={styles.circle}/>
-        );
+    const Circle = ({checked, exist}) => { // bool인 checked, exist 받음
+        if(exist){
+            if(checked){
+                return <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>;
+            }
+            return <TouchableHighlight style={styles.circle}/>;
+        }
+        // exist=false: return nothing
+        return ;
+    
+        //checked? <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>:<TouchableHighlight style={styles.circle}/>
     }
 
     // 그냥 라인별 말고 다 한번에?
