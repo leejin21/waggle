@@ -12,7 +12,7 @@ import CheckCircle from "../../components/CheckCircle";
 import NoCardTemplate from "../../templates/NoCardTemplate";
 
 const circle_size = 93;
-const padding_size = 40;
+const padding_size = 34;
 
 // check가 되면 왜 왼쪽으로 가냐
 const Circle_check = () => {
@@ -42,35 +42,35 @@ class Menu extends Component {
 
     render(){
         return(
-            <TouchableOpacity onPress={() => this.handleClick(this.state)} style={{width: circle_size + padding_size, justifyContent:"flex-start", alignItems:"flex-start"}}>
+            <TouchableOpacity onPress={() => this.handleClick(this.state)} style={{width: circle_size + padding_size, height: circle_size + padding_size ,justifyContent:"flex-start", alignItems:"flex-start"}}>
                 {this.state.selected? <Circle_check/>:<Circle_uncheck/>}
-                <Text style={CommonStyles.small_text}>{this.props.name}: {this.props.cost}</Text>
+                <View>
+                    <Text style={CommonStyles.small_text}>{this.props.name}{"\n"}{this.props.cost}</Text>
+                </View>
             </TouchableOpacity>
         );
     }
 };
 
-const BasketView = (props) => {
+const BasketView = ({main_menu, side_menu}) => {
     return(
-        <View style={{width:"100%", height: "100%"}}>
-            <View style={{flex: 5, width: "100%", paddingHorizontal: 20}}>
+        <View style={{width:"100%", height: "100%", alignItems: "center"}}>
+            <View style={{flex: 5, width: "85%", paddingHorizontal: 0}}>
                 <View style={{...styles.title_view, flex: 1}}>
-                    <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
+                    <Text style={{...CommonStyles.bold_text, fontSize: 25, color: "white"}}>메인 메뉴</Text>
                 </View>
-                <View style={{...styles.menu_view, flex: 7}}>
-                    <Menu name="된장찌개" cost={5500}/>
-                    <Menu name="김치찌개" cost={6000}/>
+                <View style={{...styles.menu_view, flex: 7, paddingHorizontal: 0}}>
+                    {main_menu.map((item) => {return <Menu name={item.name} cost={item.price} />})}
                 </View>
             </View>
-            <View style={{flex: 4, width: "100%"}}>
-                <Card style={{width: "94%", height: "100%", marginTop: 0, padding: 10, marginBottom: 20, marginHorizontal: 13}}>
+            <View style={{flex: 4, width: "100%", alignItems: "center"}}>
+                <Card style={{width: "90%", height: "100%", marginTop: 0, padding: 17, marginBottom: 20}}>
                     <View style={{...styles.title_view, flex:1}}>
-                        <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow}]}>오직 와글에서만 무료!</Text>
-                        <Text style={[CommonStyles.bold_text, {color: "white"}]}>사이드 메뉴</Text>
+                        <Text style={{...CommonStyles.bold_text, fontSize: 25, color: Colors.deep_yellow}}>오직 와글에서만 무료!</Text>
+                        <Text style={{...CommonStyles.bold_text, fontSize: 25, color: "white"}}>사이드 메뉴</Text>
                     </View>
                     <View style={{...styles.menu_view, flex:2.2}}>
-
-                        <Menu name="사이다" cost={2000}/>
+                        {side_menu.map((item) => {return <Menu name={item.name} cost={item.price} />})}
                     </View>
                 </Card>
             </View>
@@ -81,33 +81,30 @@ const BasketView = (props) => {
 const BasketScreen = (props) => {
     props.navigation.setOptions({title: props.route.params.title});
 
-    const menu = 
-    {  
-        main_name: 
-        ['된장찌개', 
-        '김치찌개'], 
-        
-        main_price: 
-        [5500, 
-        6000], 
-        
-        side_name: 
-        ['사이다', 
-        '라면'], 
-        
-        side_price: 
-        [2000, 
-        3000]
-    };
+    const main_menu = [
+        {name: "된장찌개", price: 5500},
+        {name: "김치찌개", price: 6000},
+        {name: "청국장", price: 7000},
+        // 3개 넘는 시점부터 아래로 내리기
+        // {name: "갈비탕", price: 8000}
+    ]
+    const side_menu = [
+        {name: "사이다", price: 2000},
+        {name: "라면", price: 3000}
+    ]
+    const ex = {name: "이름", price: 0};
 
     return(
         <NoCardTemplate
-        bodyview={<BasketView/>}
+        bodyview={<BasketView main_menu={main_menu} side_menu={side_menu}/>}
         needButton={true}
         buttonname={"메뉴담기"}
         navigation={props.navigation}
         toWhere={"Order"}
-        data={menu}
+        data={{name: [main_menu[0].name, main_menu[1].name], price: ex.price}} 
+        // data;
+        // array 만들어서 주면 될듯 (stampcoupon scr 참고)
+        // 그러면 이제 문제는 state (selected) 를 어떻게 다룰지...
         isHeaderBlack={false}
         />
     );

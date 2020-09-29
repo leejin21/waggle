@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, Alert } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
@@ -7,34 +7,62 @@ import CommonStyles from "../../constants/CommonStyles";
 import { headerOptions } from "../../constants/Options";
 import CheckCircle from "../../components/CheckCircle";
 
-import CardTemplate from "../../templates/CardTemplate";
+import CardTemplate_modal from "../../templates/CardTemplate_modal";
 
 const circle_size = 93;
 
-const StampView = () => {
-    const Circle_check = () => {
-        return(
-            <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>
-        );
+const StampView = ({fullstampNum, laststampNum}) => {
+    const stamps = [
+        {id: 1, date: "20.09.15"},
+        {id: 2, date: "20.09.16"}
+    ]
+    //const fullstampNum = 10; // 12개 중 fullstampNum개는 exist = true
+    //const laststampNum = 2;  // fullstampNum개 중 laststampNum개는 checked = true
+    // 아니면 exist면 1, 거기에다가 checked면 1 더해서 2로 할까?
+
+    const Circle = ({num}) => { // bool인 checked, exist 받음
+        if(num > 0){ // exist
+            if(num > 1){ // checked
+                return <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>;
+            }
+            return <TouchableHighlight style={styles.circle}/>;
+        }
+        // exist=false: return nothing
+        return <TouchableHighlight style={{...styles.circle, backgroundColor: "#565656"}}/>;
     }
-    const Circle_uncheck = () => {
-        return(
-            <TouchableHighlight style={styles.circle}/>
-        );
+
+    const MakeArray = () => {
+        var arr = [];
+        var num = 0;
+        for(i=0; i<12; i++){
+            if(i<fullstampNum){
+                num++;
+                if(i<laststampNum){
+                    num++;
+                }
+            }
+            arr.push(num);
+            num = 0;
+        }
+
+        return arr;
     }
+
+    const arr = MakeArray();
+
     return(
         <View style={{...styles.view_out, zIndex: 0}}> 
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle_check/><Circle_check/><Circle_check/>
+                {[arr[0], arr[1], arr[2]].map((n) => {return <Circle num={n}/>})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle_check/><Circle_check/><Circle_check/>
+                {[arr[3], arr[4], arr[5]].map((n) => {return <Circle num={n}/>})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle_check/><Circle_check/><Circle_uncheck/>
+                {[arr[6], arr[7], arr[8]].map((n) => {return <Circle num={n}/>})}
             </View>
             <View style={{...styles.view_in, zIndex: 2}}>
-                <Circle_uncheck/><Circle_uncheck/><Circle_uncheck/>
+                {[arr[9], arr[10], arr[11]].map((n) => {return <Circle num={n}/>})}
             </View>
         </View>
         
@@ -51,14 +79,14 @@ const StamptoCouponScreen = (props) => {
         },
         headerTitleStyle: {
             ...headerOptions.headerTitleStyle,
-            color: "white",
+            color: Colors.deep_yellow,
         },
         title: props.route.params.title
     });
     
     return (
-        <CardTemplate
-        cardview={<StampView></StampView>}
+        <CardTemplate_modal
+        cardview={<StampView fullstampNum={props.route.params.fullstampNum} laststampNum={props.route.params.laststampNum}></StampView>}
         buttonname={"쿠폰발급하기"}
         toWhere={"HomeMain"} //일단 HomeMain으로
         navigation={props.navigation}

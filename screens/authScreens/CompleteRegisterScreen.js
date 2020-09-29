@@ -21,14 +21,17 @@ const CompleteRegisterScreen = (props) => {
 
     return (
         <View style={styles.body}>
-            <View style={CommonStyles.body__middle}>
+            <View style={{...CommonStyles.body__middle, width: "100%"}}>
                 <View style={styles.f2}>
-                    <Text style={styles.h2}>가입완료</Text>
-                    <Text style={styles.text}>이제 와글로 멋진 식사를 즐겨보세요!</Text>
+                    <View style={styles.elem}>
+                        <Text style={{...CommonStyles.bold_text, color: Colors.deep_yellow, fontSize: 43}}>가입완료</Text>
+                    </View>   
+                    <Text style={{...CommonStyles.small_text, borderTopWidth: 10, fontSize: 18}}>이제 와글로 멋진 식사를 즐겨보세요!</Text>
                 </View>
                 <View style={styles.f2}>
-                    <Text style={styles.text}>김눈송</Text>
-                    <Text style={styles.text}>test@gmail.com</Text>
+                    <ProfileLogo touchable={false} SIZE={70}></ProfileLogo>
+                    <Text style={{...CommonStyles.small_text, fontSize: 18}}>김눈송</Text>
+                    <Text style={{...CommonStyles.small_text, fontSize: 23}}>test@gmail.com</Text>
                     {/* 정보 받아와서 내용 수정되게끔 고쳐야 */}
                 </View>
                 <View style={styles.f1}></View>
@@ -46,6 +49,7 @@ const styles = StyleSheet.create({
         paddingTop: 100,
         alignItems: "center",
         justifyContent: "center",
+        width: "100%"
     },
     body_end: {
         ...CommonStyles.body__end,
@@ -73,11 +77,23 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
+        width: "100%"
     },
     f2: {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
+        width: "100%"
+    },
+
+    elem: {
+        width: "75%",
+        alignItems: "center",
+        justifyContent: "space-between",
+        alignItems: "center",
+        borderBottomWidth: 1,
+        borderBottomColor: "white",
+        paddingBottom: 10,
     },
 });
 
