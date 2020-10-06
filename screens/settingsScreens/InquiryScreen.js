@@ -42,6 +42,8 @@ const InquiryView = () => {
       setModalVisible(!isModalVisible);
     };
 
+    const navi = props.navigation; 
+
     return(
         <View>
             <Button title="show modal" onPress={toggleModal}/>
@@ -61,7 +63,7 @@ const InquiryView = () => {
                         </View>
                     </View>
                     <View style={{flex:1, width:"100%", height:"100%", paddingHorizontal: 6, paddingVertical:8}}>
-                        <ModalButton/>
+                        <ModalButton navigation={navi}/>
                     </View>
                 </Card>   
 
