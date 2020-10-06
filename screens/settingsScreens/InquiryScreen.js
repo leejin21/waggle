@@ -9,6 +9,7 @@ import CardTemplate from "../../templates/CardTemplate";
 
 import Modal from 'react-native-modal';
 
+/*
 function ModalTester() {
     const [isModalVisible, setModalVisible] = useState(false);
     
@@ -17,7 +18,7 @@ function ModalTester() {
     };
 
     return(
-          <View style={{flex: 1}}>
+          <View style={{flex: 1, width: "100%", height: "100%", backgroundColor: "green"}}>
             <Button title="Show modal" onPress={toggleModal} />
     
             <Modal isVisible={isModalVisible}>
@@ -30,10 +31,22 @@ function ModalTester() {
           </View>
         );
     }
+    */
 
 const InquiryView = () => {
+    const [isModalVisible, setModalVisible] = useState(false);
+    
+    const toggleModal = () => {
+      setModalVisible(!isModalVisible);
+    };
+
     return(
-        <View><ModalTester/></View>
+        <View>
+            <Button title="show modal" onPress={toggleModal}/>
+            <Modal isVisible={isModalVisible}>
+                <Button title="hide modal" onPress={toggleModal}/>
+            </Modal>
+        </View>
     );
 }
 
