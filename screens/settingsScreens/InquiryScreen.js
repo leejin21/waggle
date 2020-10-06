@@ -11,6 +11,7 @@ import Modal from 'react-native-modal';
 import Card from "../../components/Card";
 import ModalButton from "../../components/ModalButton";
 
+
 const InquiryView = () => {
     const [isModalVisible, setModalVisible] = useState(false);
     
