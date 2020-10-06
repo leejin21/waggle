@@ -7,6 +7,9 @@ import { headerOptions } from "../../constants/Options";
 
 import CardTemplate from "../../templates/CardTemplate";
 
+import Modal from 'react-native-modal';
+
+
 const InquiryView = () => {
     return(
         <View></View>
