@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, Button } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
@@ -9,10 +9,31 @@ import CardTemplate from "../../templates/CardTemplate";
 
 import Modal from 'react-native-modal';
 
+function ModalTester() {
+    const [isModalVisible, setModalVisible] = useState(false);
+    
+    const toggleModal = () => {
+      setModalVisible(!isModalVisible);
+    };
+
+    return(
+          <View style={{flex: 1}}>
+            <Button title="Show modal" onPress={toggleModal} />
+    
+            <Modal isVisible={isModalVisible}>
+              <View style={{flex: 1}}>
+                <Text>Hello!</Text>
+    
+                <Button title="Hide modal" onPress={toggleModal} />
+              </View>
+            </Modal>
+          </View>
+        );
+    }
 
 const InquiryView = () => {
     return(
-        <View></View>
+        <View><ModalTester/></View>
     );
 }
 
