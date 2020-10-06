@@ -14,9 +14,13 @@ const ModalButton = (props) => {
     // props: name, collected, all, navigation
     // card -> touchablehighlight
     // collected, all -> stringify
-    
+    buttonPress = () => {
+        props.toggle();
+        props.navigation.navigate("Coupons");
+    }
+
     return (
-        <TouchableOpacity onPress={() => props.navigation.navigate("Coupons")}>
+        <TouchableOpacity onPress={buttonPress}>
             <Card style={styles.card}> 
                     <Text style={styles.card__txt}>쿠폰함으로 가기</Text>
             </Card>

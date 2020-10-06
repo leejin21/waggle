@@ -71,7 +71,7 @@ const CardTemplate_modal = (props) => {
                         </View>
                     </View>
                     <View style={{flex:1, width:"100%", height:"100%", paddingHorizontal: 6, paddingVertical:8}}>
-                        <ModalButton navigation={navi}/>
+                        <ModalButton navigation={navi} toggle={toggleModal}/>
                     </View>
                 </Card>   
 
