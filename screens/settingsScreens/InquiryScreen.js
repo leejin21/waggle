@@ -8,6 +8,8 @@ import { headerOptions } from "../../constants/Options";
 import CardTemplate from "../../templates/CardTemplate";
 
 import Modal from 'react-native-modal';
+import Card from "../../components/Card";
+import CardButton from "../../components/CardButton";
 
 /*
 function ModalTester() {
@@ -44,7 +46,10 @@ const InquiryView = () => {
         <View>
             <Button title="show modal" onPress={toggleModal}/>
             <Modal isVisible={isModalVisible}>
-                <Button title="hide modal" onPress={toggleModal}/>
+                <Card> 
+                    <Button title="hide modal" onPress={toggleModal}/>
+                    <CardButton style={{backgroundColor:"black"}}/>
+                </Card>               
             </Modal>
         </View>
     );

@@ -1,4 +1,6 @@
-// USE:: settings screens: stampboxscreen
+// USE:
+// 1. settings screens: stampboxscreen
+// 2. stamptocoupon screen (modal)
 
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
