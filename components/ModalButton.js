@@ -27,14 +27,15 @@ const styles = StyleSheet.create({
     // TODO 핸드폰 dimenstion size에 따라 달라질 수 있으므로 비율로 margin, padding 다 조정하기(b/c card__button)
     card: {
         backgroundColor: "#161616",
-        marginHorizontal: 10,
+        marginHorizontal: 0,
         borderRadius: 40,
 
-        width: "95%",
+        width: "100%",
+        height: "100%",
         flex: 0,
-        marginTop: 10,
+        marginTop: 0,
         padding: 10,
-        marginBottom: 10,
+        marginBottom: 0,
 
         alignItems: "center",
         justifyContent: "center",
