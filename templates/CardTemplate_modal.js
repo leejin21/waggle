@@ -1,12 +1,15 @@
 //CardTemplate 배껴옴
 //stampcouponscr용
 
-import React from "react";
+import React, {useState} from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import CommonStyles from "../constants/CommonStyles";
 import Card from "../components/Card";
 import BottomButton from "../components/BottomButton";
+
+import Modal from 'react-native-modal';
+import ModalButton from "../components/ModalButton";
 
 //import Modal from "react-native-modal";
 
@@ -18,25 +21,20 @@ const BottomButton_2 = (props) => {
     );
 };
 
+
+
 const CardTemplate_modal = (props) => {   
     // props; 
-    // (default) cardview, buttonname, toWhere, navigation, isFullcard
-    // (if isFullcard is false) detailtxt, card_flex (detail부분이 1), card_padding
+    // (default) cardview, buttonname, toWhere, navigation
+    // detailtxt, card_flex (detail부분이 1), card_padding
 
-    return props.isFullcard? 
-    (
-        <View style={{...CommonStyles.body, width: "100%"}}>
-            <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
-                <Card style={{width:"95%", marginBottom: 15}}>
-                    {props.cardview}
-                </Card>
-            </View>
-            <View style={{ ...CommonStyles.body__end, width: "100%" }}>
-                <BottomButton_2 name={props.buttonname} onPress={() => props.navigation.navigate(props.toWhere)}/>
-            </View>
-        </View>
-    ):
-    (
+    const [isModalVisible, setModalVisible] = useState(false);
+    
+    const toggleModal = () => {
+      setModalVisible(!isModalVisible);
+    };
+
+    return(
         <View style={{...CommonStyles.body, width: "100%"}}>
         <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
             <View style={{...CommonStyles.body, width: "100%"}}>
