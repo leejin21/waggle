@@ -26,31 +26,31 @@ const Circle_uncheck = () => {
     );
 }
 
-class Menu extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            selected: false
-        }
-        this.handleClick = this.handleClick.bind(this); //bind 왜하는진 모르겠지만 일단 따라함;
+const Menu = (props) => {
+
+    const [selected, setSelected] = useState(false);
+
+    const handleClick = () => {
+        props.id >= 100 ? id = props.id-100 : id = props.id;
+
+        selected?
+        setSelected(false)
+        :
+        setSelected(true);
+
+        props.clickMenu(id, selected);
+        Alert.alert('selected?', selected.toString());
     }
+
+    return(
+        <TouchableOpacity onPress={() => handleClick()} style={{width: circle_size + padding_size, height: circle_size + padding_size ,justifyContent:"flex-start", alignItems:"flex-start"}}>
+            {selected? <Circle_check/>:<Circle_uncheck/>}
+            <View>
+                <Text style={CommonStyles.small_text}>{props.name}{"\n"}{props.cost}</Text>
+            </View>
+        </TouchableOpacity>
+    );
     
-    handleClick = (state) => {
-        this.setState({selected: state.selected? false:true});
-        props.clickMenu(props.id, state.selected);
-
-    }
-
-    render(){
-        return(
-            <TouchableOpacity onPress={() => this.handleClick(this.state)} style={{width: circle_size + padding_size, height: circle_size + padding_size ,justifyContent:"flex-start", alignItems:"flex-start"}}>
-                {this.state.selected? <Circle_check/>:<Circle_uncheck/>}
-                <View>
-                    <Text style={CommonStyles.small_text}>{this.props.name}{"\n"}{this.props.cost}</Text>
-                </View>
-            </TouchableOpacity>
-        );
-    }
 };
 
 const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
@@ -109,7 +109,6 @@ const BasketScreen = (props) => {
         {id: 100, name: "사이다", price: 2000},
         {id: 101, name: "라면", price: 3000}
     ]
-    const ex = {name: "이름", price: 0};
 
     return(
         <NoCardTemplate
