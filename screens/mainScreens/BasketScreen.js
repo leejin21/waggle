@@ -38,6 +38,7 @@ class Menu extends Component {
     handleClick = (state) => {
         this.setState({selected: state.selected? false:true});
         Alert.alert('is selected?', "! "+state.selected.toString());
+
     }
 
     render(){
@@ -60,7 +61,7 @@ const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
                     <Text style={{...CommonStyles.bold_text, fontSize: 25, color: "white"}}>메인 메뉴</Text>
                 </View>
                 <View style={{...styles.menu_view, flex: 7, paddingHorizontal: 0}}>
-                    {main_menu.map((item) => {return <Menu name={item.name} cost={item.price} clickMain={clickMain}/>})}
+                    {main_menu.map((item) => {return <Menu name={item.name} cost={item.price} clickMenu={clickMain}/>})}
                 </View>
             </View>
             <View style={{flex: 4, width: "100%", alignItems: "center"}}>
@@ -70,7 +71,7 @@ const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
                         <Text style={{...CommonStyles.bold_text, fontSize: 25, color: "white"}}>사이드 메뉴</Text>
                     </View>
                     <View style={{...styles.menu_view, flex:2.2}}>
-                        {side_menu.map((item) => {return <Menu name={item.name} cost={item.price} clickSide={clickSide}/>})}
+                        {side_menu.map((item) => {return <Menu name={item.name} cost={item.price} clickMenu={clickSide}/>})}
                     </View>
                 </Card>
             </View>
