@@ -1,7 +1,7 @@
 // nocardtemplate 적용하기
 
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
@@ -22,7 +22,9 @@ const Menu = ({menu_name, menu_price}) => {
     );
 };
 
-const OrderView = ({route}) => {
+const OrderView = ({route}) => { 
+    //mainArray, sideArray 
+    //[{id, name, price}]
     return (
     <View style={{width: "100%", height: "100%", paddingHorizontal: 30, alignItems: "center"}}>
 

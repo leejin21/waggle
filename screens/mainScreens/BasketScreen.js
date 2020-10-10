@@ -119,9 +119,6 @@ const BasketScreen = (props) => {
         navigation={props.navigation}
         toWhere={"Order"}
         data={{mainArray: mainArray, sideArray: sideArray}} 
-        // data;
-        // array 만들어서 주면 될듯 (stampcoupon scr 참고)
-        // 그러면 이제 문제는 state (selected) 를 어떻게 다룰지...
         isHeaderBlack={false}
         />
     );
