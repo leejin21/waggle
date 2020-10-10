@@ -52,7 +52,7 @@ class Menu extends Component {
     }
 };
 
-const BasketView = ({main_menu, side_menu}) => {
+const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
     return(
         <View style={{width:"100%", height: "100%", alignItems: "center"}}>
             <View style={{flex: 5, width: "85%", paddingHorizontal: 0}}>
@@ -112,7 +112,7 @@ const BasketScreen = (props) => {
 
     return(
         <NoCardTemplate
-        bodyview={<BasketView main_menu={main_menu} side_menu={side_menu}/>}
+        bodyview={<BasketView main_menu={main_menu} side_menu={side_menu} clickMain={clickMain} clickSide={clickSide}/>}
         needButton={true}
         buttonname={"메뉴담기"}
         navigation={props.navigation}
