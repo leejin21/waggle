@@ -25,6 +25,9 @@ const Menu = ({menu_name, menu_price}) => {
 const OrderView = ({route}) => { 
     //mainArray, sideArray 
     //[{id, name, price}]
+    const mainArray = route.params.mainArray;
+    const sideArray = route.params.sideArray;
+
     return (
     <View style={styles.view1}>
         <View style={styles.view2_1}>
@@ -33,7 +36,7 @@ const OrderView = ({route}) => {
     <Text style={CommonStyles.bold_text, styles.txt1}> 메인 메뉴</Text>
                 </View>
                 <View style={styles.menu_view, styles.view4_2}>
-                    <Menu menu_name={route.params.name[1]} menu_price={route.params.price}/>
+                    {mainArray.map((item) => {return <Menu menu_name={item.name} menu_price={item.price}/>})}
                 </View>
             </View>
             <View style={styles.view3_2}>
@@ -41,7 +44,7 @@ const OrderView = ({route}) => {
                     <Text style={styles.txt1}>+ 사이드 메뉴</Text>
                 </View>
                 <View style={styles.menu_view, styles.view4_4}>
-                    <Menu menu_name={route.params.side_name} menu_price={route.params.side_price}/>  
+                    {sideArray.map((item) => {return <Menu menu_name={item.name} menu_price={item.price}/>})}
                 </View>
             </View>   
         </View>
