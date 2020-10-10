@@ -26,33 +26,31 @@ const OrderView = ({route}) => {
     //mainArray, sideArray 
     //[{id, name, price}]
     return (
-    <View style={{width: "100%", height: "100%", paddingHorizontal: 30, alignItems: "center"}}>
-
-        <View style={{width: "93%", height: "100%", flex:2.3}}>
-            <View style={{width: "100%", height: "100%", flex:1, }}>
-                <View style={{...styles.title_view, width: "100%", height: "100%", flex:1, borderTopColor:"white", borderTopWidth:1, alignItems:"flex-start"}}>
-    <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 25}]}> 메인 메뉴{route.params.menu}</Text>
+    <View style={styles.view1}>
+        <View style={styles.view2_1}>
+            <View style={styles.view3_1}>
+                <View style={styles.title_view, styles.view4_1}>
+    <Text style={CommonStyles.bold_text, styles.txt1}> 메인 메뉴</Text>
                 </View>
-                <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3, paddingBottom:10}}>
+                <View style={styles.menu_view, styles.view4_2}>
                     <Menu menu_name={route.params.name[1]} menu_price={route.params.price}/>
                 </View>
             </View>
-            <View style={{width: "90%", height: "100%", flex:1, justifyContent:"flex-start", alignItems:"flex-start"}}>
-                <View style={{...styles.title_view, width: "100%", height: "100%", flex:1, alignItems:"flex-start"}}>
-                    <Text style={[CommonStyles.bold_text, {color: "white", fontSize: 25}]}>+ 사이드 메뉴</Text>
+            <View style={styles.view3_2}>
+                <View style={styles.title_view, styles.view4_3}>
+                    <Text style={styles.txt1}>+ 사이드 메뉴</Text>
                 </View>
-                <View style={{...styles.menu_view, width: "100%", height: "100%", flex:3, paddingBottom:10}}>
+                <View style={styles.menu_view, styles.view4_4}>
                     <Menu menu_name={route.params.side_name} menu_price={route.params.side_price}/>  
                 </View>
             </View>   
         </View>
 
-        <View style={{width: "93%", height: "100%", flex:1}}>
-        <View style={{...styles.title_view, width: "100%", height: "100%", justifyContent: "flex-start", alignItems:"flex-start", borderTopColor:"white", borderTopWidth:1, paddingTop: 10}}>
-            <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow, fontSize: 44}]}> = 총합 </Text>
-            <Text style={{...CommonStyles.small_text, fontSize: 13}}>  (메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
-        </View>
-
+        <View style={styles.view2_2}>
+            <View style={styles.title_view, styles.view3_3}>
+                <Text style={CommonStyles.bold_text, styles.txt2}> = 총합 </Text>
+                <Text style={CommonStyles.small_text, styles.txt3}>  (메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
+            </View>
         </View>
 
     </View>
@@ -74,6 +72,21 @@ const OrderScreen = (props) => {
 }
 
 const styles = StyleSheet.create({
+    view1: {width: "100%", height: "100%", paddingHorizontal: 30, alignItems: "center"},
+    view2_1: {width: "93%", height: "100%", flex:2.3},
+    view3_1: {width: "100%", height: "100%", flex:1, },
+    view3_2: {width: "90%", height: "100%", flex:1, justifyContent:"flex-start", alignItems:"flex-start"},
+    view4_1: {width: "100%", height: "100%", flex:1, borderTopColor:"white", borderTopWidth:1, alignItems:"flex-start"},
+    view4_2: {width: "100%", height: "100%", flex:3, paddingBottom:10},
+    view4_3: {width: "100%", height: "100%", flex:1, alignItems:"flex-start"},
+    view4_4: {width: "100%", height: "100%", flex:3, paddingBottom:10},
+    view2_2: {width: "93%", height: "100%", flex:1},
+    view3_3: {width: "100%", height: "100%", justifyContent: "flex-start", alignItems:"flex-start", borderTopColor:"white", borderTopWidth:1, paddingTop: 10},
+    txt1: {color: "white", fontSize: 25},
+    txt2: {color: Colors.deep_yellow, fontSize: 44},
+    txt3: {fontSize: 13},
+
+
     mid: {
         flex: 1,
         justifyContent: "center",
