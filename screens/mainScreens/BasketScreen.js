@@ -39,7 +39,6 @@ const Menu = (props) => {
         setSelected(true);
 
         props.clickMenu(id, selected);
-        Alert.alert('selected?', selected.toString());
     }
 
     return(
@@ -92,8 +91,10 @@ const BasketScreen = (props) => {
         setMainArray(mainArray.concat([main_menu[id]]))
     }
     const clickSide = (id, selected) => {
+        const rid = id+100;
+
         selected?
-        setSideArray(sideArray.filter(menu => menu.id !== id))
+        setSideArray(sideArray.filter(menu => menu.id !== rid))
         :
         setSideArray(sideArray.concat([side_menu[id]]))
     }
