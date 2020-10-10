@@ -81,6 +81,22 @@ const BasketView = ({main_menu, side_menu}) => {
 const BasketScreen = (props) => {
     props.navigation.setOptions({title: props.route.params.title});
 
+    const [mainArray, setMainArray] = useState([]);
+    const [sideArray, setSideArray] = useState([]);   
+
+    const clickMain = (id, selected) => { // selected 바꾸기 전에 전해줌 = 클릭 이전에 selected였는지
+        selected?
+        setMainArray(mainArray.filter(menu => menu.id !== id))
+        :
+        setMainArray(mainArray.concat([main_menu[id]]))
+    }
+    const clickSide = (id, selected) => {
+        selected?
+        setSideArray(sideArray.filter(menu => menu.id !== id))
+        :
+        setSideArray(sideArray.concat([side_menu[id]]))
+    }
+
     const main_menu = [
         {id: 0, name: "된장찌개", price: 5500},
         {id: 1, name: "김치찌개", price: 6000},
