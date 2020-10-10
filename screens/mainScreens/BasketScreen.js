@@ -82,15 +82,15 @@ const BasketScreen = (props) => {
     props.navigation.setOptions({title: props.route.params.title});
 
     const main_menu = [
-        {name: "된장찌개", price: 5500},
-        {name: "김치찌개", price: 6000},
-        {name: "청국장", price: 7000},
+        {id: 0, name: "된장찌개", price: 5500},
+        {id: 1, name: "김치찌개", price: 6000},
+        {id: 2, name: "청국장", price: 7000},
         // 3개 넘는 시점부터 아래로 내리기
         // {name: "갈비탕", price: 8000}
     ]
     const side_menu = [
-        {name: "사이다", price: 2000},
-        {name: "라면", price: 3000}
+        {id: 100, name: "사이다", price: 2000},
+        {id: 101, name: "라면", price: 3000}
     ]
     const ex = {name: "이름", price: 0};
 
