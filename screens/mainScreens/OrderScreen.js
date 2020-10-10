@@ -1,6 +1,6 @@
 // nocardtemplate 적용하기
 
-import React from "react";
+import React, {useState} from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import Colors from "../../constants/Colors";
@@ -28,31 +28,40 @@ const OrderView = ({route}) => {
     const mainArray = route.params.mainArray;
     const sideArray = route.params.sideArray;
 
+    const [totalCost, addCost] = useState(0);
+
+    const getTotalCost = () => {
+        mainArray.map((item) => {addCost(totalCost+item.price)});
+        sideArray.map((item) => {addCost(totalCost+item.price)});
+
+        return totalCost;
+    }
+
     return (
     <View style={styles.view1}>
         <View style={styles.view2_1}>
             <View style={styles.view3_1}>
-                <View style={styles.title_view, styles.view4_1}>
-    <Text style={CommonStyles.bold_text, styles.txt1}> 메인 메뉴</Text>
+                <View style={[styles.title_view, styles.view4_1]}>
+    <Text style={[CommonStyles.bold_text, styles.txt1]}> 메인 메뉴</Text>
                 </View>
-                <View style={styles.menu_view, styles.view4_2}>
+                <View style={[styles.menu_view, styles.view4_2]}>
                     {mainArray.map((item) => {return <Menu menu_name={item.name} menu_price={item.price}/>})}
                 </View>
             </View>
             <View style={styles.view3_2}>
-                <View style={styles.title_view, styles.view4_3}>
-                    <Text style={styles.txt1}>+ 사이드 메뉴</Text>
+                <View style={[styles.title_view, styles.view4_3]}>
+                    <Text style={[CommonStyles.bold_text, styles.txt1]}>+ 사이드 메뉴</Text>
                 </View>
-                <View style={styles.menu_view, styles.view4_4}>
+                <View style={[styles.menu_view, styles.view4_4]}>
                     {sideArray.map((item) => {return <Menu menu_name={item.name} menu_price={item.price}/>})}
                 </View>
             </View>   
         </View>
 
         <View style={styles.view2_2}>
-            <View style={styles.title_view, styles.view3_3}>
-                <Text style={CommonStyles.bold_text, styles.txt2}> = 총합 </Text>
-                <Text style={CommonStyles.small_text, styles.txt3}>  (메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
+            <View style={[styles.title_view, styles.view3_3]}>
+                <Text style={[CommonStyles.bold_text, styles.txt2]}> = 총합 {}</Text>
+                <Text style={[CommonStyles.small_text, styles.txt3]}>  (메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
             </View>
         </View>
 
