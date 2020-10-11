@@ -2,7 +2,7 @@
 //stampcouponscr용
 
 import React, {useState} from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, ImageBackground } from "react-native";
 
 import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";
@@ -12,7 +12,7 @@ import BottomButton from "../components/BottomButton";
 import Modal from 'react-native-modal';
 import ModalButton from "../components/ModalButton";
 
-//import Modal from "react-native-modal";
+const image = {uri: "../../assets/images/backimg.jpg"};
 
 const BottomButton_2 = (props) => {
     return(
