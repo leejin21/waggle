@@ -12,8 +12,6 @@ import BottomButton from "../components/BottomButton";
 import Modal from 'react-native-modal';
 import ModalButton from "../components/ModalButton";
 
-const image = {uri: "../../assets/images/backimg.jpg"};
-
 const BottomButton_2 = (props) => {
     return(
         <BottomButton active={true} onPress={props.onPress}>
@@ -47,7 +45,9 @@ const CardTemplate_modal = (props) => {
             </View>
             <View style={{ ...CommonStyles.body__middle, width: "100%", flex: props.card_flex }}>
                 <Card style={{width:"95%", marginBottom: 15, marginTop: 0, padding: props.card_padding}}>
-                    {props.cardview}
+                    <ImageBackground source={require('../assets/images/backimg.jpg')} style={styles.image}>
+                        {props.cardview}
+                    </ImageBackground>
                 </Card>
             </View>
         </View>
@@ -85,6 +85,14 @@ const CardTemplate_modal = (props) => {
 export default CardTemplate_modal;
 
 const styles = StyleSheet.create({
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+        width: "100%",
+        height: "100%"
+    },
+
     title__view: {
         width: "90%", 
         height: "100%", 
