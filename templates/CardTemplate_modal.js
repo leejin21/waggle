@@ -24,7 +24,7 @@ const BottomButton_2 = (props) => {
 
 const CardTemplate_modal = (props) => {   
     // props; 
-    // (default) cardview, buttonname, toWhere, navigation
+    // (default) cardview, buttonname, toWhere, navigation, modal_title
     // detailtxt, card_flex (detail부분이 1), card_padding
 
     const [isModalVisible, setModalVisible] = useState(false);
@@ -34,6 +34,7 @@ const CardTemplate_modal = (props) => {
     };
 
     const navi = props.navigation; 
+    const title = props.modal_title;
 
     return(
         <View style={{...CommonStyles.body, width: "100%"}}>
@@ -64,7 +65,7 @@ const CardTemplate_modal = (props) => {
                     </View>
                     <View style={styles.body__view}>
                         <View style={styles.body_title__view}>
-                            <Text style={styles.body_title__txt}>ABC 레스토랑 - A메뉴</Text>
+                            <Text style={styles.body_title__txt}>{title} - A메뉴</Text>
                         </View>
                         <View style={styles.body_exp__view}>
                             <Text style={styles.body_exp__txt}>[마이페이지] - [쿠폰함]에 지급되었어요!{"\n"}스탬프 완료쿠폰은 재지급이 불가합니다.</Text>
