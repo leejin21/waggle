@@ -52,16 +52,16 @@ const StampView = ({fullstampNum, laststampNum}) => {
 
     return(
         <View style={{...styles.view_out, zIndex: 0}}> 
-            <View style={{...styles.view_in, zIndex: 2}}>
+            <View style={{...styles.view_in_odd, zIndex: 2}}>
                 {[arr[0], arr[1], arr[2]].map((n) => {return <Circle num={n}/>})}
             </View>
-            <View style={{...styles.view_in, zIndex: 2}}>
+            <View style={{...styles.view_in_even, zIndex: 2}}>
                 {[arr[3], arr[4], arr[5]].map((n) => {return <Circle num={n}/>})}
             </View>
-            <View style={{...styles.view_in, zIndex: 2}}>
+            <View style={{...styles.view_in_odd, zIndex: 2}}>
                 {[arr[6], arr[7], arr[8]].map((n) => {return <Circle num={n}/>})}
             </View>
-            <View style={{...styles.view_in, zIndex: 2}}>
+            <View style={{...styles.view_in_even, zIndex: 2}}>
                 {[arr[9], arr[10], arr[11]].map((n) => {return <Circle num={n}/>})}
             </View>
         </View>
@@ -93,6 +93,7 @@ const StamptoCouponScreen = (props) => {
         detailtxt={"리뷰 작성 시마다 스탬프 1개 적립!\n10개 적립시 A메뉴 무료시식권 증정"}
         card_flex={9}
         card_padding={10}
+        modal_title={props.route.params.title}
         />
     );
 }
@@ -106,11 +107,19 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         paddingTop: 15,
     },
-    view_in: {
+    view_in_odd: {
         flex: 1,
         width: "100%", 
         height: "100%",
         flexDirection: "row",
+        justifyContent: "space-around",
+        
+    },
+    view_in_even: {
+        flex: 1,
+        width: "100%", 
+        height: "100%",
+        flexDirection: "row-reverse",
         justifyContent: "space-around",
     },
 

@@ -2,7 +2,7 @@
 //stampcouponscr용
 
 import React, {useState} from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, ImageBackground } from "react-native";
 
 import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";
@@ -11,8 +11,6 @@ import BottomButton from "../components/BottomButton";
 
 import Modal from 'react-native-modal';
 import ModalButton from "../components/ModalButton";
-
-//import Modal from "react-native-modal";
 
 const BottomButton_2 = (props) => {
     return(
@@ -26,7 +24,7 @@ const BottomButton_2 = (props) => {
 
 const CardTemplate_modal = (props) => {   
     // props; 
-    // (default) cardview, buttonname, toWhere, navigation
+    // (default) cardview, buttonname, toWhere, navigation, modal_title
     // detailtxt, card_flex (detail부분이 1), card_padding
 
     const [isModalVisible, setModalVisible] = useState(false);
@@ -36,6 +34,7 @@ const CardTemplate_modal = (props) => {
     };
 
     const navi = props.navigation; 
+    const title = props.modal_title;
 
     return(
         <View style={{...CommonStyles.body, width: "100%"}}>
@@ -47,7 +46,9 @@ const CardTemplate_modal = (props) => {
             </View>
             <View style={{ ...CommonStyles.body__middle, width: "100%", flex: props.card_flex }}>
                 <Card style={{width:"95%", marginBottom: 15, marginTop: 0, padding: props.card_padding}}>
-                    {props.cardview}
+                    <ImageBackground source={require('../assets/images/backimg.jpg')} style={styles.image}>
+                        {props.cardview}
+                    </ImageBackground>
                 </Card>
             </View>
         </View>
@@ -64,7 +65,7 @@ const CardTemplate_modal = (props) => {
                     </View>
                     <View style={styles.body__view}>
                         <View style={styles.body_title__view}>
-                            <Text style={styles.body_title__txt}>ABC 레스토랑 - A메뉴</Text>
+                            <Text style={styles.body_title__txt}>{title} - A메뉴</Text>
                         </View>
                         <View style={styles.body_exp__view}>
                             <Text style={styles.body_exp__txt}>[마이페이지] - [쿠폰함]에 지급되었어요!{"\n"}스탬프 완료쿠폰은 재지급이 불가합니다.</Text>
@@ -85,6 +86,14 @@ const CardTemplate_modal = (props) => {
 export default CardTemplate_modal;
 
 const styles = StyleSheet.create({
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+        width: "100%",
+        height: "100%"
+    },
+
     title__view: {
         width: "90%", 
         height: "100%", 
