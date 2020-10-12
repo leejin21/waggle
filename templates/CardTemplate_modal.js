@@ -46,7 +46,7 @@ const CardTemplate_modal = (props) => {
             </View>
             <View style={{ ...CommonStyles.body__middle, width: "100%", flex: props.card_flex }}>
                 <Card style={{width:"95%", marginBottom: 15, marginTop: 0, padding: props.card_padding}}>
-                    <ImageBackground source={require('../assets/images/backimg.jpg')} style={styles.image}>
+                    <ImageBackground source={require('../assets/images/backimg.png')} style={styles.image}>
                         {props.cardview}
                     </ImageBackground>
                 </Card>
