@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
@@ -9,7 +9,8 @@ import CardTemplate from "../../templates/CardTemplate";
 
 const InquiryView = () => {
     return(
-        <View></View>
+        <View>
+        </View>
     );
 }
 
@@ -39,7 +40,6 @@ const InquiryScreen = (props) => {
 }
 
 const styles = StyleSheet.create({
-
 });
 
 export default InquiryScreen;

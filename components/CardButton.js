@@ -1,5 +1,6 @@
 // USE:: settings screens: stampboxscreen
 
+
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
@@ -14,7 +15,7 @@ const CardButton = (props) => {
     // card -> touchablehighlight
     // collected, all -> stringify
     return (
-        <TouchableOpacity onPress={() => props.navigation.navigate("StampCoupon", {title: props.name})}>
+        <TouchableOpacity onPress={() => props.navigation.navigate("StampCoupon", {title: props.name, fullstampNum: props.all, laststampNum: props.collected})}>
             <Card style={styles.card}> 
                 <View style={styles.card__title}>
                     <Text style={styles.card__title__txt}>{props.name}</Text>

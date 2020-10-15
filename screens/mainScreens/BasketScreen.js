@@ -12,7 +12,7 @@ import CheckCircle from "../../components/CheckCircle";
 import NoCardTemplate from "../../templates/NoCardTemplate";
 
 const circle_size = 93;
-const padding_size = 40;
+const padding_size = 34;
 
 // check가 되면 왜 왼쪽으로 가냐
 const Circle_check = () => {
@@ -26,51 +26,51 @@ const Circle_uncheck = () => {
     );
 }
 
-class Menu extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            selected: false
-        }
-        this.handleClick = this.handleClick.bind(this); //bind 왜하는진 모르겠지만 일단 따라함;
-    }
-    
-    handleClick = (state) => {
-        this.setState({selected: state.selected? false:true});
-        Alert.alert('is selected?', "! "+state.selected.toString());
+const Menu = (props) => {
+
+    const [selected, setSelected] = useState(false);
+
+    const handleClick = () => {
+        props.id >= 100 ? id = props.id-100 : id = props.id;
+
+        selected?
+        setSelected(false)
+        :
+        setSelected(true);
+
+        props.clickMenu(id, selected);
     }
 
-    render(){
-        return(
-            <TouchableOpacity onPress={() => this.handleClick(this.state)} style={{width: circle_size + padding_size, justifyContent:"flex-start", alignItems:"flex-start"}}>
-                {this.state.selected? <Circle_check/>:<Circle_uncheck/>}
-                <Text style={CommonStyles.small_text}>{this.props.name}: {this.props.cost}</Text>
-            </TouchableOpacity>
-        );
-    }
+    return(
+        <TouchableOpacity onPress={() => handleClick()} style={{width: circle_size + padding_size, height: circle_size + padding_size ,justifyContent:"flex-start", alignItems:"flex-start"}}>
+            {selected? <Circle_check/>:<Circle_uncheck/>}
+            <View>
+                <Text style={CommonStyles.small_text}>{props.name}{"\n"}{props.cost}</Text>
+            </View>
+        </TouchableOpacity>
+    );
+    
 };
 
-const BasketView = (props) => {
+const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
     return(
-        <View style={{width:"100%", height: "100%"}}>
-            <View style={{flex: 5, width: "100%", paddingHorizontal: 20}}>
+        <View style={{width:"100%", height: "100%", alignItems: "center"}}>
+            <View style={{flex: 5, width: "85%", paddingHorizontal: 0}}>
                 <View style={{...styles.title_view, flex: 1}}>
-                    <Text style={[CommonStyles.bold_text, {color: "white"}]}>메인 메뉴</Text>
+                    <Text style={{...CommonStyles.bold_text, fontSize: 25, color: "white"}}>메인 메뉴</Text>
                 </View>
-                <View style={{...styles.menu_view, flex: 7}}>
-                    <Menu name="된장찌개" cost={5500}/>
-                    <Menu name="김치찌개" cost={6000}/>
+                <View style={{...styles.menu_view, flex: 7, paddingHorizontal: 0}}>
+                    {main_menu.map((item) => {return <Menu id={item.id} name={item.name} cost={item.price} clickMenu={clickMain}/>})}
                 </View>
             </View>
-            <View style={{flex: 4, width: "100%"}}>
-                <Card style={{width: "94%", height: "100%", marginTop: 0, padding: 10, marginBottom: 20, marginHorizontal: 13}}>
+            <View style={{flex: 4, width: "100%", alignItems: "center"}}>
+                <Card style={{width: "90%", height: "100%", marginTop: 0, padding: 17, marginBottom: 20}}>
                     <View style={{...styles.title_view, flex:1}}>
-                        <Text style={[CommonStyles.bold_text, {color: Colors.deep_yellow}]}>오직 와글에서만 무료!</Text>
-                        <Text style={[CommonStyles.bold_text, {color: "white"}]}>사이드 메뉴</Text>
+                        <Text style={{...CommonStyles.bold_text, fontSize: 25, color: Colors.deep_yellow}}>오직 와글에서만 무료!</Text>
+                        <Text style={{...CommonStyles.bold_text, fontSize: 25, color: "white"}}>사이드 메뉴</Text>
                     </View>
                     <View style={{...styles.menu_view, flex:2.2}}>
-
-                        <Menu name="사이다" cost={2000}/>
+                        {side_menu.map((item) => {return <Menu id={item.id} name={item.name} cost={item.price} clickMenu={clickSide}/>})}
                     </View>
                 </Card>
             </View>
@@ -81,33 +81,44 @@ const BasketView = (props) => {
 const BasketScreen = (props) => {
     props.navigation.setOptions({title: props.route.params.title});
 
-    const menu = 
-    {  
-        main_name: 
-        ['된장찌개', 
-        '김치찌개'], 
-        
-        main_price: 
-        [5500, 
-        6000], 
-        
-        side_name: 
-        ['사이다', 
-        '라면'], 
-        
-        side_price: 
-        [2000, 
-        3000]
-    };
+    const [mainArray, setMainArray] = useState([]);
+    const [sideArray, setSideArray] = useState([]);   
+
+    const clickMain = (id, selected) => { // selected 바꾸기 전에 전해줌 = 클릭 이전에 selected였는지
+        selected?
+        setMainArray(mainArray.filter(menu => menu.id !== id))
+        :
+        setMainArray(mainArray.concat([main_menu[id]]))
+    }
+    const clickSide = (id, selected) => {
+        const rid = id+100;
+
+        selected?
+        setSideArray(sideArray.filter(menu => menu.id !== rid))
+        :
+        setSideArray(sideArray.concat([side_menu[id]]))
+    }
+
+    const main_menu = [
+        {id: 0, name: "된장찌개", price: 5500},
+        {id: 1, name: "김치찌개", price: 6000},
+        {id: 2, name: "청국장", price: 7000},
+        // 3개 넘는 시점부터 아래로 내리기
+        // {name: "갈비탕", price: 8000}
+    ]
+    const side_menu = [
+        {id: 100, name: "사이다", price: 2000},
+        {id: 101, name: "라면", price: 3000}
+    ]
 
     return(
         <NoCardTemplate
-        bodyview={<BasketView/>}
+        bodyview={<BasketView main_menu={main_menu} side_menu={side_menu} clickMain={clickMain} clickSide={clickSide}/>}
         needButton={true}
         buttonname={"메뉴담기"}
         navigation={props.navigation}
         toWhere={"Order"}
-        data={menu}
+        data={{mainArray: mainArray, sideArray: sideArray}} 
         isHeaderBlack={false}
         />
     );

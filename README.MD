@@ -25,6 +25,10 @@ expo install @react-native-community/async-storage
 # 20.09.29 추가
 expo install expo-av
 npm audit fix
+
+# 20.09.26 추가
+npm i react-native-modal
+
 ```
 
 ## Issues

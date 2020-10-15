@@ -17,7 +17,7 @@ const StampboxView = (props) => {
     const navi = props.navigation; //?
 
     const renderItem = ({item}) => (
-        <CardButton name={item.name} collected={item.collected} all={item.all} navigation={navi}/>
+        <CardButton name={item.name} fullstampNum={item.all} laststampNum={item.collected} collected={item.collected} all={item.all} navigation={navi}/>
     );
 
     return(
