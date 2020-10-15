@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
-import { RotationGestureHandler, TouchableOpacity } from "react-native-gesture-handler";
+import { View, Text, Button, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { Video } from "expo-av";
 
 import Colors from "../../constants/Colors";
 import { headerOptions } from "../../constants/Options";
@@ -11,6 +11,7 @@ import BottomButton from "../../components/BottomButton";
 import CommonStyles from "../../constants/CommonStyles";
 
 const ICON_SIZE = 24;
+const SCREEN_WIDTH = Dimensions.get("window").width;
 
 const HeaderRight = (props) => {
     return (
@@ -46,10 +47,21 @@ const RestaurantVideoScreen = (props) => {
         <View style={styles.container}>
             <View style={styles.video__wrapper}>
                 {/* TODO video component: fetch from the server */}
-                <Text style={{ color: "white" }}>VIDEO PART</Text>
+                {/* FIXME IOS: not working, need to eject */}
+                <Video
+                    source={{ uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" }}
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={false}
+                    shouldPlay={false}
+                    resizeMode="cover"
+                    isLooping={false}
+                    useNativeControls
+                    style={{ width: SCREEN_WIDTH, height: 300 }}
+                ></Video>
             </View>
             <View style={styles.button__wrapper}>
-                <BottomButton active={true} onPress={() => props.navigation.navigate("Basket", {title: props.route.params.title})}>
+                <BottomButton active={true} onPress={() => props.navigation.navigate("Basket", { title: props.route.params.title })}>
                     <Text style={CommonStyles.bold_text}>메뉴 선택</Text>
                 </BottomButton>
             </View>
