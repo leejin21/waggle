@@ -10,8 +10,12 @@ import { Feather } from "@expo/vector-icons";
 import BottomButton from "../../components/BottomButton";
 import CommonStyles from "../../constants/CommonStyles";
 
-const ICON_SIZE = 24;
-const SCREEN_WIDTH = Dimensions.get("window").width;
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
+
+const ICON_SIZE = font*2.4;
 
 const HeaderRight = () => {
     return (
@@ -57,7 +61,7 @@ const RestaurantVideoScreen = (props) => {
                     resizeMode="cover"
                     isLooping={false}
                     useNativeControls
-                    style={{ width: SCREEN_WIDTH, height: 300 }}
+                    style={{ width: windowWidth, height: 300 }}
                 ></Video>
             </View>
             <View style={styles.button__wrapper}>
@@ -90,13 +94,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        marginRight: 5,
+        marginRight: pad*0.5,
     },
     heart_icon: {
-        margin: 5,
+        margin: pad*0.5,
     },
     more_icon: {
-        margin: 5,
+        margin: pad*0.5,
         borderRadius: ICON_SIZE * 2,
     },
 });

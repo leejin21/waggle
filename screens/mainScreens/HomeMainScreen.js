@@ -8,7 +8,9 @@ import ListPhoto from "../../components/ListPhoto";
 
 import CommonStyles from "../../constants/CommonStyles";
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
 
 const imageDatas = [
     { name: "ABC레스토랑", heart_filled: true, photo: require("../../assets/images/thumbnails/bibimbap.jpg") },
@@ -20,7 +22,7 @@ const imageDatas = [
 const HomeMainScreen = (props) => {
     props.navigation.setOptions({
         ...logoHeaderOptions,
-        headerRight: () => <ProfileLogo touchable={true} navigation={props.navigation} style={{ marginRight: 12 }}></ProfileLogo>,
+        headerRight: () => <ProfileLogo touchable={true} navigation={props.navigation} style={{ marginRight: pad*1.2 }}></ProfileLogo>,
     });
 
     return (
@@ -30,7 +32,7 @@ const HomeMainScreen = (props) => {
                 numColumns={2}
                 data={imageDatas}
                 renderItem={({ item }) => {
-                    return <ListPhoto ITEM_WIDTH={SCREEN_WIDTH / 2} item={item.photo} navigation={props.navigation} rest_name={item.name} heart_filled={item.heart_filled} />;
+                    return <ListPhoto ITEM_WIDTH={windowWidth / 2} item={item.photo} navigation={props.navigation} rest_name={item.name} heart_filled={item.heart_filled} />;
                 }}
                 keyExtractor={(item, index) => index.toString()}
             ></FlatList>
@@ -41,7 +43,7 @@ const HomeMainScreen = (props) => {
 const styles = StyleSheet.create({
     body: {
         ...CommonStyles.body,
-        paddingHorizontal: 10,
+        paddingHorizontal: pad,
         flexDirection: "column",
         alignItems: "center",
     },

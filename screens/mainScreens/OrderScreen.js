@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
@@ -7,8 +7,13 @@ import CheckCircle from "../../components/CheckCircle";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
 
-const circle_size = 93;
-const margin_size = 20;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
+
+const circle_size = font*9.1;
+const margin_size = pad*2;
+
 // 반복 생성
 const Menu = ({menu_name, menu_price, addCost}) => {
     addCost(menu_price);
@@ -81,19 +86,19 @@ const OrderScreen = (props) => {
 }
 
 const styles = StyleSheet.create({
-    view1: {width: "100%", height: "100%", paddingHorizontal: 30, alignItems: "center"},
+    view1: {width: "100%", height: "100%", paddingHorizontal: pad*3, alignItems: "center"},
     view2_1: {width: "93%", height: "100%", flex:2.3},
     view3_1: {width: "100%", height: "100%", flex:1, },
     view3_2: {width: "90%", height: "100%", flex:1, justifyContent:"flex-start", alignItems:"flex-start"},
     view4_1: {width: "100%", height: "100%", flex:1, borderTopColor:"white", borderTopWidth:1, alignItems:"flex-start"},
-    view4_2: {width: "100%", height: "100%", flex:3, paddingBottom:10},
+    view4_2: {width: "100%", height: "100%", flex:3, paddingBottom:pad},
     view4_3: {width: "100%", height: "100%", flex:1, alignItems:"flex-start"},
-    view4_4: {width: "100%", height: "100%", flex:3, paddingBottom:10},
+    view4_4: {width: "100%", height: "100%", flex:3, paddingBottom:pad},
     view2_2: {width: "93%", height: "100%", flex:1},
-    view3_3: {width: "100%", height: "100%", justifyContent: "flex-start", alignItems:"flex-start", borderTopColor:"white", borderTopWidth:1, paddingTop: 10},
-    txt1: {color: "white", fontSize: 25},
-    txt2: {color: Colors.deep_yellow, fontSize: 44},
-    txt3: {fontSize: 13},
+    view3_3: {width: "100%", height: "100%", justifyContent: "flex-start", alignItems:"flex-start", borderTopColor:"white", borderTopWidth:1, paddingTop: pad},
+    txt1: {color: "white", fontSize: font*2.5},
+    txt2: {color: Colors.deep_yellow, fontSize: font*4.4},
+    txt3: {fontSize: font*1.3},
 
 
     mid: {
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         justifyContent: "flex-start",
         width: "100%",
-        paddingHorizontal: 50
+        paddingHorizontal: pad*5
     },
     f2: {
         flex: 2,
@@ -117,7 +122,7 @@ const styles = StyleSheet.create({
 
     text: {
         color: "#fff",
-        fontSize: 20,
+        fontSize: font*2,
         fontWeight: "bold"
     },
 
