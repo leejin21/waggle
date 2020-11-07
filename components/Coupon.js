@@ -163,10 +163,10 @@ const Coupon = (props) => {
 const styles = StyleSheet.create({
     // Coupon comp의 styles
     card: {
-        width: "95%",
+        width: "100%",
         flex: 0,
-        marginVertical: pad*0.5,
-        padding: pad,
+        margin: pad*0.7,
+        padding: pad*2
     },
     card__title: {
         flexDirection: "row",
@@ -176,7 +176,6 @@ const styles = StyleSheet.create({
     card__title__txt: {
         ...CommonStyles.bold_text,
         fontSize: windowHeight / 28,
-        paddingTop: pad*2,
         color: Colors.deep_yellow,
         flex: 1,
         paddingLeft: pad*5,
@@ -204,11 +203,11 @@ const styles = StyleSheet.create({
         ...CommonStyles.grey_button,
         marginHorizontal: pad*2,
         marginVertical: pad*0.5,
-        height: 70,
+        height: windowHeight*0.07,
+        aspectRatio: 11 / 2,
         backgroundColor: Colors.black_grey,
         alignItems: "center",
         justifyContent: "center",
-        width: "90%",
         padding: pad,
     },
     card__button__txt: {

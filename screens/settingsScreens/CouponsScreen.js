@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
         ...CommonStyles.body,
         alignItems: "center",
         justifyContent: "flex-start",
+        width: "100%",
     },
     exp_text__wrapper: {
         alignItems: "center",
