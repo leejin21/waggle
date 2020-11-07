@@ -5,7 +5,7 @@ import Colors from "./Colors";
 // dimensions.windowHeight, dimensions.windowWidth  
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const pad = windowHeight / 90; //10
+const pad = windowHeight / 60;
 
 const DIAMETER = windowHeight / 14 ;
 
@@ -34,7 +34,7 @@ const CommonStyles = StyleSheet.create({
     grey_button: {
         backgroundColor: Colors.mid_grey,
         fontSize: windowHeight / 42,
-        width: windowWidth * 0.7,
+        width: windowWidth * 0.72,
         aspectRatio: 5 / 1,
         padding: pad,
         borderRadius: pad*3,
