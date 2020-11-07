@@ -2,12 +2,15 @@
 // from CardButton
 
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, Dimensions } from "react-native";
 
 import Colors from "../constants/Colors";
 
 import Card from "../components/Card";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
 
 const ModalButton = (props) => {
     // props: name, collected, all, navigation
@@ -28,17 +31,16 @@ const ModalButton = (props) => {
     );
 };
 const styles = StyleSheet.create({
-    // TODO 핸드폰 dimenstion size에 따라 달라질 수 있으므로 비율로 margin, padding 다 조정하기(b/c card__button)
     card: {
         backgroundColor: "#161616",
         marginHorizontal: 0,
-        borderRadius: 40,
+        borderRadius: pad*3,
 
         width: "100%",
         height: "100%",
         flex: 0,
         marginTop: 0,
-        padding: 10,
+        padding: pad,
         marginBottom: 0,
 
         alignItems: "center",
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
     },
     card__txt: {
         color: Colors.deep_yellow,
-        fontSize: 25,
+        fontSize: windowHeight / 33,
         fontFamily: "noto_bold",
     }
 });
