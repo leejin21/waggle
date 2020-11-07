@@ -6,10 +6,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";
-import { headerOptions } from "../constants/Options";
 
 import Card from "../components/Card";
-import { FlatList, TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 
 // TODO 화면 크기에 맞춰서 해당 width, height 등등을 조절
 const StampCoupon = (props) => {
@@ -26,7 +25,7 @@ const StampCoupon = (props) => {
                 <TouchableHighlight
                     style={{ width: props.ICON_SIZE, height: props.ICON_SIZE, borderRadius: props.ICON_SIZE }}
                     underlayColor={Colors.dark_pink}
-                    onPress={() => setRemoved((removed) => true)}
+                    onPress={() => setRemoved(() => true)}
                 >
                     <MaterialIcons name="cancel" size={props.ICON_SIZE} color={Colors.orange_pink} />
                 </TouchableHighlight>
@@ -39,7 +38,7 @@ const StampCoupon = (props) => {
             {usable ? (
                 // 사용 가능한 쿠폰
                 <View>
-                    <TouchableOpacity style={{ ...styles.card__button, backgroundColor: Colors.high_pink }} onPress={() => setUsable((usable) => false)}>
+                    <TouchableOpacity style={{ ...styles.card__button, backgroundColor: Colors.high_pink }} onPress={() => setUsable(() => false)}>
                         <Text style={{ ...styles.card__button__txt, color: "white" }}>무료증정권 사용하기</Text>
                         <Text style={{ ...styles.card__button__date, color: Colors.dark_grey }}>{"~ " + props.useDate}</Text>
                     </TouchableOpacity>

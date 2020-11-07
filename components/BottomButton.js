@@ -1,7 +1,7 @@
 // USE: all except for main:home main, settings:edit info
 
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import Colors from "../constants/Colors";
 
 const BottomButton = (props) => {

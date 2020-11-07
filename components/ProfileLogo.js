@@ -2,7 +2,7 @@
 //    :: settings screens: my page, edit info
 //    :: main screens: home main
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 import CommonStyles from "../constants/CommonStyles";

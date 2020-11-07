@@ -10,7 +10,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 const DIAMETER = 70;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-const Pick = (props) => {
+const Pick = () => {
     return (
         <View style={styles.pick__wrapper}>
             <Text style={styles.pick__text}>눈송</Text>

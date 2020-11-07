@@ -8,7 +8,7 @@ import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";
 
 import Card from "../components/Card";
-import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const CardButton = (props) => {
     // props: name, collected, all, navigation
