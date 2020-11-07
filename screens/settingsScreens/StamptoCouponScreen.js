@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList, Alert } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
-import CommonStyles from "../../constants/CommonStyles";
 import { headerOptions } from "../../constants/Options";
 import CheckCircle from "../../components/CheckCircle";
 

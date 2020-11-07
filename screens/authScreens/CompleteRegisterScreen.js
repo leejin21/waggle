@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 import { AuthContext } from "../../navigation/WaggleNavigator";
 
@@ -16,7 +16,7 @@ const LoginButton = (props) => {
     );
 };
 
-const CompleteRegisterScreen = (props) => {
+const CompleteRegisterScreen = () => {
     const { signIn } = useContext(AuthContext);
 
     return (

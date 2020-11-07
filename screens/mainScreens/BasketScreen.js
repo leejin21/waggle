@@ -1,7 +1,5 @@
-// nocardtemplate 적용하기
-
-import React, {Component, useState} from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import React, {useState} from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";

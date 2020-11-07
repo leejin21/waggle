@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Video } from "expo-av";
 
 import Colors from "../../constants/Colors";
@@ -13,7 +13,7 @@ import CommonStyles from "../../constants/CommonStyles";
 const ICON_SIZE = 24;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-const HeaderRight = (props) => {
+const HeaderRight = () => {
     return (
         <View style={styles.header__right}>
             <HeartIcon heart_filled={true} style={styles.heart_icon}></HeartIcon>

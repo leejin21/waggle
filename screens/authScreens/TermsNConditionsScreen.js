@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 import Colors from "../../constants/Colors";
@@ -11,7 +11,7 @@ const TermsNConditionsScreenops = (props) => {
     const [agreed, setAgreed] = useState(false);
 
     // Terms_agreed button
-    const Terms_agreed = (props) => {
+    const Terms_agreed = () => {
         if (agreed === false) {
             // 동의 버튼 안 누른 경우: 버튼 형식
             return (

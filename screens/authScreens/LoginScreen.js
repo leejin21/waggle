@@ -1,7 +1,7 @@
 // 로그인 post request => 로그인해서 token 받기
 
 import React, { useState, useContext } from "react";
-import { View, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Keyboard, TouchableWithoutFeedback, StyleSheet, TouchableOpacity } from "react-native";
 import { AuthContext } from "../../navigation/WaggleNavigator";
 
 import Colors from "../../constants/Colors";

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 import ProfileLogo from "../../components/ProfileLogo";
 import BottomButton from "../../components/BottomButton";
@@ -14,7 +14,7 @@ const MyPageScreen = (props) => {
 
     props.navigation.setOptions({
         ...logoHeaderOptions,
-        headerTitle: (props) => <ProfileLogo touchable={false} SIZE={70}></ProfileLogo>,
+        headerTitle: () => <ProfileLogo touchable={false} SIZE={70}></ProfileLogo>,
         headerTintColor: Colors.text_grey,
     });
     return (

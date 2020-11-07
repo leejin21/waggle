@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 import CommonStyles from "../../constants/CommonStyles";
 import CheckCircle from "../../components/CheckCircle";
