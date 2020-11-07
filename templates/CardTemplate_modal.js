@@ -2,7 +2,7 @@
 //stampcouponscr용
 
 import React, {useState} from "react";
-import { View, Text, StyleSheet, Button, ImageBackground } from "react-native";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
 
 import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";

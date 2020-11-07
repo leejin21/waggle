@@ -7,7 +7,7 @@
 // card; full / explanation space
 
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 
 import CommonStyles from "../constants/CommonStyles";
 import Card from "../components/Card";
