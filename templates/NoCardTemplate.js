@@ -7,9 +7,12 @@
 // bottombutton 유무
 
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Dimensions } from "react-native";
 import CommonStyles from "../constants/CommonStyles";
 import BottomButton from "../components/BottomButton";
+
+const window = Dimensions.get("window");
+const screen = Dimensions.get("screen");
 
 const BottomButton_1 = (props) => {
     return(
