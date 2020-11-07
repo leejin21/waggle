@@ -1,7 +1,10 @@
 // USE:: auth screens: register, terms and conditions
 //    :: settings screens: coupon, edit info
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
+
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 60; //10
 
 const Card = (props) => {
     // props: style
@@ -13,10 +16,10 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: "#565656",
         flex: 3,
-        marginTop: 30,
-        marginHorizontal: 10,
-        borderRadius: 40,
-        padding: 25,
+        marginTop: pad,
+        marginHorizontal: pad,
+        borderRadius: pad*2.7,
+        padding: pad*2,
     },
 });
 

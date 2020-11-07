@@ -1,7 +1,7 @@
 // USE:: settings screens: coupon
 
 import React, { useState, useReducer } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
@@ -10,7 +10,10 @@ import CommonStyles from "../constants/CommonStyles";
 import Card from "../components/Card";
 import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 
-// TODO 화면 크기에 맞춰서 해당 width, height 등등을 조절
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80; 
+
 const StampCoupon = (props) => {
     // props: usable, name, content, useDate
     const [removed, setRemoved] = useState(false);
@@ -21,7 +24,7 @@ const StampCoupon = (props) => {
     ) : (
         <Card style={{ ...styles.card, backgroundColor: Colors.deep_yellow }}>
             <View style={styles.card__title}>
-                <Text style={{ ...styles.card__title__txt, color: Colors.high_pink, fontSize: 29 }}>스탬프 완료쿠폰</Text>
+                <Text style={{ ...styles.card__title__txt, color: Colors.high_pink, fontSize: windowHeight / 28 }}>스탬프 완료쿠폰</Text>
                 <TouchableHighlight
                     style={{ width: props.ICON_SIZE, height: props.ICON_SIZE, borderRadius: props.ICON_SIZE }}
                     underlayColor={Colors.dark_pink}
@@ -32,7 +35,7 @@ const StampCoupon = (props) => {
             </View>
             <View style={styles.card__border}></View>
             <View style={styles.card__body}>
-                <Text style={{ ...styles.card__body__txt, color: "black", fontSize: 22 }}>{props.name}</Text>
+                <Text style={{ ...styles.card__body__txt, color: "black", fontSize: windowHeight / 38 }}>{props.name}</Text>
                 <Text style={{ ...styles.card__body__txt, color: "black" }}>{props.content}</Text>
             </View>
             {usable ? (
@@ -159,12 +162,11 @@ const Coupon = (props) => {
 };
 const styles = StyleSheet.create({
     // Coupon comp의 styles
-    // TODO 핸드폰 dimenstion size에 따라 달라질 수 있으므로 비율로 margin, padding 다 조정하기(b/c card__button)
     card: {
         width: "95%",
         flex: 0,
-        marginVertical: 5,
-        padding: 10,
+        marginVertical: pad*0.5,
+        padding: pad,
     },
     card__title: {
         flexDirection: "row",
@@ -173,50 +175,50 @@ const styles = StyleSheet.create({
     },
     card__title__txt: {
         ...CommonStyles.bold_text,
-        fontSize: 27,
-        paddingTop: 20,
+        fontSize: windowHeight / 28,
+        paddingTop: pad*2,
         color: Colors.deep_yellow,
         flex: 1,
-        paddingLeft: 50,
+        paddingLeft: pad*5,
     },
     card__border: {
-        marginTop: 20,
-        marginHorizontal: 30,
+        marginTop: pad*2,
+        marginHorizontal: pad*3,
         borderBottomColor: "white",
         borderBottomWidth: 1,
     },
     card__body: {
-        marginHorizontal: 30,
-        paddingVertical: 15,
-        paddingHorizontal: 5,
+        marginHorizontal: pad*3,
+        paddingVertical: pad*1.5,
+        paddingHorizontal: pad*0.5,
         alignItems: "flex-start",
         justifyContent: "center",
     },
     card__body__txt: {
         ...CommonStyles.bold_text,
         color: "white",
-        fontSize: 18,
+        fontSize: windowHeight / 42,
         fontFamily: "noto_bold",
     },
     card__button: {
         ...CommonStyles.grey_button,
-        marginHorizontal: 20,
-        marginVertical: 5,
+        marginHorizontal: pad*2,
+        marginVertical: pad*0.5,
         height: 70,
         backgroundColor: Colors.black_grey,
         alignItems: "center",
         justifyContent: "center",
         width: "90%",
-        padding: 10,
+        padding: pad,
     },
     card__button__txt: {
         color: Colors.text_grey,
-        fontSize: 21,
+        fontSize: windowHeight / 40,
         fontFamily: "noto_bold",
     },
     card__button__date: {
         color: Colors.text_grey,
-        fontSize: 15,
+        fontSize: windowHeight / 60,
         fontFamily: "noto_regular",
     },
 });

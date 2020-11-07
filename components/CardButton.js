@@ -2,13 +2,16 @@
 
 
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";
 
 import Card from "../components/Card";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80; 
 
 const CardButton = (props) => {
     // props: name, collected, all, navigation
@@ -33,66 +36,49 @@ const styles = StyleSheet.create({
     // TODO 핸드폰 dimenstion size에 따라 달라질 수 있으므로 비율로 margin, padding 다 조정하기(b/c card__button)
     card: {
         backgroundColor: "#565656",
-        marginHorizontal: 10,
-        borderRadius: 40,
+        marginHorizontal: pad,
+        borderRadius: pad*2.2,
 
         width: "95%",
-        flex: 0,
-        marginTop: 10,
-        padding: 10,
-        marginBottom: 10,
+        marginVertical: pad,
+        padding: pad*1.5,
+        paddingVertical: pad*2.2,
 
         flexDirection: "row"
     },
     card__title: {
+        flex: 3,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+        paddingLeft: pad*1.3
     },
     card__title__txt: {
         ...CommonStyles.bold_text,
-        fontSize: 22,
+        fontSize: windowHeight / 33,
         color: Colors.deep_yellow,
-        paddingLeft: 15
-    },
-    card__title__border: {
-        marginTop: 20,
-        marginHorizontal: 30,
-        borderBottomColor: "white",
-        borderBottomWidth: 1,
     },
     card__body: {
-        paddingVertical: 15,
-        paddingHorizontal: 5,
+        flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        width: "93%",
+        paddingRight: pad*1.3
     },
     card__body__txt: {
         ...CommonStyles.bold_text,
         color: "white",
-        fontSize: 20,
+        fontSize: windowHeight / 35,
         fontFamily: "noto_bold",
-    },
-    card__button: {
-        ...CommonStyles.grey_button,
-        marginHorizontal: 20,
-        height: 70,
-        backgroundColor: Colors.deep_yellow,
-        alignItems: "center",
-        justifyContent: "center",
-        width: "90%",
-        padding: 20,
     },
 
     card__button__txt: {
         color: Colors.text_grey,
-        fontSize: 21,
+        fontSize: windowHeight / 36,
         fontFamily: "noto_bold",
     },
     card__button__date: {
         color: Colors.text_grey,
-        fontSize: 15,
+        fontSize: windowHeight / 36,
         fontFamily: "noto_regular",
     },
 });
