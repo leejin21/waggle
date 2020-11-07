@@ -2,24 +2,25 @@ import { StyleSheet, Dimensions } from "react-native";
 
 import Colors from "./Colors";
 
-// dimensions.window.height, dimensions.window.width  
-const window = Dimensions.get("window");
-const pad = Dimensions.window.height / 90; //10
+// dimensions.windowHeight, dimensions.windowWidth  
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 90; //10
 
-const DIAMETER = Dimensions.window.height / 60 ;
+const DIAMETER = windowHeight / 14 ;
 
 const CommonStyles = StyleSheet.create({
     bold_text: {
         textAlign: "center",
         fontFamily: "noto_bold",
         color: "black",
-        fontSize: Dimensions.window.height / 20, //30
+        fontSize: windowHeight / 28,
     },
     small_text: {
         textAlign: "center",
         fontFamily: "noto_regular",
         color: "white",
-        fontSize: Dimensions.window.height / 40,
+        fontSize: windowHeight / 56,
     },
     /* 안쓰이는 것 같은데?
     bottom_button: {
@@ -32,8 +33,8 @@ const CommonStyles = StyleSheet.create({
     */
     grey_button: {
         backgroundColor: Colors.mid_grey,
-        fontSize: Dimensions.window.height / 30,
-        width: Dimensions.window.width * 0.7,
+        fontSize: windowHeight / 42,
+        width: windowWidth * 0.7,
         aspectRatio: 5 / 1,
         padding: pad,
         borderRadius: pad*3,
@@ -49,7 +50,7 @@ const CommonStyles = StyleSheet.create({
         justifyContent: "center",
     },
     body: {
-        paddingTop: apd,
+        paddingTop: pad,
         backgroundColor: Colors.body_grey,
         flex: 1,
     },
