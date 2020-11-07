@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import { TextInput } from "react-native-gesture-handler";
 
@@ -9,11 +9,15 @@ import CommonStyles from "../../constants/CommonStyles";
 import CardTemplate from "../../templates/CardTemplate";
 import ProfileLogo from "../../components/ProfileLogo";
 
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
+
 const SignupView = () => {
     return(
         <View>
-            <View style={{width: "100%", justifyContent: "center", alignItems: "center", paddingBottom: 23}}>
-                <ProfileLogo touchable={false} SIZE={70}></ProfileLogo>
+            <View style={{width: "100%", justifyContent: "center", alignItems: "center", paddingBottom: pad*2.3}}>
+                <ProfileLogo touchable={false} SIZE={font*7}></ProfileLogo>
             </View>
 
             <View style={styles.elem}>
@@ -41,8 +45,8 @@ const SignupView = () => {
                 <TextInput style={styles.textinput}/>
             </View>
 
-            <View style={{width: "100%", justifyContent: "center", alignItems: "center", paddingTop: 13}}>
-                <Text style={{...CommonStyles.small_text, fontSize: 18, color: Colors.deep_yellow, fontFamily: "noto_bold"}}>할인권발매를 위해 위의 정보를 입력해주세요</Text>
+            <View style={{width: "100%", justifyContent: "center", alignItems: "center", paddingTop: pad*1.3}}>
+                <Text style={{...CommonStyles.small_text, fontSize: font*1.8, color: Colors.deep_yellow, fontFamily: "noto_bold"}}>할인권발매를 위해 위의 정보를 입력해주세요</Text>
             </View>
         </View>
        );
@@ -63,7 +67,7 @@ const SignupScreen = (props) => {
 const styles = StyleSheet.create({
     card__text: {
         fontFamily: "noto_regular",
-        fontSize: 25,
+        fontSize: font*2.5,
         color: Colors.text_grey
     },
 
@@ -72,23 +76,23 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        borderBottomWidth: 2,
+        borderBottomWidth: pad*0.2,
         borderBottomColor: Colors.text_grey,
-        padding: 6
+        padding: pad*0.6
     },
 
     text: {
         color: "white",
-        fontSize: 20,
+        fontSize: font*2,
         fontWeight: "bold"
     },
     textinput: { 
-        height: 40, 
-        width: 210, 
+        height: font*4, 
+        width: font*21, 
         color: "white",
         borderColor: 'transparent',
         borderWidth: 1,
-        fontSize: 25 
+        fontSize: font*2.5
     }
 });
 

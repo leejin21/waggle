@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import Card from "../../components/Card";
 import BottomButton from "../../components/BottomButton";
+
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
 
 // TODO view 또는 touchable opacity로 바꿔주기
 const TermsNConditionsScreenops = (props) => {
@@ -15,7 +18,7 @@ const TermsNConditionsScreenops = (props) => {
         if (agreed === false) {
             // 동의 버튼 안 누른 경우: 버튼 형식
             return (
-                <TouchableOpacity style={{ ...styles.terms_agree_style, ...{ backgroundColor: Colors.deep_yellow } }} onPress={() => setAgreed((agreed) => true)}>
+                <TouchableOpacity style={{ ...styles.terms_agree_style, ...{ backgroundColor: Colors.deep_yellow } }} onPress={() => setAgreed(() => true)}>
                     <Text style={styles.terms_agree__text}>약관에 동의합니다</Text>
                 </TouchableOpacity>
             );
@@ -66,24 +69,24 @@ const TermsNConditionsScreenops = (props) => {
 const styles = StyleSheet.create({
     card__text: {
         fontFamily: "noto_regular",
-        fontSize: 25,
+        fontSize: pad*2.2,
         color: "white",
     },
     remain: {
         flex: 2,
-        marginTop: 25,
+        marginTop: pad*2.5,
         justifyContent: "space-between",
         alignContent: "center",
     },
     terms_agree_style: {
-        borderRadius: 70,
-        padding: 15,
+        borderRadius: pad*7,
+        padding: pad*1.5,
         width: "60%",
         alignSelf: "center",
     },
     terms_agree__text: {
         ...CommonStyles.bold_text,
-        fontSize: 22,
+        fontSize: pad*2.2,
     },
 });
 
