@@ -5,7 +5,7 @@ import Colors from "./Colors";
 // dimensions.windowHeight, dimensions.windowWidth  
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const pad = windowHeight / 60;
+const pad = windowHeight / 60; //10
 
 const DIAMETER = windowHeight / 14 ;
 
@@ -14,7 +14,7 @@ const CommonStyles = StyleSheet.create({
         textAlign: "center",
         fontFamily: "noto_bold",
         color: "black",
-        fontSize: windowHeight / 28,
+        fontSize: windowHeight / 28, //30
     },
     small_text: {
         textAlign: "center",

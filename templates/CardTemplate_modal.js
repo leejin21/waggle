@@ -2,7 +2,7 @@
 //stampcouponscr용
 
 import React, {useState} from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { View, Text, StyleSheet, ImageBackground, Dimensions } from "react-native";
 
 import Colors from "../constants/Colors";
 import CommonStyles from "../constants/CommonStyles";
@@ -12,6 +12,9 @@ import BottomButton from "../components/BottomButton";
 import Modal from 'react-native-modal';
 import ModalButton from "../components/ModalButton";
 
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 60;
+
 const BottomButton_2 = (props) => {
     return(
         <BottomButton active={true} onPress={props.onPress}>
@@ -19,8 +22,6 @@ const BottomButton_2 = (props) => {
         </BottomButton>
     );
 };
-
-
 
 const CardTemplate_modal = (props) => {   
     // props; 
@@ -45,7 +46,7 @@ const CardTemplate_modal = (props) => {
                 </Text>
             </View>
             <View style={{ ...CommonStyles.body__middle, width: "100%", flex: props.card_flex }}>
-                <Card style={{width:"95%", marginBottom: 15, marginTop: 0, padding: props.card_padding}}>
+                <Card style={{width:"95%", marginBottom: pad*1.5, marginTop: 0, padding: props.card_padding}}>
                     <ImageBackground source={require('../assets/images/backimg.png')} style={styles.image}>
                         {props.cardview}
                     </ImageBackground>
@@ -59,7 +60,7 @@ const CardTemplate_modal = (props) => {
         <Modal isVisible={isModalVisible}>
                 <View style={{flex:1}}/>
 
-                <Card style={{padding: 10, marginHorizontal: 0, flex:1, alignItems:"center", justifyContent: "center"}}> 
+                <Card style={{padding: pad, marginHorizontal: 0, flex:1, alignItems:"center", justifyContent: "center"}}> 
                     <View style={styles.title__view}>
                         <Text style={styles.title__txt}>스탬프 완료쿠폰 발급 완료!</Text>
                     </View>
@@ -71,7 +72,7 @@ const CardTemplate_modal = (props) => {
                             <Text style={styles.body_exp__txt}>[마이페이지] - [쿠폰함]에 지급되었어요!{"\n"}스탬프 완료쿠폰은 재지급이 불가합니다.</Text>
                         </View>
                     </View>
-                    <View style={{flex:1, width:"100%", height:"100%", paddingHorizontal: 6, paddingVertical:8}}>
+                    <View style={{flex:1, width:"100%", height:"100%", paddingHorizontal: pad*0.6, paddingVertical: pad*0.8}}>
                         <ModalButton navigation={navi} toggle={toggleModal}/>
                     </View>
                 </Card>   
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
     },
     title__txt: {
         color: Colors.deep_yellow,
-        fontSize: 28,
+        fontSize: windowHeight / 30,
         fontFamily: "noto_bold",
     },
 
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
         flex:2, 
         alignItems:"center",
         justifyContent: "center",
-        paddingHorizontal: 40
+        paddingHorizontal: pad*4
     },
     body_title__view: {
         width: "100%", 
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     },
     body_title__txt: {
         color: "white",
-        fontSize: 25,
+        fontSize: windowHeight / 32,
         fontFamily: "noto_bold",
     },
     body_exp__view: {
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     },
     body_exp__txt: {
         color: "white",
-        fontSize: 15,
+        fontSize: windowHeight / 56,
         fontFamily: "noto_regular",
     },
 });
