@@ -1,7 +1,7 @@
 // FIXME Require cycle: navigation\WaggleNavigator.js -> screens\authScreens\CompleteRegisterScreen.js -> navigation\WaggleNavigator.js
 // FIXME Require cycle: navigation\WaggleNavigator.js -> screens\authScreens\LoginScreen.js -> navigation\WaggleNavigator.js
 // FIXME Require cycle: navigation\WaggleNavigator.js -> screens\settingsScreens\MyPageScreen.js -> navigation\WaggleNavigator.js
-import React, { useState, useReducer } from "react";
+import React from "react";
 import { Dimensions } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
