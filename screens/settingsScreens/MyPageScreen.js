@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import ProfileLogo from "../../components/ProfileLogo";
 import BottomButton from "../../components/BottomButton";
@@ -9,12 +9,16 @@ import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import { logoHeaderOptions } from "../../constants/Options";
 
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
+
 const MyPageScreen = (props) => {
     const { signOut } = useContext(AuthContext);
 
     props.navigation.setOptions({
         ...logoHeaderOptions,
-        headerTitle: () => <ProfileLogo touchable={false} SIZE={70}></ProfileLogo>,
+        headerTitle: () => <ProfileLogo touchable={false} SIZE={font*7}></ProfileLogo>,
         headerTintColor: Colors.text_grey,
     });
     return (
@@ -57,19 +61,22 @@ const styles = StyleSheet.create({
     my_info: {
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 30,
+        marginBottom: pad*3,
     },
     my_info__text: {
         color: "white",
-        fontSize: 20,
+        fontSize: font*2,
         fontFamily: "noto_regular",
-        margin: 2,
+        margin: pad*0.2,
     },
     mid__button: {
         backgroundColor: Colors.mid_grey,
-        paddingBottom: 35,
-        padding: 35,
-        marginBottom: 7,
+        paddingBottom: 0,
+        padding: 0,
+        marginBottom: pad*0.7,
+        aspectRatio: 4 / 1,
+        alignItems: "center",
+        justifyContent: "center"
     },
     button_text: {
         ...CommonStyles.bold_text,

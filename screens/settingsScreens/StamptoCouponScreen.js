@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
@@ -8,7 +8,11 @@ import CheckCircle from "../../components/CheckCircle";
 
 import CardTemplate_modal from "../../templates/CardTemplate_modal";
 
-const circle_size = 93;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
+
+const circle_size = font*9.3;
 
 const StampView = ({fullstampNum, laststampNum}) => {
     const stamps = [
@@ -104,7 +108,7 @@ const styles = StyleSheet.create({
         height: "100%",
         flexDirection: "column",
         justifyContent: "space-around",
-        paddingTop: 15,
+        paddingTop: pad*1.5,
     },
     view_in_odd: {
         flex: 1,
