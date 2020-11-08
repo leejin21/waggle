@@ -34,7 +34,7 @@ const RestaurantVideoScreen = (props) => {
         headerTintColor: Colors.deep_yellow,
         headerTransparent: true,
         headerStyle: {
-            height: 150,
+            height: font*15,
             shadowColor: "transparent",
         },
         headerTitleStyle: {
@@ -61,7 +61,7 @@ const RestaurantVideoScreen = (props) => {
                     resizeMode="cover"
                     isLooping={false}
                     useNativeControls
-                    style={{ width: windowWidth, height: 300 }}
+                    style={{ width: windowWidth, height: font*30 }}
                 ></Video>
             </View>
             <View style={styles.button__wrapper}>

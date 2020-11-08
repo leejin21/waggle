@@ -1,11 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, Dimensions } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import { headerOptions } from "../../constants/Options";
 
 import Coupon, { StampCoupon } from "../../components/Coupon";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
 
 const couponDatas = [
     // SERVER TODO usable이 true면 reviewd는 무조건 false로, useDate는 usable에 false 업데이트할 때마다 업데이트.
@@ -41,7 +46,7 @@ const CouponsScreen = (props) => {
                 data={couponDatas}
                 renderItem={({ item }) => {
                     if (item.type === "S") {
-                        return <StampCoupon name={item.name} content={item.content} usable={item.usable} useDate={item.useDate} ICON_SIZE={50}></StampCoupon>;
+                        return <StampCoupon name={item.name} content={item.content} usable={item.usable} useDate={item.useDate} ICON_SIZE={font*5}></StampCoupon>;
                     } else {
                         return (
                             <Coupon
@@ -50,7 +55,7 @@ const CouponsScreen = (props) => {
                                 usable={item.usable}
                                 review_able={item.review_able}
                                 useDate={item.useDate}
-                                ICON_SIZE={50}
+                                ICON_SIZE={font*5}
                                 navigation={props.navigation}
                             ></Coupon>
                         );
@@ -73,11 +78,11 @@ const styles = StyleSheet.create({
     exp_text__wrapper: {
         alignItems: "center",
         justifyContent: "center",
-        marginVertical: 15,
+        marginVertical: pad*1.5,
     },
     exp_text: {
         color: "white",
-        fontSize: 16,
+        fontSize: font*1.6,
         fontFamily: "noto_bold",
         textAlign: "center",
     },

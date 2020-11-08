@@ -10,7 +10,6 @@ import CommonStyles from "../constants/CommonStyles";
 import Card from "../components/Card";
 import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 
-const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80; 
 
@@ -166,7 +165,7 @@ const styles = StyleSheet.create({
         width: "100%",
         flex: 0,
         margin: pad*0.7,
-        padding: pad*2
+        padding: pad*2,
     },
     card__title: {
         flexDirection: "row",
