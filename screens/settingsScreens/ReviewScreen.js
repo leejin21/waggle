@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
         width: "95%",
         marginTop: pad,
         marginBottom: pad,
+        paddingHorizontal: pad*1.2,
         alignItems: "center",
     },
     review__card: {
