@@ -1,13 +1,17 @@
 // 로그인 post request => 로그인해서 token 받기
 
 import React, { useState, useContext } from "react";
-import { View, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Keyboard, TouchableWithoutFeedback, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { AuthContext } from "../../navigation/WaggleNavigator";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 
 import ButtomButton from "../../components/BottomButton";
+
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+
 
 const LoginScreen = (props) => {
     const [id, setId] = useState("");
@@ -25,7 +29,7 @@ const LoginScreen = (props) => {
                         <TextInput style={CommonStyles.grey_button} placeholder="이메일을 적어주세요." placeholderTextColor={Colors.text_grey} onChangeText={(id) => setId(id)} defaultValue={id} />
                     </View>
                     <View style={styles.text_input__wrapper}>
-                        <Text style={{ ...styles.text_input__text, marginLeft: 15 }}>PW</Text>
+                        <Text style={{ ...styles.text_input__text, marginLeft: pad*1.5 }}>PW</Text>
                         <TextInput
                             style={CommonStyles.grey_button}
                             placeholder="비밀번호를 적어주세요."
@@ -52,28 +56,28 @@ const LoginScreen = (props) => {
 };
 const styles = StyleSheet.create({
     text_input__wrapper: {
-        margin: 15,
+        margin: pad*1.5,
     },
 
     text_input__text: {
         fontFamily: "noto_bold",
-        fontSize: 18,
-        marginLeft: 20,
-        marginBottom: 5,
+        fontSize: pad*1.8,
+        marginLeft: pad*2,
+        marginBottom: pad*0.5,
         color: "white",
     },
     login__button: {
         ...CommonStyles.grey_button,
-        marginTop: 30,
+        marginTop: pad*3,
         alignItems: "center",
         justifyContent: "center",
-        width: 130,
+        aspectRatio: 9 / 4
     },
     login__text: {
         fontFamily: "noto_bold",
         textAlignVertical: "center",
         textAlign: "center",
-        fontSize: 17,
+        fontSize: pad*1.7,
         color: "white",
     },
 });

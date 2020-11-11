@@ -1,7 +1,5 @@
-// nocardtemplate 적용하기
-
-import React, {Component, useState} from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import React, {useState} from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
@@ -11,8 +9,12 @@ import CheckCircle from "../../components/CheckCircle";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
 
-const circle_size = 93;
-const padding_size = 34;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
+
+const circle_size = font*9.1;
+const padding_size = pad*3.3;
 
 // check가 되면 왜 왼쪽으로 가냐
 const Circle_check = () => {
@@ -57,17 +59,17 @@ const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
         <View style={{width:"100%", height: "100%", alignItems: "center"}}>
             <View style={{flex: 5, width: "85%", paddingHorizontal: 0}}>
                 <View style={{...styles.title_view, flex: 1}}>
-                    <Text style={{...CommonStyles.bold_text, fontSize: 25, color: "white"}}>메인 메뉴</Text>
+                    <Text style={{...CommonStyles.bold_text, fontSize: font*2.5, color: "white"}}>메인 메뉴</Text>
                 </View>
                 <View style={{...styles.menu_view, flex: 7, paddingHorizontal: 0}}>
                     {main_menu.map((item) => {return <Menu id={item.id} name={item.name} cost={item.price} clickMenu={clickMain}/>})}
                 </View>
             </View>
             <View style={{flex: 4, width: "100%", alignItems: "center"}}>
-                <Card style={{width: "90%", height: "100%", marginTop: 0, padding: 17, marginBottom: 20}}>
+                <Card style={{width: "90%", height: "100%", marginTop: 0, padding: pad*1.7, marginBottom: pad*2}}>
                     <View style={{...styles.title_view, flex:1}}>
-                        <Text style={{...CommonStyles.bold_text, fontSize: 25, color: Colors.deep_yellow}}>오직 와글에서만 무료!</Text>
-                        <Text style={{...CommonStyles.bold_text, fontSize: 25, color: "white"}}>사이드 메뉴</Text>
+                        <Text style={{...CommonStyles.bold_text, fontSize: font*2.5, color: Colors.deep_yellow}}>오직 와글에서만 무료!</Text>
+                        <Text style={{...CommonStyles.bold_text, fontSize: font*2.5, color: "white"}}>사이드 메뉴</Text>
                     </View>
                     <View style={{...styles.menu_view, flex:2.2}}>
                         {side_menu.map((item) => {return <Menu id={item.id} name={item.name} cost={item.price} clickMenu={clickSide}/>})}
@@ -131,16 +133,9 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
 
-    menu: {
-        width: 150,
-        height: 45,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.deep_yellow
-    },
     text: {
         color: "#fff",
-        fontSize: 20,
+        fontSize: font*2,
         fontWeight: "bold"
     },
     border:{
@@ -162,7 +157,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 20
+        marginBottom: pad*2
     },
     menu_view: {
         height: "100%",

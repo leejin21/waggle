@@ -7,11 +7,14 @@
 // card; full / explanation space
 
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, Dimensions } from "react-native";
 
 import CommonStyles from "../constants/CommonStyles";
 import Card from "../components/Card";
 import BottomButton from "../components/BottomButton";
+
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 60; //10
 
 const BottomButton_1 = (props) => {
     return(
@@ -30,7 +33,7 @@ const CardTemplate = (props) => {
     (
         <View style={{...CommonStyles.body, width: "100%"}}>
             <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
-                <Card style={{width:"95%", marginBottom: 15}}>
+                <Card style={{width:"95%", marginBottom: pad*1.5}}>
                     {props.cardview}
                 </Card>
             </View>
@@ -48,7 +51,7 @@ const CardTemplate = (props) => {
                 </Text>
             </View>
             <View style={{ ...CommonStyles.body__middle, width: "100%", flex: props.card_flex }}>
-                <Card style={{width:"95%", marginBottom: 15, marginTop: 0, padding: props.card_padding}}>
+                <Card style={{width:"95%", marginBottom: pad*1.5, marginTop: 0, padding: props.card_padding}}>
                     {props.cardview}
                 </Card>
             </View>

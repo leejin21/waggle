@@ -1,8 +1,11 @@
 // USE: all except for main:home main, settings:edit info
 
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import Colors from "../constants/Colors";
+
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 23;
 
 const BottomButton = (props) => {
     // props: active, onPress,
@@ -19,10 +22,9 @@ const BottomButton = (props) => {
 const styles = StyleSheet.create({
     bottom_button: {
         backgroundColor: Colors.deep_yellow,
-        padding: 40,
-        paddingBottom: 45,
+        padding: pad,
+        paddingBottom: pad,
         width: "100%",
-        // fontFamily: "noto_bold",
     },
 });
 

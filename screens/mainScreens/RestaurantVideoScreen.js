@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Video } from "expo-av";
 
 import Colors from "../../constants/Colors";
@@ -10,10 +10,14 @@ import { Feather } from "@expo/vector-icons";
 import BottomButton from "../../components/BottomButton";
 import CommonStyles from "../../constants/CommonStyles";
 
-const ICON_SIZE = 24;
-const SCREEN_WIDTH = Dimensions.get("window").width;
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
 
-const HeaderRight = (props) => {
+const ICON_SIZE = font*2.4;
+
+const HeaderRight = () => {
     return (
         <View style={styles.header__right}>
             <HeartIcon heart_filled={true} style={styles.heart_icon}></HeartIcon>
@@ -30,7 +34,7 @@ const RestaurantVideoScreen = (props) => {
         headerTintColor: Colors.deep_yellow,
         headerTransparent: true,
         headerStyle: {
-            height: 150,
+            height: font*15,
             shadowColor: "transparent",
         },
         headerTitleStyle: {
@@ -57,7 +61,7 @@ const RestaurantVideoScreen = (props) => {
                     resizeMode="cover"
                     isLooping={false}
                     useNativeControls
-                    style={{ width: SCREEN_WIDTH, height: 300 }}
+                    style={{ width: windowWidth, height: font*30 }}
                 ></Video>
             </View>
             <View style={styles.button__wrapper}>
@@ -90,13 +94,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        marginRight: 5,
+        marginRight: pad*0.5,
     },
     heart_icon: {
-        margin: 5,
+        margin: pad*0.5,
     },
     more_icon: {
-        margin: 5,
+        margin: pad*0.5,
         borderRadius: ICON_SIZE * 2,
     },
 });

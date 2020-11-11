@@ -2,11 +2,13 @@
 //    :: settings screens: my page, edit info
 //    :: main screens: home main
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 import CommonStyles from "../constants/CommonStyles";
 import Colors from "../constants/Colors";
+
+const windowHeight = Dimensions.get("window").height;
 
 const ProfileLogo = (props) => {
     // props: touchable, navigation(only touchable=true), SIZE
@@ -22,7 +24,7 @@ const ProfileLogo = (props) => {
 };
 const styles = StyleSheet.create({
     profile__text: {
-        fontSize: 20,
+        fontSize: windowHeight / 42,
         fontFamily: "noto_bold",
     },
 });

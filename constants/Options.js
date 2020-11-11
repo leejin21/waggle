@@ -1,6 +1,11 @@
 import Colors from "./Colors";
 import React from "react";
-import { Image } from "react-native";
+import { Image, Dimensions } from "react-native";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
 
 const headerOptions = {
     headerTintColor: "white",
@@ -8,19 +13,21 @@ const headerOptions = {
 
     headerStyle: {
         backgroundColor: "black",
-        height: 150,
+        width: windowWidth,
+        height: windowWidth * (5/16),
+        
         // 밑에 줄 그인 거 없애기 위함
         shadowColor: "transparent",
     },
     headerTitleStyle: {
-        fontSize: 30,
+        fontSize: font*3,
         fontFamily: "noto_bold",
     },
 };
 
 const logoHeaderOptions = {
     headerBackTitleVisible: false,
-    headerTitle: (props) => <Image style={{ width: 160, height: 80 }} source={require("../assets/images/logo.png")} resizeMode="contain"></Image>,
+    headerTitle: (props) => <Image style={{ width: font*16, height: font*8 }} source={require("../assets/images/logo.png")} resizeMode="contain"></Image>,
     headerTitleStyle: {
         flex: 1,
         textAlign: "center",

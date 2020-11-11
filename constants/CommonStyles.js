@@ -1,23 +1,34 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 import Colors from "./Colors";
 
-const DIAMETER = 60;
+// dimensions.windowHeight, dimensions.windowWidth  
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 60; 
+
+/* 
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
+*/
+
+const DIAMETER = windowHeight / 14 ;
 
 const CommonStyles = StyleSheet.create({
     bold_text: {
         textAlign: "center",
         fontFamily: "noto_bold",
         color: "black",
-        fontSize: 30,
+        fontSize: windowHeight / 28, //30
     },
     small_text: {
-        margin: 5,
         textAlign: "center",
         fontFamily: "noto_regular",
         color: "white",
-        fontSize: 15,
+        fontSize: windowHeight / 56,
     },
+    /* 안쓰이는 것 같은데?
     bottom_button: {
         backgroundColor: Colors.deep_yellow,
         padding: 40,
@@ -25,19 +36,18 @@ const CommonStyles = StyleSheet.create({
         width: "100%",
         // fontFamily: "noto_bold",
     },
+    */
     grey_button: {
         backgroundColor: Colors.mid_grey,
-        fontSize: 20,
-        width: 300,
-        height: 60,
-        padding: 10,
-        borderRadius: 30,
+        fontSize: windowHeight / 42,
+        height: windowWidth * 0.144,
+        aspectRatio: 5 / 1,
+        padding: pad,
+        borderRadius: pad*3,
         color: "white",
     },
     yellow_circle: {
         // padding, height, width, borderRadius는 따로 지정을 해줘야 편함
-        //padding: 3,
-        //margin: 5,
         height: DIAMETER,
         width: DIAMETER,
         borderRadius: DIAMETER * 2,
@@ -46,7 +56,7 @@ const CommonStyles = StyleSheet.create({
         justifyContent: "center",
     },
     body: {
-        paddingTop: 10,
+        paddingTop: pad,
         backgroundColor: Colors.body_grey,
         flex: 1,
     },
