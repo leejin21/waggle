@@ -12,6 +12,7 @@ import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handl
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80; 
+console.log(pad)
 
 const StampCoupon = (props) => {
     // props: usable, name, content, useDate
@@ -162,8 +163,8 @@ const Coupon = (props) => {
 const styles = StyleSheet.create({
     // Coupon comp의 styles
     card: {
-        width: "100%",
-        flex: 0,
+        // width: "95%",
+        // flex: 0,
         margin: pad*0.7,
         padding: pad*2,
     },
@@ -171,17 +172,19 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+        // backgroundColor: 'pink',
     },
     card__title__txt: {
         ...CommonStyles.bold_text,
         fontSize: windowHeight / 28,
         color: Colors.deep_yellow,
         flex: 1,
-        paddingLeft: pad*5,
+        paddingLeft: pad*4,
+        // backgroundColor: 'pink',
     },
     card__border: {
-        marginTop: pad*2,
-        marginHorizontal: pad*3,
+        marginTop: pad,
+        marginHorizontal: pad,
         borderBottomColor: "white",
         borderBottomWidth: 1,
     },
@@ -203,11 +206,12 @@ const styles = StyleSheet.create({
         marginHorizontal: pad*2,
         marginVertical: pad*0.5,
         height: windowHeight*0.07,
-        aspectRatio: 11 / 2,
+        aspectRatio: 21 / 4,
         backgroundColor: Colors.black_grey,
         alignItems: "center",
         justifyContent: "center",
         padding: pad,
+        marginLeft: pad/2.8,
     },
     card__button__txt: {
         color: Colors.text_grey,
