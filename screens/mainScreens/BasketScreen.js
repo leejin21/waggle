@@ -62,7 +62,7 @@ const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
                     <Text style={{...CommonStyles.bold_text, fontSize: font*2.5, color: "white"}}>메인 메뉴</Text>
                 </View>
                 <View style={{...styles.menu_view, flex: 7, paddingHorizontal: 0}}>
-                    {main_menu.map((item) => {return <Menu id={item.id} name={item.name} cost={item.price} clickMenu={clickMain}/>})}
+                    {main_menu.map((item) => {return <Menu key={item.id} id={item.id} name={item.name} cost={item.price} clickMenu={clickMain}/>})}
                 </View>
             </View>
             <View style={{flex: 4, width: "100%", alignItems: "center"}}>
@@ -72,7 +72,7 @@ const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
                         <Text style={{...CommonStyles.bold_text, fontSize: font*2.5, color: "white"}}>사이드 메뉴</Text>
                     </View>
                     <View style={{...styles.menu_view, flex:2.2}}>
-                        {side_menu.map((item) => {return <Menu id={item.id} name={item.name} cost={item.price} clickMenu={clickSide}/>})}
+                        {side_menu.map((item) => {return <Menu key={item.id} id={item.id} name={item.name} cost={item.price} clickMenu={clickSide}/>})}
                     </View>
                 </Card>
             </View>

@@ -41,7 +41,7 @@ const OrderView = ({route}) => {
     <Text style={[CommonStyles.bold_text, styles.txt1]}> 메인 메뉴</Text>
                 </View>
                 <View style={[styles.menu_view, styles.view4_2]}>
-                    {mainArray.map((item) => {return <Menu menu_name={item.name} menu_price={item.price}/>})}
+                    {mainArray.map((item) => {return <Menu key={item.id} menu_name={item.name} menu_price={item.price}/>})}
                 </View>
             </View>
             <View style={styles.view3_2}>
@@ -49,7 +49,7 @@ const OrderView = ({route}) => {
                     <Text style={[CommonStyles.bold_text, styles.txt1]}>+ 사이드 메뉴</Text>
                 </View>
                 <View style={[styles.menu_view, styles.view4_4]}>
-                    {sideArray.map((item) => {return <Menu menu_name={item.name} menu_price={item.price}/>})}
+                    {sideArray.map((item) => {return <Menu key={item.id} menu_name={item.name} menu_price={item.price}/>})}
                 </View>
             </View>   
         </View>
