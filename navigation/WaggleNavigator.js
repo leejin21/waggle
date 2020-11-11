@@ -1,9 +1,9 @@
 // FIXME Require cycle: navigation\WaggleNavigator.js -> screens\authScreens\CompleteRegisterScreen.js -> navigation\WaggleNavigator.js
 // FIXME Require cycle: navigation\WaggleNavigator.js -> screens\authScreens\LoginScreen.js -> navigation\WaggleNavigator.js
 // FIXME Require cycle: navigation\WaggleNavigator.js -> screens\settingsScreens\MyPageScreen.js -> navigation\WaggleNavigator.js
-import React, { useState, useReducer } from "react";
-import { StyleSheet, Image, Button } from "react-native";
-import { NavigationContainer, TabRouter } from "@react-navigation/native";
+import React from "react";
+import { Dimensions } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 // import screens from each folders
@@ -31,6 +31,9 @@ import ReviewScreen from "../screens/settingsScreens/ReviewScreen";
 import Colors from "../constants/Colors";
 import { headerOptions, logoHeaderOptions, reviewOptions } from "../constants/Options";
 import AsyncStorage from "@react-native-community/async-storage";
+
+const windowHeight = Dimensions.get("window").height;
+const font = windowHeight / 87;
 
 const AuthContext = React.createContext();
 
@@ -81,7 +84,7 @@ const MainScreen = {
         component: BasketScreen,
         options: { ...headerOptions, 
             headerTintColor: Colors.deep_yellow,  
-            headerStyle: {...headerOptions.headerStyle, backgroundColor: Colors.body_grey, height: 122}},
+            headerStyle: {...headerOptions.headerStyle, backgroundColor: Colors.body_grey, height: font*12.2}},
     },
     Order: {
         component: OrderScreen,
@@ -220,8 +223,6 @@ const waggleNavigator = () => {
         </AuthContext.Provider>
     );
 };
-
-const styles = StyleSheet.create({});
 
 export default waggleNavigator;
 export { AuthContext };

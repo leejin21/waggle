@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import { AuthContext } from "../../navigation/WaggleNavigator";
 
@@ -7,6 +7,10 @@ import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import BottomButton from "../../components/BottomButton";
 import ProfileLogo from "../../components/ProfileLogo";
+
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
 
 const LoginButton = (props) => {
     return (
@@ -16,7 +20,7 @@ const LoginButton = (props) => {
     );
 };
 
-const CompleteRegisterScreen = (props) => {
+const CompleteRegisterScreen = () => {
     const { signIn } = useContext(AuthContext);
 
     return (
@@ -24,14 +28,14 @@ const CompleteRegisterScreen = (props) => {
             <View style={{...CommonStyles.body__middle, width: "100%"}}>
                 <View style={styles.f2}>
                     <View style={styles.elem}>
-                        <Text style={{...CommonStyles.bold_text, color: Colors.deep_yellow, fontSize: 43}}>가입완료</Text>
+                        <Text style={{...CommonStyles.bold_text, color: Colors.deep_yellow, fontSize: font*4.3}}>가입완료</Text>
                     </View>   
-                    <Text style={{...CommonStyles.small_text, borderTopWidth: 10, fontSize: 18}}>이제 와글로 멋진 식사를 즐겨보세요!</Text>
+                    <Text style={{...CommonStyles.small_text, borderTopWidth: pad, fontSize: font*1.8}}>이제 와글로 멋진 식사를 즐겨보세요!</Text>
                 </View>
                 <View style={styles.f2}>
-                    <ProfileLogo touchable={false} SIZE={70}></ProfileLogo>
-                    <Text style={{...CommonStyles.small_text, fontSize: 18}}>김눈송</Text>
-                    <Text style={{...CommonStyles.small_text, fontSize: 23}}>test@gmail.com</Text>
+                    <ProfileLogo touchable={false} SIZE={font*7}></ProfileLogo>
+                    <Text style={{...CommonStyles.small_text, fontSize: font*1.8}}>김눈송</Text>
+                    <Text style={{...CommonStyles.small_text, fontSize: font*2.3}}>test@gmail.com</Text>
                     {/* 정보 받아와서 내용 수정되게끔 고쳐야 */}
                 </View>
                 <View style={styles.f1}></View>
@@ -46,7 +50,7 @@ const CompleteRegisterScreen = (props) => {
 const styles = StyleSheet.create({
     body: {
         ...CommonStyles.body,
-        paddingTop: 100,
+        paddingTop: pad*10,
         alignItems: "center",
         justifyContent: "center",
         width: "100%"
@@ -58,18 +62,18 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     h2: {
-        margin: 10,
+        margin: pad,
         textAlign: "center",
         fontFamily: "noto_bold",
         color: "white",
-        fontSize: 35,
+        fontSize: font*3.5,
     },
     text: {
-        margin: 5,
+        margin: pad*0.5,
         textAlign: "center",
         fontFamily: "noto_regular",
         color: "white",
-        fontSize: 15,
+        fontSize: font*1.5,
     },
 
     // 2 2 1
@@ -93,7 +97,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderBottomWidth: 1,
         borderBottomColor: "white",
-        paddingBottom: 10,
+        paddingBottom: pad,
     },
 });
 

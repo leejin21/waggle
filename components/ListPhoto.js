@@ -1,13 +1,16 @@
 // USE:: main: home main
 import React, { useState } from "react";
-import { View, Text, ImageBackground, TouchableHighlight, StyleSheet } from "react-native";
+import { View, Text, ImageBackground, TouchableHighlight, StyleSheet, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-const BORDER_RADIUS = 20;
-const HEART_SIZE = 20;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+
+const BORDER_RADIUS = pad*2;
+const HEART_SIZE = pad*2;
 
 const HeartIcon = (props) => {
     // props: heart_filled
@@ -23,12 +26,12 @@ const HeartIcon = (props) => {
 
 const ListPhoto = (props) => {
     // TODO PHOTO HEIGHT 이미지에서 받아와서 맞춰 주기: 비율 관련해서 계산.
-    const ITEM_WIDTH = props.ITEM_WIDTH - 30;
+    const ITEM_WIDTH = props.ITEM_WIDTH - pad*2.5;
     const ITEM_HEIGHT = (ITEM_WIDTH * 240) / 150;
     const PHOTO_HEIGHT = (ITEM_WIDTH * 4) / 3;
 
     const GAP = (ITEM_HEIGHT - PHOTO_HEIGHT) / 2;
-    const ICON_SIZE = 60;
+    const ICON_SIZE = pad*6;
 
     return (
         <View style={styles.container}>
@@ -54,10 +57,10 @@ const ListPhoto = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 15,
+        marginTop: pad*1.5,
     },
     image__wrapper: {
-        margin: 10,
+        margin: pad,
         borderRadius: BORDER_RADIUS,
     },
     image__photo: {
@@ -75,12 +78,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        paddingHorizontal: 15,
+        paddingHorizontal: pad*1.5,
     },
     info__name: {
         color: "white",
         fontFamily: "noto_bold",
-        fontSize: 17,
+        fontSize: windowHeight / 53,
         flex: 6,
         textAlign: "center",
     },

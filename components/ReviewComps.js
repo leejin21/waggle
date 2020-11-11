@@ -7,10 +7,15 @@ import Colors from "../constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-const DIAMETER = 70;
-const SCREEN_WIDTH = Dimensions.get("window").width;
 
-const Pick = (props) => {
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 89;
+
+const DIAMETER = font*7;
+
+const Pick = () => {
     return (
         <View style={styles.pick__wrapper}>
             <Text style={styles.pick__text}>눈송</Text>
@@ -45,7 +50,7 @@ const Star = (props) => {
                 props.dispatch({ type: props.action_type, star: props.id });
             }}
         >
-            <MaterialIcons name={props.name} size={SCREEN_WIDTH / 7} color={Colors.deep_yellow}></MaterialIcons>
+            <MaterialIcons name={props.name} size={windowWidth / 7} color={Colors.deep_yellow}></MaterialIcons>
         </TouchableWithoutFeedback>
     );
 };
@@ -130,7 +135,7 @@ const ReviewButtonGroup = (props) => {
 const styles = StyleSheet.create({
     review__group: {
         flexDirection: "row",
-        marginVertical: 5,
+        marginVertical: pad*0.5,
     },
     review__wing__wrapper: {
         flexDirection: "row",
@@ -139,48 +144,48 @@ const styles = StyleSheet.create({
     },
     review__button__wing: {
         borderBottomColor: Colors.deep_yellow,
-        borderBottomWidth: 2,
-        width: SCREEN_WIDTH / 20,
+        borderBottomWidth: pad*0.2,
+        width: windowWidth / 20,
     },
     review__button: {
         backgroundColor: "white",
-        padding: 10,
-        width: (SCREEN_WIDTH * 2) / 9,
-        borderRadius: 18,
+        padding: pad,
+        width: (windowWidth * 2) / 9,
+        borderRadius: pad*1.8,
     },
     review__button__col: {
         backgroundColor: "white",
-        padding: 10,
-        width: SCREEN_WIDTH / 2,
-        borderRadius: 18,
-        marginVertical: 3,
+        padding: pad,
+        width: windowWidth / 2,
+        borderRadius: pad*1.8,
+        marginVertical: pad*0.3,
     },
     review__button__text: {
-        fontSize: 18,
+        fontSize: font*1.8,
         fontFamily: "noto_regular",
         textAlign: "center",
     },
     pick__wrapper: {
         backgroundColor: Colors.black_grey,
-        borderRadius: 45,
+        borderRadius: pad*4.5,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical: 5,
-        paddingTop: 7,
-        paddingHorizontal: 10,
+        paddingVertical: pad*0.5,
+        paddingTop: pad*0.7,
+        paddingHorizontal: pad,
         width: "50%",
-        marginTop: -38,
+        marginTop: -pad*3.8,
     },
     pick__text: {
         color: Colors.deep_yellow,
-        fontSize: 20,
+        fontSize: font*2,
         fontFamily: "noto_bold",
     },
 
     pick__menu__wrapper: {
-        marginTop: 5,
-        marginHorizontal: 7,
+        marginTop: pad*0.5,
+        marginHorizontal: pad*0.7,
         alignItems: "center",
     },
     pick__image__wrapper: {
@@ -202,11 +207,11 @@ const styles = StyleSheet.create({
         height: DIAMETER,
     },
     pick__menu__text: {
-        fontSize: 13,
+        fontSize: font*1.3,
         fontFamily: "noto_bold",
         color: "white",
         textAlign: "center",
-        marginVertical: 5,
+        marginVertical: pad*0.5,
     },
 });
 

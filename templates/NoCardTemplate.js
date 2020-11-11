@@ -7,11 +7,9 @@
 // bottombutton 유무
 
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Colors from "../constants/Colors";
+import { View, Text } from "react-native";
 import CommonStyles from "../constants/CommonStyles";
 import BottomButton from "../components/BottomButton";
-import { headerOptions } from "../constants/Options";
 
 const BottomButton_1 = (props) => {
     return(

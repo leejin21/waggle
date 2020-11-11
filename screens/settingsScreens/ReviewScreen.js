@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { View, Text, StyleSheet, FlatList, Alert } from "react-native";
+import React from "react";
+import { View, Text, StyleSheet, FlatList, Alert, Dimensions } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
@@ -7,6 +7,10 @@ import CommonStyles from "../../constants/CommonStyles";
 import BottomButton from "../../components/BottomButton";
 import Card from "../../components/Card";
 import { Pick, Menu, Star, ReviewButtonGroup } from "../../components/ReviewComps";
+
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
 
 const orderedMenuData = [
     { id: 0, menu_id: "321", name: "비빔밥", photo: require("../../assets/images/thumbnails/bibimbap.jpg") },
@@ -134,7 +138,7 @@ const ReviewScreen = (props) => {
                             );
                         }}
                         keyExtractor={(item) => item.id.toString()}
-                        style={{ marginBottom: -15 }}
+                        style={{ marginBottom: -(pad*1.5) }}
                     ></FlatList>
                 </Card>
 
@@ -193,27 +197,28 @@ const styles = StyleSheet.create({
     body__middle: {
         ...CommonStyles.body__middle,
         width: "100%",
-        marginBottom: 10,
+        marginBottom: pad,
         justifyContent: "flex-start",
     },
     card: {
         width: "95%",
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: pad,
+        marginBottom: pad,
+        paddingHorizontal: pad*1.2,
         alignItems: "center",
     },
     review__card: {
         flex: 0,
         justifyContent: "center",
-        paddingTop: 15,
-        paddingBottom: 5,
+        paddingTop: pad*1.5,
+        paddingBottom: pad*0.5,
     },
     review__star: {
         flexDirection: "row",
-        marginBottom: 10,
+        marginBottom: pad,
     },
     review__section: {
-        marginVertical: 3,
+        marginVertical: pad*0.3,
         width: "100%",
         alignItems: "center",
         // backgroundColor: "pink",

@@ -1,10 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import CommonStyles from "../../constants/CommonStyles";
 import CheckCircle from "../../components/CheckCircle";
 
 import BottomButton from "../../components/BottomButton";
+
+const windowHeight = Dimensions.get("window").height;
+const pad = windowHeight / 80;
+const font = windowHeight / 87;
 
 const FinishOrderScreen = (props) => {
     return (
@@ -24,23 +28,23 @@ const FinishOrderScreen = (props) => {
 const styles = StyleSheet.create({
     body: {
         ...CommonStyles.body,
-        paddingTop: 100,
+        paddingTop: pad*10,
         alignItems: "center",
         justifyContent: "center",
     },
     h2: {
-        margin: 10,
+        margin: pad,
         textAlign: "center",
         fontFamily: "noto_bold",
         color: "white",
-        fontSize: 35,
+        fontSize: font*3.5,
     },
     text: {
-        margin: 5,
+        margin: pad*0.5,
         textAlign: "center",
         fontFamily: "noto_regular",
         color: "white",
-        fontSize: 15,
+        fontSize: font*1.5,
     },
 });
 
