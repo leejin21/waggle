@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         flex:2, 
         alignItems:"center",
         justifyContent: "center",
-        paddingHorizontal: pad*4
+        paddingHorizontal: pad
     },
     body_title__view: {
         width: "100%", 
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     },
     body_exp__txt: {
         color: "white",
-        fontSize: windowHeight / 56,
+        fontSize: windowHeight / 58,
         fontFamily: "noto_regular",
     },
 });

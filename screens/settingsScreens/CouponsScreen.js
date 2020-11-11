@@ -7,7 +7,6 @@ import { headerOptions } from "../../constants/Options";
 
 import Coupon, { StampCoupon } from "../../components/Coupon";
 
-const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 const font = windowHeight / 87;

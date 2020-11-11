@@ -4,7 +4,6 @@ import { Image, Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const pad = windowHeight / 80;
 const font = windowHeight / 87;
 
 const headerOptions = {
@@ -13,7 +12,7 @@ const headerOptions = {
 
     headerStyle: {
         backgroundColor: "black",
-        width: windowWidth,
+        //width: windowWidth,
         height: windowWidth * (5/16),
         
         // 밑에 줄 그인 거 없애기 위함
