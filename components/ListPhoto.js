@@ -4,7 +4,9 @@ import { View, Text, ImageBackground, TouchableHighlight, StyleSheet, Dimensions
 import { AntDesign } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
+import ApiUrls from "../constants/ApiUrls";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { cos } from "react-native-reanimated";
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
@@ -12,20 +14,50 @@ const pad = windowHeight / 80;
 const BORDER_RADIUS = pad*2;
 const HEART_SIZE = pad*2;
 
+
+// fetch POST function: test code
+const postHeartChanged = async (filled, rest_name) => {
+    console.log(filled, rest_name);
+    try {
+        let response = await fetch(ApiUrls.url+'/main/heartchanged', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify(
+                {filled, 
+                name: rest_name,
+                },
+            ),
+        });
+        //! status만 보내는 건 status만 찍기!
+        console.log(await response.status);
+    } catch(error) {
+        console.error(error);
+    }   
+}
+
+
 const HeartIcon = (props) => {
     // props: heart_filled
     const [color, setColor] = useState(props.heart_filled ? "red" : Colors.text_grey);
     // TODO 변경된 정보 저장했다가 스크린 넘어갈 때 db로 fetch해서 저장하기
     // SERVER TODO db에서 넘겨줄 때, 해당 데이터 위주로 sort시켜야 함
     return (
-        <TouchableWithoutFeedback onPress={() => setColor((color) => (color === Colors.text_grey ? "red" : Colors.text_grey))} style={props.style}>
+        <TouchableWithoutFeedback onPress={() => {
+            let filled = color === Colors.text_grey ? true: false;
+            postHeartChanged(filled, props.rest_name);
+            return setColor((color) => 
+                (color === Colors.text_grey ? "red" : Colors.text_grey)
+            );
+        }} style={props.style}>
             <AntDesign name="heart" size={HEART_SIZE} color={color} />
         </TouchableWithoutFeedback>
     );
 };
 
 const ListPhoto = (props) => {
-    // TODO PHOTO HEIGHT 이미지에서 받아와서 맞춰 주기: 비율 관련해서 계산.
     const ITEM_WIDTH = props.ITEM_WIDTH - pad*2.5;
     const ITEM_HEIGHT = (ITEM_WIDTH * 240) / 150;
     const PHOTO_HEIGHT = (ITEM_WIDTH * 4) / 3;
@@ -49,7 +81,7 @@ const ListPhoto = (props) => {
             </TouchableHighlight>
             <View style={styles.info__wrapper}>
                 <Text style={styles.info__name}>{props.rest_name}</Text>
-                <HeartIcon heart_filled={props.heart_filled} style={{ flex: 1 }}></HeartIcon>
+                <HeartIcon heart_filled={props.heart_filled} style={{ flex: 1 }} rest_name={props.rest_name}></HeartIcon>
             </View>
         </View>
     );

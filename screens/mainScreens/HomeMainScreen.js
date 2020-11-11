@@ -3,6 +3,7 @@ import React from "react";
 import { View, StyleSheet, FlatList, Dimensions } from "react-native";
 
 import { logoHeaderOptions } from "../../constants/Options";
+import ApiUrls from "../../constants/ApiUrls";
 import ProfileLogo from "../../components/ProfileLogo";
 import ListPhoto from "../../components/ListPhoto";
 
@@ -19,12 +20,23 @@ const imageDatas = [
     { name: "로제떡볶이랄라랄랄랄랄랄", heart_filled: false, photo: require("../../assets/images/thumbnails/earlgreycake.jpg") },
 ];
 
+
+const getThumbnails = async () => {
+    try {
+        let response = await fetch(ApiUrls.url+'/main/thumbnails');
+        console.log(await response.json());
+    } catch(error) {
+        console.log(error);
+    }
+};
+
 const HomeMainScreen = (props) => {
     props.navigation.setOptions({
         ...logoHeaderOptions,
         headerRight: () => <ProfileLogo touchable={true} navigation={props.navigation} style={{ marginRight: pad*1.2 }}></ProfileLogo>,
     });
-
+    getThumbnails();
+    
     return (
         <View style={styles.body}>
             <FlatList
@@ -39,6 +51,7 @@ const HomeMainScreen = (props) => {
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     body: {

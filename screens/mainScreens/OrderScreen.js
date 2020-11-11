@@ -36,7 +36,7 @@ const OrderView = ({route}) => {
     const [totalCost, setCost] = useState(0);
 
     const addCost = (price) => { // 이 동작은 여기가 아니라 DB에서 하고 total 값을 보내줘야 할듯
-        setCost(price);
+        setCost((totalCost) => totalCost + price);
     }
 
     return (
