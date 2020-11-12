@@ -14,13 +14,16 @@ const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 
 const imageDatas = [
+    // * 어쩔 수 없이 uri로 처리하기
     { name: "ABC레스토랑", heart_filled: true, photo: require("../../assets/images/thumbnails/bibimbap.jpg") },
+    // 아래가 이미지 전체 공개로 해서 uri로 하게 되는 경우
+    // { name: "ABC레스토랑", heart_filled: false, photo: {uri: "https://kr.object.ncloudstorage.com/waggle-thumbnail/bibimbap.jpg"} },
     { name: "가나다식당", heart_filled: false, photo: require("../../assets/images/thumbnails/meat.jpg") },
-    { name: "로제찜닭", heart_filled: false, photo: require("../../assets/images/thumbnails/mexican.jpg") },
+    { name: "로제찜닭", heart_filled: true, photo: require("../../assets/images/thumbnails/mexican.jpg") },
     { name: "로제떡볶이랄라랄랄랄랄랄", heart_filled: false, photo: require("../../assets/images/thumbnails/earlgreycake.jpg") },
 ];
 
-
+// * 서버 부착
 const getThumbnails = async () => {
     try {
         let response = await fetch(ApiUrls.url+'/main/thumbnails');
@@ -35,8 +38,7 @@ const HomeMainScreen = (props) => {
         ...logoHeaderOptions,
         headerRight: () => <ProfileLogo touchable={true} navigation={props.navigation} style={{ marginRight: pad*1.2 }}></ProfileLogo>,
     });
-    getThumbnails();
-    
+    // 서버 부착해서 getThumbnails()하나로 이미지 다 다운받고 하기
     return (
         <View style={styles.body}>
             <FlatList

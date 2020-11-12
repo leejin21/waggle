@@ -20,7 +20,6 @@ const couponDatas = [
     { name: "로제찜닭", type: "G", content: "찜닭 그리고 계란찜", usable: false, review_able: false, useDate: "2020.07.28 14:05 PM" },
 ];
 
-const stampCouponDatas = [];
 
 const CouponsScreen = (props) => {
     props.navigation.setOptions({
