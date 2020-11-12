@@ -15,9 +15,7 @@ const circle_size = font*9.1;
 const margin_size = pad*2;
 
 // 반복 생성
-const Menu = ({menu_name, menu_price, addCost}) => {
-    addCost(menu_price);
-
+const Menu = ({menu_name, menu_price}) => {
     return(
         <View style={{width: circle_size+margin_size, justifyContent:"flex-start", alignItems:"center"}}>
             <CheckCircle SIZE={circle_size} touchable={false}/>
@@ -28,16 +26,12 @@ const Menu = ({menu_name, menu_price, addCost}) => {
 };
 
 const OrderView = ({route}) => { 
-    //mainArray, sideArray 
-    //[{id, name, price}]
+    //mainArray, sideArray , totalCost
+    //menuArray: [{id, name, price}]
     const mainArray = route.params.mainArray;
     const sideArray = route.params.sideArray;
 
-    const [totalCost, setCost] = useState(0);
-
-    const addCost = (price) => { // 이 동작은 여기가 아니라 DB에서 하고 total 값을 보내줘야 할듯
-        setCost((totalCost) => totalCost + price);
-    }
+    const totalCost = route.params.totalCost;
 
     return (
     <View style={styles.view1}>
@@ -47,7 +41,7 @@ const OrderView = ({route}) => {
     <Text style={[CommonStyles.bold_text, styles.txt1]}> 메인 메뉴</Text>
                 </View>
                 <View style={[styles.menu_view, styles.view4_2]}>
-                    {mainArray.map((item) => {return <Menu menu_name={item.name} menu_price={item.price} addCost={addCost}/>})}
+                    {mainArray.map((item) => {return <Menu key={item.id} menu_name={item.name} menu_price={item.price}/>})}
                 </View>
             </View>
             <View style={styles.view3_2}>
@@ -55,7 +49,7 @@ const OrderView = ({route}) => {
                     <Text style={[CommonStyles.bold_text, styles.txt1]}>+ 사이드 메뉴</Text>
                 </View>
                 <View style={[styles.menu_view, styles.view4_4]}>
-                    {sideArray.map((item) => {return <Menu menu_name={item.name} menu_price={item.price} addCost={addCost}/>})}
+                    {sideArray.map((item) => {return <Menu key={item.id} menu_name={item.name} menu_price={item.price}/>})}
                 </View>
             </View>   
         </View>
