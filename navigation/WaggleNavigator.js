@@ -2,7 +2,7 @@
 // FIXME Require cycle: navigation\WaggleNavigator.js -> screens\authScreens\LoginScreen.js -> navigation\WaggleNavigator.js
 // FIXME Require cycle: navigation\WaggleNavigator.js -> screens\settingsScreens\MyPageScreen.js -> navigation\WaggleNavigator.js
 import React from "react";
-import { Alert, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -31,12 +31,14 @@ import ReviewScreen from "../screens/settingsScreens/ReviewScreen";
 
 import Colors from "../constants/Colors";
 import { headerOptions, logoHeaderOptions, reviewOptions } from "../constants/Options";
-import post from "../fetch/post";
+
+import {Context} from "./Store";
+import Navigator from "./Navigator";
 
 
 const windowHeight = Dimensions.get("window").height;
 const font = windowHeight / 87;
-const AuthContext = React.createContext();
+
 
 const Auth = createStackNavigator();
 const Main = createStackNavigator();
@@ -127,113 +129,13 @@ const MainStack = () => {
 const waggleNavigator = () => {
     // Main or Auth
     // |_ Settings
-
-    // const [isSignedIn, setIsSignedIn] = useState(getIsSignedIn());
-    const [state, dispatch] = React.useReducer(
-        (prevState, action) => {
-            switch (action.type) {
-                case "RESTORE_TOKEN":
-                    return {
-                        ...prevState,
-                        userToken: action.token,
-                        isLoading: false,
-                    };
-                case "SIGN_IN":
-                    return {
-                        ...prevState,
-                        isSignout: false,
-                        userToken: action.token,
-                    };
-                case "SIGN_OUT":
-                    return {
-                        ...prevState,
-                        isSignout: true,
-                        userToken: null,
-                    };
-            }
-        },
-        {
-            isLoading: true,
-            isSignout: false,
-            userToken: null,
-        }
-    );
-
-    React.useEffect(() => {
-        // Fetch the token from storage then navigate to our appropriate place
-        const bootstrapAsync = async () => {
-            let userToken;
-
-            try {
-                userToken = await AsyncStorage.getItem("userToken");
-            } catch (e) {
-                // Restoring token failed
-                console.log("Restoring token failed")
-            }
-
-            // After restoring token, we may need to validate it in production apps
-
-            // This will switch to the App screen or Auth screen and this loading
-            // screen will be unmounted and thrown away.
-            dispatch({ type: "RESTORE_TOKEN", token: userToken });
-        };
-
-        bootstrapAsync();
-    }, []);
-
-    const authContext = React.useMemo(
-        () => ({
-            signIn: async (data) => {
-                // Send data (email, pw) to server and get a token
-                const {response, error} = await post("/user/login", data);
-            
-                if (error) {
-                    // We will also need to handle errors if sign in failed
-                    alert("LOGIN FAIL", error)
-                } else {
-                    // After getting token, we need to persist the token using `AsyncStorage`
-                    let userToken = response.accessToken;
-
-                    try {
-                        await AsyncStorage.setItem("userToken", userToken);
-                    } catch (e) {
-                        // Restoring token failed
-                        console.log("sign in: failed set user token");
-                    }
-
-                    dispatch({ type: "SIGN_IN", token: userToken });
-                }
-                
-            },
-            signOut: async (data) => {
-                let userToken = null;
-
-                try {
-                    // const existing = await AsyncStorage.getItem("userToken");
-                    // console.log(typeof existing === "string" ? existing : JSON.parse(existing));
-                    await AsyncStorage.setItem("userToken", JSON.stringify(userToken));
-                } catch (e) {
-                    // Restoring token failed
-                    console.log("sign out: failed set user token");
-                }
-
-                dispatch({ type: "SIGN_OUT" });
-            },
-        }),
-        []
-    );
-
+    
+    const [state, dispatch] = React.useContext(Context);
     return (
-        <AuthContext.Provider value={authContext}>
+        <Navigator>
             <NavigationContainer>{state.userToken === null ? <AuthStack></AuthStack> : <MainStack></MainStack>}</NavigationContainer>
-        </AuthContext.Provider>
+        </Navigator>
     );
 };
 
-const alert = (title, message) => {
-    Alert.alert(title, message);
-}
-
-
 export default waggleNavigator;
-export { AuthContext };

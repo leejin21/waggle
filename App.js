@@ -5,6 +5,7 @@ import { useFonts } from "expo-font";
 import { AppLoading } from "expo";
 
 import WaggleNavigator from "./navigation/WaggleNavigator";
+import Store from "./navigation/Store";
 
 export default function App() {
     const [loaded] = useFonts({
@@ -14,7 +15,11 @@ export default function App() {
     if (!loaded) {
         return <AppLoading></AppLoading>;
     }
-    return <WaggleNavigator></WaggleNavigator>;
+    return (
+        <Store>
+            <WaggleNavigator></WaggleNavigator>
+        </Store>
+    );
 }
 
 const styles = StyleSheet.create({

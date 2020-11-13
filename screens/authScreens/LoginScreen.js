@@ -2,7 +2,7 @@
 
 import React, { useState, useContext } from "react";
 import { View, Text, TextInput, Keyboard, TouchableWithoutFeedback, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
-import { AuthContext } from "../../navigation/WaggleNavigator";
+import { AuthContext } from "../../navigation/Navigator";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";

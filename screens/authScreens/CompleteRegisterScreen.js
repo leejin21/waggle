@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 
-import { AuthContext } from "../../navigation/WaggleNavigator";
+import { AuthContext } from "../../navigation/Navigator";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
