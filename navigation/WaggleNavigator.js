@@ -2,9 +2,11 @@
 // FIXME Require cycle: navigation\WaggleNavigator.js -> screens\authScreens\LoginScreen.js -> navigation\WaggleNavigator.js
 // FIXME Require cycle: navigation\WaggleNavigator.js -> screens\settingsScreens\MyPageScreen.js -> navigation\WaggleNavigator.js
 import React from "react";
-import { Dimensions } from "react-native";
+import { Alert, Dimensions } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import AsyncStorage from "@react-native-community/async-storage";
+
 
 // import screens from each folders
 import CompleteRegisterScreen from "../screens/authScreens/CompleteRegisterScreen";
@@ -26,15 +28,14 @@ import StamptoCouponScreen from "../screens/settingsScreens/StamptoCouponScreen"
 import InquiryScreen from "../screens/settingsScreens/InquiryScreen";
 import ReviewScreen from "../screens/settingsScreens/ReviewScreen";
 
-// import signedIn from each folders
 
 import Colors from "../constants/Colors";
 import { headerOptions, logoHeaderOptions, reviewOptions } from "../constants/Options";
-import AsyncStorage from "@react-native-community/async-storage";
+import post from "../fetch/post";
+
 
 const windowHeight = Dimensions.get("window").height;
 const font = windowHeight / 87;
-
 const AuthContext = React.createContext();
 
 const Auth = createStackNavigator();
@@ -167,6 +168,7 @@ const waggleNavigator = () => {
                 userToken = await AsyncStorage.getItem("userToken");
             } catch (e) {
                 // Restoring token failed
+                console.log("Restoring token failed")
             }
 
             // After restoring token, we may need to validate it in production apps
@@ -182,22 +184,26 @@ const waggleNavigator = () => {
     const authContext = React.useMemo(
         () => ({
             signIn: async (data) => {
-                // In a production app, we need to send some data (usually username, password) to server and get a token
-                // We will also need to handle errors if sign in failed
-                // After getting token, we need to persist the token using `AsyncStorage`
-                // In the example, we'll use a dummy token
-                let userToken = "dummy-auth-token";
+                // Send data (email, pw) to server and get a token
+                const {response, error} = await post("/user/login", data);
+            
+                if (error) {
+                    // We will also need to handle errors if sign in failed
+                    alert("LOGIN FAIL", error)
+                } else {
+                    // After getting token, we need to persist the token using `AsyncStorage`
+                    let userToken = response.accessToken;
 
-                try {
-                    // const existing = await AsyncStorage.getItem("userToken");
-                    // console.log(typeof existing === "string" ? existing : JSON.parse(existing));
-                    await AsyncStorage.setItem("userToken", userToken);
-                } catch (e) {
-                    // Restoring token failed
-                    console.log("sign in: failed set user token");
+                    try {
+                        await AsyncStorage.setItem("userToken", userToken);
+                    } catch (e) {
+                        // Restoring token failed
+                        console.log("sign in: failed set user token");
+                    }
+
+                    dispatch({ type: "SIGN_IN", token: userToken });
                 }
-
-                dispatch({ type: "SIGN_IN", token: userToken });
+                
             },
             signOut: async (data) => {
                 let userToken = null;
@@ -223,6 +229,11 @@ const waggleNavigator = () => {
         </AuthContext.Provider>
     );
 };
+
+const alert = (title, message) => {
+    Alert.alert(title, message);
+}
+
 
 export default waggleNavigator;
 export { AuthContext };

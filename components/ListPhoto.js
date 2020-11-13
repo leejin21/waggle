@@ -15,7 +15,7 @@ const BORDER_RADIUS = pad*2;
 const HEART_SIZE = pad*2;
 
 
-// fetch POST function: test code
+// TODO fetch/post.js 로 쓰기
 const postHeartChanged = async (filled, rest_name) => {
     console.log(filled, rest_name);
     try {

@@ -14,7 +14,7 @@ const pad = windowHeight / 80;
 
 
 const LoginScreen = (props) => {
-    const [id, setId] = useState("");
+    const [email, setEmail] = useState("");
     const [pw, setPw] = useState("");
 
     const { signIn } = useContext(AuthContext);
@@ -23,10 +23,9 @@ const LoginScreen = (props) => {
         <View style={CommonStyles.body}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={CommonStyles.body__middle}>
-                    {/* <Text_input what="ID" onChangeText={(id) => setId(id)} value={id} placeholder="이메일을 적어주세요!"></Text_input> */}
                     <View style={styles.text_input__wrapper}>
                         <Text style={styles.text_input__text}>ID</Text>
-                        <TextInput style={CommonStyles.grey_button} placeholder="이메일을 적어주세요." placeholderTextColor={Colors.text_grey} onChangeText={(id) => setId(id)} defaultValue={id} />
+                        <TextInput style={CommonStyles.grey_button} placeholder="이메일을 적어주세요." placeholderTextColor={Colors.text_grey} onChangeText={(email) => setEmail(email)} defaultValue={email} />
                     </View>
                     <View style={styles.text_input__wrapper}>
                         <Text style={{ ...styles.text_input__text, marginLeft: pad*1.5 }}>PW</Text>
@@ -40,7 +39,7 @@ const LoginScreen = (props) => {
                         ></TextInput>
                     </View>
                     {/* submit 할 때 데이터 leak 안하도록.. */}
-                    <TouchableOpacity onPress={() => signIn({ id, pw })} style={styles.login__button}>
+                    <TouchableOpacity onPress={() => signIn({ email, pw })} style={styles.login__button}>
                         <Text style={styles.login__text}>로그인</Text>
                     </TouchableOpacity>
                 </View>

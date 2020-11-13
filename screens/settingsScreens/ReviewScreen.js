@@ -43,6 +43,11 @@ const allCompleted = (menuReview) => {
     return true;
 };
 
+const alert = (title, message) => {
+    Alert.alert(title, message);
+}
+
+
 const ReviewScreen = (props) => {
     props.navigation.setOptions({ title: props.route.params.title });
     const [state, dispatch] = React.useReducer(
@@ -56,10 +61,10 @@ const ReviewScreen = (props) => {
                     menu_review[prevState.curMenu] = { ...menu_review[prevState.curMenu], complete: true };
 
                     if (salt_review < 0 || salt_review >= 3) {
-                        // FIXME alert가 안됨
-                        Alert.alert("리뷰 미작성", "간이 적당한 지 리뷰를 남겨주세요!");
+                        //! FIXME alert가 2번 중복되어서 불림...
+                        alert("리뷰 미작성", "간이 적당한 지 리뷰를 남겨주세요!");
                     } else if (amount_review < 0 || amount_review >= 3) {
-                        Alert.alert("리뷰 미작성", "양이 적당한 지 리뷰를 남겨주세요!");
+                        alert("리뷰 미작성", "양이 적당한 지 리뷰를 남겨주세요!");
                     } else {
                         // console.log(prevState);
                         return {

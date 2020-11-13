@@ -50,10 +50,9 @@ const RestaurantVideoScreen = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.video__wrapper}>
-                {/* TODO video component: fetch from the server */}
-                {/* FIXME IOS: not working, need to eject */}
                 <Video
-                    source={{ uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" }}
+                    // 속도는 나쁘지 않음
+                    source={{ uri: "https://kr.object.ncloudstorage.com/waggle-video/poipu.mp4" }}
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}
@@ -61,7 +60,9 @@ const RestaurantVideoScreen = (props) => {
                     resizeMode="cover"
                     isLooping={false}
                     useNativeControls
-                    style={{ width: windowWidth, height: font*30 }}
+                    // TODO 1 android로 또 맞춰야 함
+                    // TODO 2 다른 화면의 ios 기기의 경우 어떻게 화면이 구성될 지도 확인해야 함
+                    style={{ width: windowWidth, height: "94%", marginTop: font*4.3 }}  // ios
                 ></Video>
             </View>
             <View style={styles.button__wrapper}>
