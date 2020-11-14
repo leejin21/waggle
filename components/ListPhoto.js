@@ -89,7 +89,7 @@ const ListPhoto = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: pad*1.5,
+        marginBottom: pad*1.5,
     },
     image__wrapper: {
         margin: pad,

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
 
 import ProfileLogo from "../../components/ProfileLogo";
 import BottomButton from "../../components/BottomButton";
@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
         paddingBottom: 0,
         padding: 0,
         marginBottom: pad*0.7,
-        aspectRatio: 4 / 1,
+        // aspectRatio: 4 / 1,
+        height: Platform.OS === "ios"? "16%": "20%",
         alignItems: "center",
         justifyContent: "center"
     },

@@ -104,9 +104,9 @@ const MainScreen = {
 const AuthStack = () => {
     return (
         <Auth.Navigator initialRouteName="Login">
-            <Auth.Screen name="Login" component={LoginScreen} options={logoHeaderOptions}></Auth.Screen>
-            <Auth.Screen name="Signup" component={SignupScreen} options={{ title: "정보입력", ...headerOptions }}></Auth.Screen>
-            <Auth.Screen name="TermsNC" component={TermsNConditionsScreen} options={{ title: "약관동의", ...headerOptions }}></Auth.Screen>
+            <Auth.Screen name="Login" component={LoginScreen} options={{...logoHeaderOptions, headerTitleAlign: "center"}}></Auth.Screen>
+            <Auth.Screen name="Signup" component={SignupScreen} options={{ title: "정보입력", ...headerOptions, headerTitleAlign: "center" }}></Auth.Screen>
+            <Auth.Screen name="TermsNC" component={TermsNConditionsScreen} options={{ title: "약관동의", ...headerOptions, headerTitleAlign: "center" }}></Auth.Screen>
             <Auth.Screen name="CompleteRegister" component={CompleteRegisterScreen} options={{ headerShown: false }}></Auth.Screen>
         </Auth.Navigator>
     );
@@ -116,7 +116,7 @@ const MainStack = () => {
     return (
         <Main.Navigator initialRouteName="HomeMain">
             {Object.entries({ ...MainScreen, ...SettingsScreen }).map(([name, others]) => (
-                <Main.Screen key={name} name={name} component={others.component} options={others.options} />
+                <Main.Screen key={name} name={name} component={others.component} options={{...others.options, headerTitleAlign: "center"}} />
             ))}
         </Main.Navigator>
     );
