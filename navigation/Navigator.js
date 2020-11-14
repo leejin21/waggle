@@ -1,6 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////////
 // * Use: WaggleNavigator
 // * FOR FIXING THE ISSUE OF REQUIRE CYCLE
+
+// ! FIXME Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in %s.%s, a useEffect cleanup function,
 /////////////////////////////////////////////////////////////////////////////////
 // * IMPORT SECTION 
 
@@ -58,14 +60,14 @@ const BigNavigator = (props) => {
         () => ({
             signIn: async (data) => {
                 // Send data (email, pw) to server and get a token
-                const {response, error} = await post("/user/login", data);
+                const {res, error} = await post("/user/login", data);
             
                 if (error) {
                     // We will also need to handle errors if sign in failed
                     alert("LOGIN FAIL", error)
                 } else {
                     // After getting token, we need to persist the token using `AsyncStorage`
-                    let userToken = response.accessToken;
+                    let userToken = res.accessToken;
 
                     try {
                         await AsyncStorage.setItem("userToken", userToken);

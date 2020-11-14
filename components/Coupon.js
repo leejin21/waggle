@@ -1,7 +1,7 @@
 // USE:: settings screens: coupon
 
 import React, { useState, useReducer } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
@@ -11,6 +11,7 @@ import Card from "../components/Card";
 import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 
 const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get('window').width;
 const pad = windowHeight / 80; 
 console.log(pad)
 
@@ -89,8 +90,6 @@ const Coupon = (props) => {
         }
     );
 
-    // TODO removed=== true일때, View로 처리하고 화면에서 나가거나 할 때(일단 이 경우로 removed를 고려하겠음) fetch해서 바꾸도록 할 지, 아니면 그 자리에서 바로 fetch할 지
-
     return state.removed ? (
         // 삭제한 쿠폰
         <View></View>
@@ -160,6 +159,7 @@ const Coupon = (props) => {
         </Card>
     );
 };
+
 const styles = StyleSheet.create({
     // Coupon comp의 styles
     card: {
@@ -202,16 +202,14 @@ const styles = StyleSheet.create({
         fontFamily: "noto_bold",
     },
     card__button: {
-        ...CommonStyles.grey_button,
-        marginHorizontal: pad*2,
+        borderRadius: pad*3,
+        marginHorizontal: windowWidth/35,
         marginVertical: pad*0.5,
         height: windowHeight*0.07,
-        aspectRatio: 21 / 4,
         backgroundColor: Colors.black_grey,
         alignItems: "center",
         justifyContent: "center",
         padding: pad,
-        marginLeft: pad/2.8,
     },
     card__button__txt: {
         color: Colors.text_grey,

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Platform } from "react-native";
 import { Video } from "expo-av";
 
 import Colors from "../../constants/Colors";
@@ -60,13 +60,11 @@ const RestaurantVideoScreen = (props) => {
                     resizeMode="cover"
                     isLooping={false}
                     useNativeControls
-                    // TODO 1 android로 또 맞춰야 함
-                    // TODO 2 다른 화면의 ios 기기의 경우 어떻게 화면이 구성될 지도 확인해야 함
-                    style={{ width: windowWidth, height: "94%", marginTop: font*4.3 }}  // ios
+                    style={Platform.OS === 'ios'? styles.video__ios : styles.video__android}  // ios
                 ></Video>
             </View>
             <View style={styles.button__wrapper}>
-                <BottomButton active={true} onPress={() => props.navigation.navigate("Basket", { title: props.route.params.title })}>
+                <BottomButton active={true} onPress={() => props.navigation.navigate("Basket", { title: props.route.params.title })} style_back_color={{}}>
                     <Text style={CommonStyles.bold_text}>메뉴 선택</Text>
                 </BottomButton>
             </View>
@@ -79,6 +77,7 @@ const styles = StyleSheet.create({
         height: "100%",
         alignItems: "center",
         justifyContent: "center",
+        // backgroundColor: "pink"
     },
     video__wrapper: {
         flex: 13,
@@ -86,6 +85,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: Colors.body_grey,
         width: "100%",
+    },
+    video__android: {
+        width: windowWidth, height: "100%"
+    },
+    video__ios: {
+        width: windowWidth, height: "94%", marginTop: font*4.3
     },
     button__wrapper: {
         flex: 2,
