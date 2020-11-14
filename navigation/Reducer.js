@@ -1,4 +1,4 @@
-
+// Use: Store
 const Reducer = (prevState, action) => {
     switch (action.type) {
         case "RESTORE_TOKEN":
