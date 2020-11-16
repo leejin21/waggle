@@ -19,8 +19,10 @@ const Menu = ({menu_name, menu_price}) => {
     return(
         <View style={{width: circle_size+margin_size, justifyContent:"flex-start", alignItems:"center"}}>
             <CheckCircle SIZE={circle_size} touchable={false}/>
-            <Text style={CommonStyles.small_text}>{menu_name}</Text>
-            <Text style={CommonStyles.small_text}>{''+menu_price}</Text>
+            <View style={{borderTopWidth: pad/2, borderColor: "transparent"}}>
+                <Text style={CommonStyles.small_text}>{menu_name}</Text>
+                <Text style={CommonStyles.small_text}>{''+menu_price}</Text>
+            </View>
         </View>   
     );
 };
