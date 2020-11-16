@@ -46,7 +46,7 @@ const Menu = (props) => {
     return(
         <TouchableOpacity onPress={() => handleClick()} style={{width: circle_size + padding_size, height: circle_size + padding_size ,justifyContent:"flex-start", alignItems:"flex-start"}}>
             {selected? <Circle_check/>:<Circle_uncheck/>}
-            <View style={{flexDirection:"row"}}> 
+            <View style={{flexDirection:"row", borderTopWidth: pad/2, borderColor: "transparent"}}> 
                 <View style={{flex: 0.5}}></View>
                 <View style={{flex: 2}}>
                     <Text style={CommonStyles.small_text}>{props.name}{"\n"}{props.cost}</Text>
