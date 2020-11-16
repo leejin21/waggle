@@ -13,7 +13,7 @@ import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handl
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get('window').width;
 const pad = windowHeight / 80; 
-console.log(pad)
+
 
 const StampCoupon = (props) => {
     // props: usable, name, content, useDate

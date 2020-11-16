@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
 
 import ProfileLogo from "../../components/ProfileLogo";
 import BottomButton from "../../components/BottomButton";
+
 import { AuthContext } from "../../navigation/Navigator";
+import { Context } from "../../navigation/Store";
+import getApi from "../../fetch/get";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
@@ -13,21 +16,58 @@ const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 const font = windowHeight / 87;
 
-const MyPageScreen = (props) => {
-    const { signOut } = useContext(AuthContext);
+const getMyInfo = async (state) => {
+    // * GET user/settings
+    // 상단의 이름, 전화번호 표시 위해 
+    if (state.userToken){
+        const {totUrl, header} = await getApi('/user/settings', {}, state.userToken);
+        try {
+            let response = await fetch(totUrl, {
+                method: 'GET',
+                headers: header,
+            });
+            let json = await response.json();
+            console.log(json);
+            return json;
+        } catch (e) {
+            console.error(e);
+        }
+            
+    } else {
+        console.log("user token not exist");
+    }
+}
 
+
+const MyPageScreen = (props) => {
+    // initialization
+    const { signOut } = useContext(AuthContext);
+    const [state, dispatch] = React.useContext(Context);
+
+    // GET user/settings
+    const [info, setInfo] = useState({name: "", phone_num: ""});
+    
+    useEffect(() => {
+        const fetchInfo = async () => {
+            const json = await getMyInfo(state);
+            setInfo(json);
+        }
+        fetchInfo();
+    }, []);
+
+    // set navigation options
     props.navigation.setOptions({
         ...logoHeaderOptions,
         headerTitle: () => <ProfileLogo touchable={false} SIZE={font*7}></ProfileLogo>,
         headerTintColor: Colors.text_grey,
     });
+
     return (
         <View style={CommonStyles.body}>
             <View style={styles.body__middle}>
                 <View style={styles.my_info}>
-                    {/* TODO 여기 본인 프로필 fetch해 오던지 아니면 asyncstorage에 저장해두던 지 */}
-                    <Text style={styles.my_info__text}>김눈송</Text>
-                    <Text style={styles.my_info__text}>010-0000-0000</Text>
+                    <Text style={styles.my_info__text}>{info.name}</Text>
+                    <Text style={styles.my_info__text}>{info.phone_num}</Text>
                 </View>
                 <BottomButton onPress={() => props.navigation.navigate("Coupons")} active={true} style_back_color={styles.mid__button}>
                     <Text style={styles.button_text}>쿠폰함</Text>
