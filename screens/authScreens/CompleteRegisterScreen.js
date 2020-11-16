@@ -30,12 +30,16 @@ const CompleteRegisterScreen = () => {
                     <View style={styles.elem}>
                         <Text style={{...CommonStyles.bold_text, color: Colors.deep_yellow, fontSize: font*4.3}}>가입완료</Text>
                     </View>   
-                    <Text style={{...CommonStyles.small_text, borderTopWidth: pad, fontSize: font*1.8}}>이제 와글로 멋진 식사를 즐겨보세요!</Text>
+                    <View style={{borderTopWidth: pad, borderColor: Colors.body_grey}}>
+                        <Text style={{...CommonStyles.small_text, fontSize: font*1.8}}>이제 와글로 멋진 식사를 즐겨보세요!</Text>
+                    </View>
                 </View>
                 <View style={styles.f2}>
                     <ProfileLogo touchable={false} SIZE={font*7}></ProfileLogo>
-                    <Text style={{...CommonStyles.small_text, fontSize: font*1.8}}>김눈송</Text>
-                    <Text style={{...CommonStyles.small_text, fontSize: font*2.3}}>test@gmail.com</Text>
+                    <View style={{borderTopWidth: pad, borderColor: Colors.body_grey}}>
+                        <Text style={{...CommonStyles.small_text, fontSize: font*1.8}}>김눈송</Text>
+                        <Text style={{...CommonStyles.small_text, fontSize: font*2.3}}>test@gmail.com</Text>
+                    </View>
                     {/* 정보 받아와서 내용 수정되게끔 고쳐야 */}
                 </View>
                 <View style={styles.f1}></View>
