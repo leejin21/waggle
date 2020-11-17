@@ -11,6 +11,7 @@ import BottomButton from "../../components/BottomButton";
 import CommonStyles from "../../constants/CommonStyles";
 
 import Card from "../../components/Card";
+import { AntDesign } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -20,8 +21,8 @@ const font = windowHeight / 87;
 const ICON_SIZE = font*2.4;
 
 const timestamp = [
-    {id:0, name: "안녕", milisec: 3000},
-    {id: 1, name: "잘가", milisec: 8000}
+    {id:0, name: "메뉴소개", milisec: 3000},
+    {id: 1, name: "먹방", milisec: 8000}
 ]
 const TimeStamp = (props) => {
     const handleClick = () => {
@@ -31,8 +32,9 @@ const TimeStamp = (props) => {
     return (
         <TouchableOpacity onPress={() => handleClick()}>
             <Card style={styles.timestamp}>
-                <View>
-
+                <View style={{flexDirection: "row"}}>
+                    <AntDesign name="caretright" size={font*2} color="white"></AntDesign>
+                    <Text>{" "}</Text>
                 </View>
                 <View>
                     <Text style={styles.timestamp_txt}>{props.name}</Text>
@@ -136,24 +138,26 @@ const styles = StyleSheet.create({
     },
 
     timestamp__wrapper: {
-        flex: 1,
+        flex: 1.4,
+        backgroundColor: Colors.body_grey,
+        width: "100%",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flexDirection: "row"
     },
     timestamp: {
         backgroundColor: "#565656",
-        marginHorizontal: pad,
-        borderRadius: pad*2.2,
-
-        width: "95%",
-        marginVertical: pad,
-        padding: pad*1.5,
-        paddingVertical: pad*2.2,
-
-        flexDirection: "row"
+        borderRadius: pad*1.7,
+        margin: pad,
+        marginRight: 0,
+        padding: pad,
+        paddingRight: pad*1.5,
+        flexDirection: "row",
+        alignItems: "center",
     },
     timestamp_txt: {
-        ...CommonStyles.bold_text,
         color: "white",
-        fontSize: windowHeight / 35,
+        fontSize: font*2,
         fontFamily: "noto_bold",
     }
 });
