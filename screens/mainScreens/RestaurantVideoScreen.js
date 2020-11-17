@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Video } from "expo-av";
 
@@ -20,12 +20,12 @@ const font = windowHeight / 87;
 const ICON_SIZE = font*2.4;
 
 const timestamp = [
-    {id:0, name: "안녕", milisec: 30},
-    {id: 1, name: "잘가", milisec: 80}
+    {id:0, name: "안녕", milisec: 3000},
+    {id: 1, name: "잘가", milisec: 8000}
 ]
 const TimeStamp = (props) => {
     const handleClick = () => {
-
+        props.setPos(props.milisec);
     }
 
     return (
@@ -72,6 +72,8 @@ const RestaurantVideoScreen = (props) => {
         headerRight: () => <HeaderRight></HeaderRight>,
     });
 
+    const [pos, setPos] = useState(0);
+
     return (
         <View style={styles.container}>
             <View style={styles.video__wrapper}>
@@ -82,15 +84,16 @@ const RestaurantVideoScreen = (props) => {
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}
-                    shouldPlay={false}
+                    shouldPlay={true}
                     resizeMode="cover"
                     isLooping={false}
                     useNativeControls
                     style={{ width: windowWidth, height: font*30 }}
+                    positionMillis={pos}
                 ></Video>
             </View>
             <View style={styles.timestamp__wrapper}>
-                {timestamp.map((item) => {return <TimeStamp key={item.id} id={item.id} name={item.name} milisec={item.milisec}></TimeStamp>})}
+                {timestamp.map((item) => {return <TimeStamp key={item.id} id={item.id} name={item.name} milisec={item.milisec} setPos={setPos}></TimeStamp>})}
             </View>
             <View style={styles.button__wrapper}>
                 <BottomButton active={true} onPress={() => props.navigation.navigate("Basket", { title: props.route.params.title })}>
