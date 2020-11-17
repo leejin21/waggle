@@ -10,12 +10,37 @@ import { Feather } from "@expo/vector-icons";
 import BottomButton from "../../components/BottomButton";
 import CommonStyles from "../../constants/CommonStyles";
 
+import Card from "../../components/Card";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 const font = windowHeight / 87;
 
 const ICON_SIZE = font*2.4;
+
+const timestamp = [
+    {id:0, name: "안녕", milisec: 30},
+    {id: 1, name: "잘가", milisec: 80}
+]
+const TimeStamp = (props) => {
+    const handleClick = () => {
+
+    }
+
+    return (
+        <TouchableOpacity onPress={() => handleClick()}>
+            <Card style={styles.timestamp}>
+                <View>
+
+                </View>
+                <View>
+                    <Text style={styles.timestamp_txt}>{props.name}</Text>
+                </View>
+            </Card>
+        </TouchableOpacity>
+    );
+}
 
 const HeaderRight = () => {
     return (
@@ -64,6 +89,9 @@ const RestaurantVideoScreen = (props) => {
                     style={{ width: windowWidth, height: font*30 }}
                 ></Video>
             </View>
+            <View style={styles.timestamp__wrapper}>
+                {timestamp.map((item) => {return <TimeStamp key={item.id} id={item.id} name={item.name} milisec={item.milisec}></TimeStamp>})}
+            </View>
             <View style={styles.button__wrapper}>
                 <BottomButton active={true} onPress={() => props.navigation.navigate("Basket", { title: props.route.params.title })}>
                     <Text style={CommonStyles.bold_text}>메뉴 선택</Text>
@@ -80,7 +108,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     video__wrapper: {
-        flex: 13,
+        flex: 12,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: Colors.body_grey,
@@ -103,6 +131,28 @@ const styles = StyleSheet.create({
         margin: pad*0.5,
         borderRadius: ICON_SIZE * 2,
     },
+
+    timestamp__wrapper: {
+        flex: 1,
+    },
+    timestamp: {
+        backgroundColor: "#565656",
+        marginHorizontal: pad,
+        borderRadius: pad*2.2,
+
+        width: "95%",
+        marginVertical: pad,
+        padding: pad*1.5,
+        paddingVertical: pad*2.2,
+
+        flexDirection: "row"
+    },
+    timestamp_txt: {
+        ...CommonStyles.bold_text,
+        color: "white",
+        fontSize: windowHeight / 35,
+        fontFamily: "noto_bold",
+    }
 });
 
 export default RestaurantVideoScreen;
