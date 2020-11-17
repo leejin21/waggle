@@ -6,7 +6,7 @@ import BottomButton from "../../components/BottomButton";
 
 import { AuthContext } from "../../navigation/Navigator";
 import { Context } from "../../navigation/Store";
-import getApi from "../../fetch/get";
+import {par2url, getHeader} from "../../fetch/fetchApi";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
@@ -18,9 +18,10 @@ const font = windowHeight / 87;
 
 const getMyInfo = async (state) => {
     // * GET user/settings
-    // 상단의 이름, 전화번호 표시 위해 
-    if (state.userToken){
-        const {totUrl, header} = await getApi('/user/settings', {}, state.userToken);
+    // 상단의 이름, 전화번호 표시 위해 fetch
+    if (state.userToken !== null){
+        const totUrl = par2url('/user/settings', {});
+        const header = getHeader(state.userToken);
         try {
             let response = await fetch(totUrl, {
                 method: 'GET',
@@ -93,6 +94,7 @@ const MyPageScreen = (props) => {
         </View>
     );
 };
+
 const styles = StyleSheet.create({
     body__middle: {
         ...CommonStyles.body__middle,

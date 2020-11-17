@@ -1,11 +1,15 @@
+/*
+* EXPLANATION
+* get, post fetch할 때 필요한 인자들(ex: header) return하는 함수들 모음
+*/
 /////////////////////////////////////////////////////////////////////
 // * IMPORT SECTION
 import ApiUrls from "../constants/ApiUrls";
 /////////////////////////////////////////////////////////////////////
-// * MAIN SECTION
+// * SUB FUNCTIONS
 
 const objToQueryString = (obj) => {
-    // get api에서 params로 들어갈 객체를 url화
+    // par2url()에서 params로 들어갈 객체를 url화
     const keyValuePairs = [];
     for (const key in obj) {
       keyValuePairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
@@ -14,31 +18,33 @@ const objToQueryString = (obj) => {
 };
 
 const isEmpty = (obj) => {
-    // get api에서 params가 빈 객체({})인 지 확인
+    // par2url()에서 params가 빈 객체({})인 지 확인
     return Object.keys(obj).length === 0;
 }
 
-// TODO change function name and divide it to 2 function(totUrl return and header return)
-const getApi = async (endpoint, params, userToken=null) => {
-    // * get api에 필요한 변수들 return
-    console.log("=============================================")
-    console.log(endpoint + " GET API");
-    // Authorization 관련 코드
-    let header  = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    };
-    userToken? header.authorization='Bearer '+userToken : null;
-    
+/////////////////////////////////////////////////////////////////////
+// * MAJOR FUNCTIONS
+
+const par2url = (endpoint, params) => {
     // params 인자가 비어있지 않은 경우 totUrl에 params 붙여주기
     let totUrl = ApiUrls.url + endpoint;
     if (!(isEmpty(params))) {
         const queryStr = objToQueryString(params);
         totUrl = ApiUrls.url + endpoint + `?${queryStr}`;
     }
-    
-    return {totUrl, header};
-};
+    return totUrl;
+}
+
+const getHeader = (userToken=null) => {
+    // Authorization 관련 코드: userToken 붙여주기
+    let header  = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    };
+    userToken? header.authorization='Bearer '+userToken : null;
+    return header;
+}
+
 /////////////////////////////////////////////////////////////////////
 // * EXPORT SECTION
-export default getApi;
+export {par2url, getHeader};

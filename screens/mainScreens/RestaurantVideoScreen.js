@@ -51,8 +51,8 @@ const RestaurantVideoScreen = (props) => {
         <View style={styles.container}>
             <View style={styles.video__wrapper}>
                 <Video
-                    // 속도는 나쁘지 않음
-                    source={{ uri: "https://kr.object.ncloudstorage.com/waggle-video/poipu.mp4" }}
+                    // TODO 넘어온 rest_id로 rest_id.mp4로 url해 주기
+                    source={{ uri: "https://kr.object.ncloudstorage.com/waggle-video/1.mp4" }}
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}
