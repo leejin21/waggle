@@ -16,7 +16,7 @@ const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 
 // * 서버 부착
-const getThumbnails = async (state, data) => {
+const getThumbnails = async (state) => {
     // TODO photo 없애고 rest_id로 대신하기(like video url)
     /*
         * JSON FORM
@@ -37,7 +37,6 @@ const getThumbnails = async (state, data) => {
         let response = await fetch(totUrl, {
             method: 'GET',
             headers: header,
-            body: JSON.stringify(data),
         });
         let json = await response.json();
         

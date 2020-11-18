@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
@@ -6,6 +6,9 @@ import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import Card from "../../components/Card";
 import CheckCircle from "../../components/CheckCircle";
+
+import { Context } from "../../navigation/Store";
+import { par2url, getHeader} from "../../fetch/fetchApi";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
 
@@ -84,12 +87,65 @@ const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
     );
 }
 
+const getMenu = async (state, params) => {
+    /*
+        * JSON FORM
+        Array [
+            Object {
+                "id": 0,
+                "menu_id": 1,
+                "rest_id": 1,
+                "name": "스무디볼",
+                "price": 12000,
+                "type": "main",
+            },
+        ...
+        ]
+    */
+    // * GET main/menu
+    console.log('======================================');
+    console.log('GET main/menu');
+    const totUrl = par2url('/main/menu', params);
+    const header = getHeader(state.userToken)
+    try {    
+        let response = await fetch(totUrl, {
+            method: 'GET',
+            headers: header,
+        });
+        let json = await response.json();
+        console.log(json);
+        return json;
+    } catch(error) {
+        // error의 경우 뭘 return해 줄 지 고민
+        console.log(error);
+    }
+}
+
+
 const BasketScreen = (props) => {
     props.navigation.setOptions({title: props.route.params.title});
+    const [state, dispatch] = React.useContext(Context);
+
+    const [main_menu, set_main_menu] = useState([]);
+    const [side_menu, set_side_menu] = useState([]);
 
     const [mainArray, setMainArray] = useState([]);
     const [sideArray, setSideArray] = useState([]);   
     const [totalCost, setCost] = useState(0);
+
+    useEffect(() => {
+        // get main menu and side menu
+        const fetchMain = async () => {
+            const json = await getMenu(state, {ordered: false, rest_id: props.route.params.rest_id, type: "main"});
+            await set_main_menu(json);
+        }
+        const fetchSide = async () => {
+            const json = await getMenu(state, {ordered: false, rest_id: props.route.params.rest_id, type: "side"});
+            await set_side_menu(json);
+        }
+        fetchMain();
+        fetchSide();
+    }, []);
 
     const clickMain = (id, selected) => { // selected 바꾸기 전에 전해줌 = 클릭 이전에 selected였는지
         if(selected){
@@ -119,17 +175,17 @@ const BasketScreen = (props) => {
         }
     }
 
-    const main_menu = [
-        {id: 0, name: "된장찌개", price: 5500},
-        {id: 1, name: "김치찌개", price: 6000},
-        {id: 2, name: "청국장", price: 7000},
-        // 3개 넘는 시점부터 아래로 내리기
-        // {name: "갈비탕", price: 8000}
-    ]
-    const side_menu = [
-        {id: 100, name: "사이다", price: 2000},
-        {id: 101, name: "라면", price: 3000}
-    ]
+    // const main_menu = [
+    //     {id: 0, name: "된장찌개", price: 5500},
+    //     {id: 1, name: "김치찌개", price: 6000},
+    //     {id: 2, name: "청국장", price: 7000},
+    //     // 3개 넘는 시점부터 아래로 내리기
+    //     // {name: "갈비탕", price: 8000}
+    // ]
+    // const side_menu = [
+    //     {id: 100, name: "사이다", price: 2000},
+    //     {id: 101, name: "라면", price: 3000}
+    // ]
 
     return(
         <NoCardTemplate

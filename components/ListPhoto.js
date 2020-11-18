@@ -77,7 +77,7 @@ const ListPhoto = (props) => {
                 onPress={() =>
                     props.navigation.navigate("RestVideo", {
                         title: props.rest_name,
-                        id: props.rest_id,
+                        rest_id: props.rest_id,
                     })
                 }
             >

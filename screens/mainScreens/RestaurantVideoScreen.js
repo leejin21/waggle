@@ -56,7 +56,7 @@ const RestaurantVideoScreen = (props) => {
     useEffect(()=> {
         const fetchHeart = async() => {
             // * get heart json
-            const json = await getHeart(state, props.route.params.id);
+            const json = await getHeart(state, props.route.params.rest_id);
             // * set header
             await props.navigation.setOptions({
                 ...headerOptions,
@@ -72,7 +72,7 @@ const RestaurantVideoScreen = (props) => {
                 },
                 // - set header title and header right buttons
                 title: props.route.params.title,
-                headerRight: () => <HeaderRight item={props.route.params.item} rest_id={props.route.params.id} heart_filled={json.heart_filled} ></HeaderRight>,
+                headerRight: () => <HeaderRight item={props.route.params.item} rest_id={props.route.params.rest_id} heart_filled={json.heart_filled} ></HeaderRight>,
             });
         };
         fetchHeart();
@@ -83,7 +83,7 @@ const RestaurantVideoScreen = (props) => {
             <View style={styles.video__wrapper}>
                 <Video
                     // TODO mp4 아닌 확장자 어떻게 할 지 고민하기
-                    source={{ uri: ApiUrls.FETCH_VIDEO+props.route.params.id.toString()+".mp4"}}
+                    source={{ uri: ApiUrls.FETCH_VIDEO+props.route.params.rest_id.toString()+".mp4"}}
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}
@@ -95,7 +95,7 @@ const RestaurantVideoScreen = (props) => {
                 ></Video>
             </View>
             <View style={styles.button__wrapper}>
-                <BottomButton active={true} onPress={() => props.navigation.navigate("Basket", { title: props.route.params.title })} style_back_color={{}}>
+                <BottomButton active={true} onPress={() => props.navigation.navigate("Basket", { title: props.route.params.title, rest_id: props.route.params.rest_id })} style_back_color={{}}>
                     <Text style={CommonStyles.bold_text}>메뉴 선택</Text>
                 </BottomButton>
             </View>
