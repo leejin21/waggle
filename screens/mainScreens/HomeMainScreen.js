@@ -70,23 +70,24 @@ const HomeMainScreen = (props) => {
         fetchImages();
     }, []);
 
-    // 서버 부착해서 getThumbnails()하나로 이미지 다 다운받고 하기
     return (
         <View style={styles.body}>
             <FlatList
+                // TODO step 2: 위로 roll하면 thumbnail 다시 get하도록 하기
                 key={"_"}
                 numColumns={2}
                 data={imageDatas}
                 renderItem={({ item }) => {
                     return <ListPhoto 
                         ITEM_WIDTH={windowWidth / 2}
-                        item={{uri: ApiUrls.FETCH_THUMBNAIL+item.photo}}
+                        photo={{uri: ApiUrls.FETCH_THUMBNAIL+item.photo}}
                         rest_id = {item.rest_id}
                         navigation={props.navigation} 
-                        rest_name={item.name} 
-                        heart_filled={item.heart_filled} 
+                        rest_name={item.name}  
+                        heart_filled = {item.heart_filled}
                     />;
                 }}
+                extraData={imageDatas}
                 keyExtractor={(item, index) => index.toString()}
             ></FlatList>
         </View>

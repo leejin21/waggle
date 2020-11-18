@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Platform } from "react-native";
 import { Video } from "expo-av";
 
 import Colors from "../../constants/Colors";
 import { headerOptions } from "../../constants/Options";
 
+import { Context } from "../../navigation/Store";
+
 import { HeartIcon } from "../../components/ListPhoto";
 import { Feather } from "@expo/vector-icons";
 import BottomButton from "../../components/BottomButton";
 import CommonStyles from "../../constants/CommonStyles";
 import ApiUrls from "../../constants/ApiUrls";
+
+import {par2url, getHeader} from "../../fetch/fetchApi";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -18,10 +22,27 @@ const font = windowHeight / 87;
 
 const ICON_SIZE = font*2.4;
 
-const HeaderRight = () => {
+const getHeart = async (state, rest_id) => {
+    // 하트의 유무 결정
+    const totUrl = par2url('/main/heartchanged', {rest_id});
+    const header = getHeader(state.userToken);
+    try {
+        let response = await fetch(totUrl, {
+            method: 'GET',
+            headers: header,
+        });
+        let json = await response.json();
+        console.log(json);
+        return json;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+const HeaderRight = (props) => {
     return (
         <View style={styles.header__right}>
-            <HeartIcon heart_filled={true} style={styles.heart_icon}></HeartIcon>
+            <HeartIcon heart_filled={props.heart_filled} style={styles.heart_icon} rest_id={props.rest_id} item={props.item}></HeartIcon>
             <TouchableOpacity style={styles.more_icon} onPress={() => {}}>
                 <Feather name="more-vertical" size={ICON_SIZE} color="black" />
             </TouchableOpacity>
@@ -30,27 +51,33 @@ const HeaderRight = () => {
 };
 
 const RestaurantVideoScreen = (props) => {
-    props.navigation.setOptions({
-        ...headerOptions,
-        headerTintColor: Colors.deep_yellow,
-        headerTransparent: true,
-        headerStyle: {
-            height: font*15,
-            shadowColor: "transparent",
-        },
-        headerTitleStyle: {
-            ...headerOptions.headerTitleStyle,
-            color: "white",
-        },
-
-        // SECTION set header title and header right buttons
-        
-        title: props.route.params.title,
-        headerRight: () => <HeaderRight></HeaderRight>,
-    });
-    // TODO props route params id 찾아내기
-    console.log(ApiUrls.FETCH_VIDEO+props.route.params.id.toString()+".mp4");
-
+    const [state, dispatch] = React.useContext(Context);
+    console.log('header right called');
+    useEffect(()=> {
+        const fetchHeart = async() => {
+            // * get heart json
+            const json = await getHeart(state, props.route.params.id);
+            // * set header
+            await props.navigation.setOptions({
+                ...headerOptions,
+                headerTintColor: Colors.deep_yellow,
+                headerTransparent: true,
+                headerStyle: {
+                    height: font*15,
+                    shadowColor: "transparent",
+                },
+                headerTitleStyle: {
+                    ...headerOptions.headerTitleStyle,
+                    color: "white",
+                },
+                // - set header title and header right buttons
+                title: props.route.params.title,
+                headerRight: () => <HeaderRight item={props.route.params.item} rest_id={props.route.params.id} heart_filled={json.heart_filled} ></HeaderRight>,
+            });
+        };
+        fetchHeart();
+    },[])
+    
     return (
         <View style={styles.container}>
             <View style={styles.video__wrapper}>

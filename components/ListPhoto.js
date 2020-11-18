@@ -6,7 +6,8 @@ import { AntDesign } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 import ApiUrls from "../constants/ApiUrls";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { cos } from "react-native-reanimated";
+import {par2url, getHeader} from "../fetch/fetchApi";
+import { Context } from "../navigation/Store";
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
@@ -14,40 +15,44 @@ const pad = windowHeight / 80;
 const BORDER_RADIUS = pad*2;
 const HEART_SIZE = pad*2;
 
-
-// TODO fetch/post.js 로 쓰기
-const postHeartChanged = async (filled, rest_name) => {
-    console.log(filled, rest_name);
-    try {
-        let response = await fetch(ApiUrls.url+'/main/heartchanged', {
+const postHeartChanged = async (state, filled, rest_id) => {
+    /*
+        * POST JSON FORM
+        Object {
+            "heart_filled": true,
+            "rest_id": 1,
+        },
+    */
+    // * POST main/heartchanged
+    const totUrl = par2url('/main/heartchanged', {});
+    const header = getHeader(state.userToken);
+    const data = {
+            heart_filled: filled, 
+            rest_id: rest_id,
+    };
+    try {    
+        let response = await fetch(totUrl, {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-            body: JSON.stringify(
-                {filled, 
-                name: rest_name,
-                },
-            ),
+            headers: header,
+            body: JSON.stringify(data),
         });
-        //! status만 보내는 건 status만 찍기!
         console.log(await response.status);
     } catch(error) {
-        console.error(error);
-    }   
-}
-
+        // error의 경우 뭘 return해 줄 지 고민
+        console.log(error);
+    }
+};
 
 const HeartIcon = (props) => {
-    // props: heart_filled
-    const [color, setColor] = useState(props.heart_filled ? "red" : Colors.text_grey);
+    // props: heart_filled, rest_id, item
+    const [state, dispatch] = React.useContext(Context);
+    const [color, setColor] = useState(()=> props.heart_filled ? "red" : Colors.text_grey);
     // TODO 변경된 정보 저장했다가 스크린 넘어갈 때 db로 fetch해서 저장하기
     // SERVER TODO db에서 넘겨줄 때, 해당 데이터 위주로 sort시켜야 함
     return (
         <TouchableWithoutFeedback onPress={() => {
             let filled = color === Colors.text_grey ? true: false;
-            postHeartChanged(filled, props.rest_name);
+            postHeartChanged(state, filled, props.rest_id);
             return setColor((color) => 
                 (color === Colors.text_grey ? "red" : Colors.text_grey)
             );
@@ -64,7 +69,6 @@ const ListPhoto = (props) => {
 
     const GAP = (ITEM_HEIGHT - PHOTO_HEIGHT) / 2;
     const ICON_SIZE = pad*6;
-    console.log(props.rest_id);
     
     return (
         <View style={styles.container}>
@@ -73,17 +77,17 @@ const ListPhoto = (props) => {
                 onPress={() =>
                     props.navigation.navigate("RestVideo", {
                         title: props.rest_name,
-                        id: props.rest_id
+                        id: props.rest_id,
                     })
                 }
             >
-                <ImageBackground source={props.item} style={{ ...styles.image__photo, width: ITEM_WIDTH, height: ITEM_HEIGHT }} imageStyle={{ height: PHOTO_HEIGHT, marginTop: GAP }}>
+                <ImageBackground source={props.photo} style={{ ...styles.image__photo, width: ITEM_WIDTH, height: ITEM_HEIGHT }} imageStyle={{ height: PHOTO_HEIGHT, marginTop: GAP }}>
                     <AntDesign name="caretright" size={ICON_SIZE} color={Colors.deep_yellow} />
                 </ImageBackground>
             </TouchableHighlight>
             <View style={styles.info__wrapper}>
                 <Text style={styles.info__name}>{props.rest_name}</Text>
-                <HeartIcon heart_filled={props.heart_filled} style={{ flex: 1 }} rest_name={props.rest_name}></HeartIcon>
+                <HeartIcon heart_filled={props.heart_filled} style={{ flex: 1 }} rest_id={props.rest_id}></HeartIcon>
             </View>
         </View>
     );
