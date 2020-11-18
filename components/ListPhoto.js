@@ -64,7 +64,8 @@ const ListPhoto = (props) => {
 
     const GAP = (ITEM_HEIGHT - PHOTO_HEIGHT) / 2;
     const ICON_SIZE = pad*6;
-
+    console.log(props.rest_id);
+    
     return (
         <View style={styles.container}>
             <TouchableHighlight
@@ -72,6 +73,7 @@ const ListPhoto = (props) => {
                 onPress={() =>
                     props.navigation.navigate("RestVideo", {
                         title: props.rest_name,
+                        id: props.rest_id
                     })
                 }
             >

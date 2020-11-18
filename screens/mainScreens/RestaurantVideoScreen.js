@@ -9,6 +9,7 @@ import { HeartIcon } from "../../components/ListPhoto";
 import { Feather } from "@expo/vector-icons";
 import BottomButton from "../../components/BottomButton";
 import CommonStyles from "../../constants/CommonStyles";
+import ApiUrls from "../../constants/ApiUrls";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -43,16 +44,19 @@ const RestaurantVideoScreen = (props) => {
         },
 
         // SECTION set header title and header right buttons
+        
         title: props.route.params.title,
         headerRight: () => <HeaderRight></HeaderRight>,
     });
+    // TODO props route params id 찾아내기
+    console.log(ApiUrls.FETCH_VIDEO+props.route.params.id.toString()+".mp4");
 
     return (
         <View style={styles.container}>
             <View style={styles.video__wrapper}>
                 <Video
-                    // TODO 넘어온 rest_id로 rest_id.mp4로 url해 주기
-                    source={{ uri: "https://kr.object.ncloudstorage.com/waggle-video/1.mp4" }}
+                    // TODO mp4 아닌 확장자 어떻게 할 지 고민하기
+                    source={{ uri: ApiUrls.FETCH_VIDEO+props.route.params.id.toString()+".mp4"}}
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}
@@ -60,7 +64,7 @@ const RestaurantVideoScreen = (props) => {
                     resizeMode="cover"
                     isLooping={false}
                     useNativeControls
-                    style={Platform.OS === 'ios'? styles.video__ios : styles.video__android}  // ios
+                    style={Platform.OS === 'ios'? styles.video__ios : styles.video__android} 
                 ></Video>
             </View>
             <View style={styles.button__wrapper}>
