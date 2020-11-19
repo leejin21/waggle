@@ -22,6 +22,9 @@ const BottomButton_1 = (props) => {
 const NoCardTemplate = (props) => {   
     // props; 
     // (default) bodyview, buttonname, toWhere, navigation, needButton, isHeaderBlack, data
+    // buttonFetch: only in OrderScreen
+    
+    const buttonFetch = (props.buttonFetch) ? props.buttonFetch : ()=>{};
 
     return props.needButton? 
     (
@@ -30,7 +33,12 @@ const NoCardTemplate = (props) => {
                 {props.bodyview}
             </View>
             <View style={{ ...CommonStyles.body__end, width: "100%" }}>
-                <BottomButton_1 name={props.buttonname} onPress={() => props.navigation.navigate(props.toWhere, props.data)}/>
+                <BottomButton_1 
+                    name={props.buttonname} 
+                    onPress={() => {
+                        buttonFetch();
+                        return props.navigation.navigate(props.toWhere, props.data);
+                    }}/>
             </View>
         </View>
     ):

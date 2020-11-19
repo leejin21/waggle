@@ -5,6 +5,9 @@ import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import CheckCircle from "../../components/CheckCircle";
 
+import { Context } from "../../navigation/Store";
+import {par2url, getHeader} from "../../fetch/fetchApi";
+
 import NoCardTemplate from "../../templates/NoCardTemplate";
 
 const windowHeight = Dimensions.get("window").height;
@@ -29,7 +32,7 @@ const Menu = ({menu_name, menu_price}) => {
 
 const OrderView = ({route}) => { 
     //mainArray, sideArray , totalCost
-    //menuArray: [{id, name, price}]
+    //menuArray: [{id, menu_id, name, price, rest_id, type}]
     const mainArray = route.params.mainArray;
     const sideArray = route.params.sideArray;
 
@@ -59,7 +62,7 @@ const OrderView = ({route}) => {
         <View style={styles.view2_2}>
             <View style={[styles.title_view, styles.view3_3]}>
                 <Text style={[CommonStyles.bold_text, styles.txt2]}> = 총합 {totalCost}</Text>
-                <Text style={[CommonStyles.small_text, styles.txt3]}>  (메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
+                {/* <Text style={[CommonStyles.small_text, styles.txt3]}>  (메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text> */}
             </View>
         </View>
 
@@ -68,13 +71,65 @@ const OrderView = ({route}) => {
     );
 }
 
+
+const postCoupon = async (state, rest_id, mainArray, sideArray) => {
+    
+    /*
+        * JSON FORM
+        {
+            type: "G",
+            rest_id: 1,
+            menus: [1, 3]
+        }
+    */
+    
+    // * POST event/coupon
+    const totUrl = par2url('/event/coupon', {});
+    const header = getHeader(state.userToken);
+
+    let menus = mainArray.map(m => m.menu_id);
+    menus = menus.concat(sideArray.map(m => m.menu_id));
+
+    const data = {
+            type: "G", 
+            rest_id: rest_id,
+            menus
+    };
+
+    try {    
+        let response = await fetch(totUrl, {
+            method: 'POST',
+            headers: header,
+            body: JSON.stringify(data),
+        });
+        console.log(await response.status);
+    } catch(error) {
+        // error의 경우 뭘 return해 줄 지 고민
+        console.log(error);
+    }
+};
+
+
+
 const OrderScreen = (props) => {
+    // route
+    // orderView: mainArray, sideArray , totalCost
+    // orderscreen: rest_id
+    const [state, dispatch] = React.useContext(Context);
+
+    const buttonFetch = () => {
+        const fetchCoupon = async () => {
+            await postCoupon(state, props.route.params.rest_id, props.route.params.mainArray, props.route.params.sideArray);
+        };
+        fetchCoupon();
+    };
     return(
         <NoCardTemplate
         bodyview={<OrderView route={props.route}/>}
         needButton={true}
         buttonname={"주문하기"}
         toWhere={"FinishOrder"}
+        buttonFetch={buttonFetch}
         navigation={props.navigation}
         isHeaderBlack={true}
         />

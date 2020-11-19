@@ -133,6 +133,9 @@ const BasketScreen = (props) => {
     const [sideArray, setSideArray] = useState([]);   
     const [totalCost, setCost] = useState(0);
 
+    console.log("mainArray: ", mainArray);
+    console.log("sideArray:", sideArray);
+
     useEffect(() => {
         // get main menu and side menu
         const fetchMain = async () => {
@@ -175,18 +178,6 @@ const BasketScreen = (props) => {
         }
     }
 
-    // const main_menu = [
-    //     {id: 0, name: "된장찌개", price: 5500},
-    //     {id: 1, name: "김치찌개", price: 6000},
-    //     {id: 2, name: "청국장", price: 7000},
-    //     // 3개 넘는 시점부터 아래로 내리기
-    //     // {name: "갈비탕", price: 8000}
-    // ]
-    // const side_menu = [
-    //     {id: 100, name: "사이다", price: 2000},
-    //     {id: 101, name: "라면", price: 3000}
-    // ]
-
     return(
         <NoCardTemplate
         bodyview={<BasketView main_menu={main_menu} side_menu={side_menu} clickMain={clickMain} clickSide={clickSide}/>}
@@ -194,7 +185,7 @@ const BasketScreen = (props) => {
         buttonname={"메뉴담기"}
         navigation={props.navigation}
         toWhere={"Order"}
-        data={{mainArray: mainArray, sideArray: sideArray, totalCost: totalCost}} 
+        data={{mainArray: mainArray, sideArray: sideArray, totalCost: totalCost, rest_id: props.route.params.rest_id}} 
         isHeaderBlack={false}
         />
     );
