@@ -97,14 +97,14 @@ const OrderScreen = (props) => {
 
 const styles = StyleSheet.create({
     view1: {width: "100%", height: "100%", paddingHorizontal: pad*3, alignItems: "center"},
-    view2_1: {width: "93%", height: "100%", flex:2.3},
+    view2_1: {width: "98%", height: "100%", flex:2.3},
     view3_1: {width: "100%", height: "100%", flex:0.9, },
     view3_2: {width: "90%", height: "100%", flex:1.1, justifyContent:"flex-start", alignItems:"flex-start"},
     view4_1: {width: "100%", height: "100%", flex:1, borderTopColor:"white", borderTopWidth:1, alignItems:"flex-start"},
     view4_2: {width: "100%", height: "100%", flex:3, paddingBottom:pad},
     view4_3: {width: "100%", height: "100%", flex:1, alignItems:"flex-start"},
     view4_4: {width: "100%", height: "100%", flex:3, paddingBottom:pad},
-    view2_2: {width: "93%", height: "100%", flex:1},
+    view2_2: {width: "98%", height: "100%", flex:1},
     view3_3: {width: "100%", height: "100%", justifyContent: "flex-start", alignItems:"flex-start", borderTopColor:"white", borderTopWidth:1, paddingTop: pad},
     txt1: {color: "white", fontSize: font*2.5},
     txt2: {color: Colors.deep_yellow, fontSize: font*4.4},
