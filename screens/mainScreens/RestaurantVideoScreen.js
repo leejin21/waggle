@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Platform } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+
 import { Video } from "expo-av";
 
 import Colors from "../../constants/Colors";
@@ -14,6 +15,9 @@ import CommonStyles from "../../constants/CommonStyles";
 import ApiUrls from "../../constants/ApiUrls";
 
 import {par2url, getHeader} from "../../fetch/fetchApi";
+
+import Card from "../../components/Card";
+import { AntDesign } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -39,6 +43,30 @@ const getHeart = async (state, rest_id) => {
     }
 }
 
+const timestamp = [
+    {id:0, name: "메뉴소개", milisec: 3000},
+    {id: 1, name: "먹방", milisec: 8000}
+]
+const TimeStamp = (props) => {
+    const handleClick = () => {
+        props.setPos(props.milisec);
+    }
+
+    return (
+        <TouchableOpacity onPress={() => handleClick()}>
+            <Card style={styles.timestamp}>
+                <View style={{flexDirection: "row"}}>
+                    <AntDesign name="caretright" size={font*2} color="white"></AntDesign>
+                    <Text>{" "}</Text>
+                </View>
+                <View>
+                    <Text style={styles.timestamp_txt}>{props.name}</Text>
+                </View>
+            </Card>
+        </TouchableOpacity>
+    );
+}
+
 const HeaderRight = (props) => {
     return (
         <View style={styles.header__right}>
@@ -52,7 +80,8 @@ const HeaderRight = (props) => {
 
 const RestaurantVideoScreen = (props) => {
     const [state, dispatch] = React.useContext(Context);
-    console.log('header right called');
+    const [pos, setPos] = useState(0);
+
     useEffect(()=> {
         const fetchHeart = async() => {
             // * get heart json
@@ -78,6 +107,9 @@ const RestaurantVideoScreen = (props) => {
         fetchHeart();
     },[])
     
+
+    
+
     return (
         <View style={styles.container}>
             <View style={styles.video__wrapper}>
@@ -87,12 +119,17 @@ const RestaurantVideoScreen = (props) => {
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}
-                    shouldPlay={false}
+                    shouldPlay={true}
                     resizeMode="cover"
                     isLooping={false}
                     useNativeControls
                     style={Platform.OS === 'ios'? styles.video__ios : styles.video__android} 
+                    // style={{ width: windowWidth, height: font*30 }}
+                    positionMillis={pos}
                 ></Video>
+            </View>
+            <View style={styles.timestamp__wrapper}>
+                {timestamp.map((item) => {return <TimeStamp key={item.id} id={item.id} name={item.name} milisec={item.milisec} setPos={setPos}></TimeStamp>})}
             </View>
             <View style={styles.button__wrapper}>
                 <BottomButton active={true} onPress={() => props.navigation.navigate("Basket", { title: props.route.params.title, rest_id: props.route.params.rest_id })} style_back_color={{}}>
@@ -111,7 +148,7 @@ const styles = StyleSheet.create({
         // backgroundColor: "pink"
     },
     video__wrapper: {
-        flex: 13,
+        flex: 12,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: Colors.body_grey,
@@ -140,6 +177,30 @@ const styles = StyleSheet.create({
         margin: pad*0.5,
         borderRadius: ICON_SIZE * 2,
     },
+
+    timestamp__wrapper: {
+        flex: 1.4,
+        backgroundColor: Colors.body_grey,
+        width: "100%",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flexDirection: "row"
+    },
+    timestamp: {
+        backgroundColor: "#565656",
+        borderRadius: pad*1.7,
+        margin: pad,
+        marginRight: 0,
+        padding: pad,
+        paddingRight: pad*1.5,
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    timestamp_txt: {
+        color: "white",
+        fontSize: font*2,
+        fontFamily: "noto_bold",
+    }
 });
 
 export default RestaurantVideoScreen;

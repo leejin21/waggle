@@ -7,16 +7,23 @@
 // bottombutton 유무
 
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import CommonStyles from "../constants/CommonStyles";
 import BottomButton from "../components/BottomButton";
 
 const BottomButton_1 = (props) => {
-    return(
+    return props.notActive?
+    (
+        <BottomButton active={false}>
+            <Text style={{ ...CommonStyles.bold_text, color: "black" }}>{props.name}</Text>
+        </BottomButton>
+
+    ):
+    (
         <BottomButton active={true} onPress={props.onPress}>
             <Text style={{ ...CommonStyles.bold_text, color: "black" }}>{props.name}</Text>
         </BottomButton>
-    );
+    )
 };
 
 const NoCardTemplate = (props) => {   
@@ -25,6 +32,7 @@ const NoCardTemplate = (props) => {
     // buttonFetch: only in OrderScreen
     
     const buttonFetch = (props.buttonFetch) ? props.buttonFetch : ()=>{};
+    // isActive
 
     return props.needButton? 
     (
@@ -34,11 +42,13 @@ const NoCardTemplate = (props) => {
             </View>
             <View style={{ ...CommonStyles.body__end, width: "100%" }}>
                 <BottomButton_1 
+                    notActive={props.notActive}
                     name={props.buttonname} 
                     onPress={() => {
                         buttonFetch();
                         return props.navigation.navigate(props.toWhere, props.data);
                     }}/>
+
             </View>
         </View>
     ):
@@ -51,5 +61,6 @@ const NoCardTemplate = (props) => {
         </View>
     );
 };
+
 
 export default NoCardTemplate;

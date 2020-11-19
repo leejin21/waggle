@@ -56,16 +56,16 @@ const StampView = ({fullstampNum, laststampNum}) => {
     return(
         <View style={{...styles.view_out, zIndex: 0}}> 
             <View style={{...styles.view_in_odd, zIndex: 2}}>
-                {[arr[0], arr[1], arr[2]].map((n) => {return <Circle num={n}/>})}
+                {[arr[0], arr[1], arr[2]].map((n, id) => {return <Circle num={n} key={id}/>})}
             </View>
             <View style={{...styles.view_in_even, zIndex: 2}}>
-                {[arr[3], arr[4], arr[5]].map((n) => {return <Circle num={n}/>})}
+                {[arr[3], arr[4], arr[5]].map((n, id) => {return <Circle num={n} key={id}/>})}
             </View>
             <View style={{...styles.view_in_odd, zIndex: 2}}>
-                {[arr[6], arr[7], arr[8]].map((n) => {return <Circle num={n}/>})}
+                {[arr[6], arr[7], arr[8]].map((n, id) => {return <Circle num={n} key={id}/>})}
             </View>
             <View style={{...styles.view_in_even, zIndex: 2}}>
-                {[arr[9], arr[10], arr[11]].map((n) => {return <Circle num={n}/>})}
+                {[arr[9], arr[10], arr[11]].map((n, id) => {return <Circle num={n} key={id}/>})}
             </View>
         </View>
         
