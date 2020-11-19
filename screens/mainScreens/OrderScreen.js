@@ -77,7 +77,6 @@ const OrderView = ({route}) => {
                 <Text style={[CommonStyles.small_text, styles.txt3]}>(메인 메뉴 {mainCost}₩ + 사이드 메뉴 {0}₩) </Text>
             </View>
         </View>
-
     </View>
 
     );
@@ -99,8 +98,8 @@ const OrderScreen = (props) => {
 const styles = StyleSheet.create({
     view1: {width: "100%", height: "100%", paddingHorizontal: pad*3, alignItems: "center"},
     view2_1: {width: "93%", height: "100%", flex:2.3},
-    view3_1: {width: "100%", height: "100%", flex:1, },
-    view3_2: {width: "90%", height: "100%", flex:1, justifyContent:"flex-start", alignItems:"flex-start"},
+    view3_1: {width: "100%", height: "100%", flex:0.9, },
+    view3_2: {width: "90%", height: "100%", flex:1.1, justifyContent:"flex-start", alignItems:"flex-start"},
     view4_1: {width: "100%", height: "100%", flex:1, borderTopColor:"white", borderTopWidth:1, alignItems:"flex-start"},
     view4_2: {width: "100%", height: "100%", flex:3, paddingBottom:pad},
     view4_3: {width: "100%", height: "100%", flex:1, alignItems:"flex-start"},
