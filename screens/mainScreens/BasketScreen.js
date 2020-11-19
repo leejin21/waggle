@@ -106,17 +106,18 @@ const BasketScreen = (props) => {
 
     const [mainArray, setMainArray] = useState([]);
     const [sideArray, setSideArray] = useState([]);   
-    const [totalCost, setCost] = useState(0);
+    const [mainCost, setMaincost] = useState(0);
+    const [sideCost, setSidecost] = useState(0);
 
     const clickMain = (id, selected) => { // selected 바꾸기 전에 전해줌 = 클릭 이전에 selected였는지
         if(selected){
-            tmp = totalCost;
-            setCost(tmp-main_menu[id].price);
+            tmp = mainCost;
+            setMaincost(tmp-main_menu[id].price);
             setMainArray(mainArray.filter(menu => menu.id !== id));
         }
         else{
-            tmp = totalCost;
-            setCost(tmp+main_menu[id].price);
+            tmp = mainCost;
+            setMaincost(tmp+main_menu[id].price);
             setMainArray(mainArray.concat([main_menu[id]]));
         }
     }
@@ -124,14 +125,14 @@ const BasketScreen = (props) => {
         const rid = id+100;
 
         if(selected){
-            tmp = totalCost;
-            setCost(tmp-side_menu[id].price);
+            tmp = sideCost;
+            setSidecost(tmp-side_menu[id].price);
             setSideArray(sideArray.filter(menu => menu.id !== rid))
 
         }
         else{
-            tmp = totalCost;
-            setCost(tmp+side_menu[id].price);
+            tmp = sideCost;
+            setSidecost(tmp+side_menu[id].price);
             setSideArray(sideArray.concat([side_menu[id]]));
         }
     }
@@ -154,7 +155,7 @@ const BasketScreen = (props) => {
         buttonname={"메뉴담기"}
         navigation={props.navigation}
         toWhere={"Order"}
-        data={{mainArray: mainArray, sideArray: sideArray, totalCost: totalCost}} 
+        data={{mainArray: mainArray, sideArray: sideArray, mainCost: mainCost, sideCost: sideCost}} 
         isHeaderBlack={false}
         />
     );
