@@ -152,6 +152,7 @@ const BasketScreen = (props) => {
         <NoCardTemplate
         bodyview={<BasketView main_menu={main_menu} side_menu={side_menu} clickMain={clickMain} clickSide={clickSide}/>}
         needButton={true}
+        notActive={(mainCost+sideCost==0) ? true : false}
         buttonname={"메뉴담기"}
         navigation={props.navigation}
         toWhere={"Order"}
