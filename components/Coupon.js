@@ -1,6 +1,6 @@
 // USE:: settings screens: coupon
 
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useContext } from "react";
 import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -10,15 +10,58 @@ import CommonStyles from "../constants/CommonStyles";
 import Card from "../components/Card";
 import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 
+import {par2url, getHeader} from "../fetch/fetchApi";
+import { Context } from "../navigation/Store";
+
+
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get('window').width;
 const pad = windowHeight / 80; 
 
+const putCoupon = async (state, coupon_id, what) => {
+    // * PUT event/coupon
+    /*
+        * JSON FORM
+        {
+            coupon_id: 1,
+            [view_remove: true],
+            [used: true],
+            [review_able: false]
+        }
+    */
+    const totUrl = par2url('/event/coupon', {});
+    const header = getHeader(state.userToken);
+    console.log(header);
+    const data = {
+            coupon_id: coupon_id,
+            what: what
+    };
+
+    if (what === "view_remove")
+        data.view_remove = true;
+    else if (what === "used")
+        data.used = true;
+    else if (what === "review_able")
+        data.review_able = false;
+
+    try {    
+        let response = await fetch(totUrl, {
+            method: 'PUT',
+            headers: header,
+            body: JSON.stringify(data),
+        });
+        console.log(await response.status);
+    } catch(error) {
+        // error의 경우 뭘 return해 줄 지 고민
+        console.log(error);
+    }
+};
 
 const StampCoupon = (props) => {
-    // props: usable, name, content, useDate
+    // props: usable, name, content, useDate, coupon_id
     const [removed, setRemoved] = useState(false);
     const [usable, setUsable] = useState(props.usable);
+    const [state, dispatch] = React.useContext(Context);
     return removed ? (
         // 삭제한 쿠폰
         <View></View>
@@ -29,7 +72,13 @@ const StampCoupon = (props) => {
                 <TouchableHighlight
                     style={{ width: props.ICON_SIZE, height: props.ICON_SIZE, borderRadius: props.ICON_SIZE }}
                     underlayColor={Colors.dark_pink}
-                    onPress={() => setRemoved(() => true)}
+                    onPress={() => {
+                        const fetchCoupon = async () => {
+                            await putCoupon(state, props.coupon_id, "view_remove");
+                        }
+                        fetchCoupon();
+                        return setRemoved(() => true);
+                    }}
                 >
                     <MaterialIcons name="cancel" size={props.ICON_SIZE} color={Colors.orange_pink} />
                 </TouchableHighlight>
@@ -42,7 +91,13 @@ const StampCoupon = (props) => {
             {usable ? (
                 // 사용 가능한 쿠폰
                 <View>
-                    <TouchableOpacity style={{ ...styles.card__button, backgroundColor: Colors.high_pink }} onPress={() => setUsable(() => false)}>
+                    <TouchableOpacity style={{ ...styles.card__button, backgroundColor: Colors.high_pink }} onPress={() => {
+                        const fetchCoupon = async () => {
+                            await putCoupon(state, props.coupon_id, "used");
+                        }
+                        fetchCoupon();
+                        return setUsable(() => false);
+                    }}>
                         <Text style={{ ...styles.card__button__txt, color: "white" }}>무료증정권 사용하기</Text>
                         <Text style={{ ...styles.card__button__date, color: Colors.dark_grey }}>{"~ " + props.useDate}</Text>
                     </TouchableOpacity>
@@ -61,8 +116,8 @@ const StampCoupon = (props) => {
 };
 
 const Coupon = (props) => {
-    // props: usable, reviewed, name, content, useDate, ICON_SIZE
-
+    // props: usable, reviewed, name, content, useDate, ICON_SIZE, coupon_id
+    const [authState, authDispatch] = useContext(Context);
     const [state, dispatch] = useReducer(
         (prevState, action) => {
             switch (action.type) {
@@ -100,7 +155,13 @@ const Coupon = (props) => {
                 <TouchableHighlight
                     style={{ width: props.ICON_SIZE, height: props.ICON_SIZE, borderRadius: props.ICON_SIZE }}
                     underlayColor={Colors.body_grey}
-                    onPress={() => dispatch({ type: "USED__REMOVED" })}
+                    onPress={() => {
+                        const fetchCoupon = async () => {
+                            await putCoupon(authState, props.coupon_id, "view_remove");
+                        }
+                        fetchCoupon();
+                        return dispatch({ type: "USED__REMOVED" });
+                    }}
                 >
                     <MaterialIcons name="cancel" size={props.ICON_SIZE} color={Colors.text_grey} />
                 </TouchableHighlight>
@@ -112,7 +173,13 @@ const Coupon = (props) => {
             {state.usable ? (
                 // 사용 가능한 쿠폰
                 <View>
-                    <TouchableOpacity style={{ ...styles.card__button, backgroundColor: Colors.deep_yellow }} onPress={() => dispatch({ type: "USED__REVIEW_ABLE" })}>
+                    <TouchableOpacity style={{ ...styles.card__button, backgroundColor: Colors.deep_yellow }} onPress={() => {
+                        const fetchCoupon = async () => {
+                            await putCoupon(authState, props.coupon_id, "used");
+                        }
+                        fetchCoupon();
+                        return dispatch({ type: "USED__REVIEW_ABLE" });
+                    }}>
                         <Text style={{ ...styles.card__button__txt, color: "black" }}>사이드메뉴 무료증정권 사용하기</Text>
                         <Text style={{ ...styles.card__button__date, color: "black" }}>{"~ " + props.useDate}</Text>
                     </TouchableOpacity>
@@ -133,6 +200,10 @@ const Coupon = (props) => {
                             <TouchableOpacity
                                 style={{ ...styles.card__button, backgroundColor: Colors.deep_yellow }}
                                 onPress={() => {
+                                    const fetchCoupon = async () => {
+                                        await putCoupon(authState, props.coupon_id, "review_able");
+                                    }
+                                    fetchCoupon();
                                     dispatch({ type: "USED__REVIEWED" });
                                     props.navigation.navigate("Review", {
                                         title: props.name,

@@ -1,26 +1,64 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { View, Text, StyleSheet, FlatList, Dimensions } from "react-native";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import { headerOptions } from "../../constants/Options";
+import { Context } from "../../navigation/Store";
 
 import Coupon, { StampCoupon } from "../../components/Coupon";
+
+import {par2url, getHeader} from "../../fetch/fetchApi";
+
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 const font = windowHeight / 87;
 
-const couponDatas = [
-    // SERVER TODO usable이 true면 reviewd는 무조건 false로, useDate는 usable에 false 업데이트할 때마다 업데이트.
-    { name: "ABC레스토랑", type: "G", content: "A, E and A", usable: true, review_able: true, useDate: "2020.08.26 12:53 PM" },
-    { name: "가나다 레스토랑", type: "S", content: "(메뉴이름)", usable: true, useDate: "2020.09.29 18:00 PM" },
-    { name: "가나다식당", type: "G", content: "ㄱ, ㄴ 그리고 ㄷ", usable: false, review_able: true, useDate: "2020.09.16 22:01 PM" },
-    { name: "로제찜닭", type: "G", content: "찜닭 그리고 계란찜", usable: false, review_able: false, useDate: "2020.07.28 14:05 PM" },
-];
+const getCouponDatas = async (state) => {
+    // event/coupon GET
+    /*
+    * JSON FORM
+    [
+        { 
+            name: "ABC레스토랑",
+            type: "G",
+            content: "A, E and A",
+            usable: true,
+            review_able: true,
+            useDate: "2020.08.26 12:53 PM"
+        },
+        ...
+    ]
+    */
+    const totUrl = par2url('/event/coupon', {});
+    const header = getHeader(state.userToken);
+    try {
+        let response = await fetch(totUrl, {
+            method: 'GET',
+            headers: header,
+        });
+        let json = await response.json();
+        console.log(json);
+        return json;
+    } catch (e) {
+        console.error(e);
+    }
+};
 
 
 const CouponsScreen = (props) => {
+    const [state, dispatch] = React.useContext(Context);
+    const [couponDatas, setCouponDatas] = useState([]);
+
+    useEffect(() => {
+            const fetchCoupons = async () => {
+                const json = await getCouponDatas(state);
+                await setCouponDatas(json);
+            };
+            fetchCoupons();
+    }, []);
+
     props.navigation.setOptions({
         ...headerOptions,
         headerTintColor: Colors.text_grey,
@@ -33,6 +71,7 @@ const CouponsScreen = (props) => {
             color: "white",
         },
     });
+
     return (
         <View style={styles.body}>
             <View style={styles.exp_text__wrapper}>
@@ -44,10 +83,11 @@ const CouponsScreen = (props) => {
                 data={couponDatas}
                 renderItem={({ item }) => {
                     if (item.type === "S") {
-                        return <StampCoupon name={item.name} content={item.content} usable={item.usable} useDate={item.useDate} ICON_SIZE={font*5}></StampCoupon>;
+                        return <StampCoupon coupon_id={item.coupon_id} name={item.name} content={item.content} usable={item.usable} useDate={item.useDate} ICON_SIZE={font*5}></StampCoupon>;
                     } else {
                         return (
                             <Coupon
+                                coupon_id={item.coupon_id} 
                                 name={item.name}
                                 content={item.content}
                                 usable={item.usable}
