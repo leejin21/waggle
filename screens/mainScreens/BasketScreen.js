@@ -43,40 +43,57 @@ const Menu = (props) => {
         props.clickMenu(id, selected);
     }
 
-    return(
-        <TouchableOpacity onPress={() => handleClick()} style={{width: circle_size + padding_size, height: circle_size + padding_size ,justifyContent:"flex-start", alignItems:"flex-start"}}>
-            {selected? <Circle_check/>:<Circle_uncheck/>}
-            <View style={{flexDirection:"row", borderTopWidth: pad/2, borderColor: "transparent"}}> 
-                <View style={{flex: 0.5}}></View>
-                <View style={{flex: 2}}>
-                    <Text style={CommonStyles.small_text}>{props.name}{"\n"}{props.cost}</Text>
+    if(props.type == "main"){
+        return(
+            <TouchableOpacity onPress={() => handleClick()} style={{width: circle_size + padding_size, height: circle_size + padding_size, justifyContent:"flex-start", alignItems:"flex-start"}}>
+                {selected? <Circle_check/>:<Circle_uncheck/>}
+                <View style={{flexDirection:"row", borderTopWidth: pad/2, borderColor: "transparent"}}> 
+                    <View style={{flex: 0.5}}></View>
+                    <View style={{flex: 2}}>
+                        <Text style={CommonStyles.small_text}>{props.name}{"\n"}{props.cost+"₩"}</Text>
+                    </View>
+                    <View style={{flex: 2}}></View>
                 </View>
-                <View style={{flex: 2}}></View>
-            </View>
-        </TouchableOpacity>
-    );
-    
+            </TouchableOpacity>
+        );
+    }
+    if(props.type == "side"){
+        return(
+            <TouchableOpacity onPress={() => handleClick()} style={{width: circle_size + padding_size, height: circle_size + padding_size, justifyContent:"flex-start", alignItems:"flex-start"}}>
+                {selected? <Circle_check/>:<Circle_uncheck/>}
+                <View style={{flexDirection:"row", borderTopWidth: pad/2, borderColor: "transparent"}}> 
+                    <View style={{flex: 0.5}}></View>
+                    <View style={{flex: 2}}>
+                        <Text style={CommonStyles.small_text}>{props.name}</Text>
+                        <Text style={{...CommonStyles.small_text, textDecorationLine: 'line-through'}}>{props.cost+"₩"}</Text>
+                        <Text style={{...CommonStyles.small_text, color: Colors.deep_yellow}}>{"0₩"}</Text>
+                    </View>
+                    <View style={{flex: 2}}></View>
+                </View>
+            </TouchableOpacity>
+        );
+    }
 };
 
 const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
     return(
         <View style={{width:"100%", height: "100%", alignItems: "center"}}>
-            <View style={{flex: 5, width: "85%", paddingHorizontal: 0}}>
+            <View style={{flex: 5.3, width: "85%", paddingHorizontal: 0}}>
                 <View style={{...styles.title_view, flex: 1}}>
                     <Text style={{...CommonStyles.bold_text, fontSize: font*2.5, color: "white"}}>메인 메뉴</Text>
                 </View>
                 <View style={{...styles.menu_view, flex: 7, paddingHorizontal: 0}}>
-                    {main_menu.map((item) => {return <Menu key={item.id} id={item.id} name={item.name} cost={item.price} clickMenu={clickMain}/>})}
+                    {main_menu.map((item) => {return <Menu type={"main"} key={item.id} id={item.id} name={item.name} cost={item.price} clickMenu={clickMain}/>})}
                 </View>
             </View>
-            <View style={{flex: 4, width: "100%", alignItems: "center"}}>
+            <View style={{flex: 4.7, width: "100%", alignItems: "center"}}>
                 <Card style={{width: "90%", height: "100%", marginTop: 0, padding: pad*1.7, marginBottom: pad*2}}>
                     <View style={{...styles.title_view, flex:1}}>
                         <Text style={{...CommonStyles.bold_text, fontSize: font*2.5, color: Colors.deep_yellow}}>오직 와글에서만 무료!</Text>
                         <Text style={{...CommonStyles.bold_text, fontSize: font*2.5, color: "white"}}>사이드 메뉴</Text>
                     </View>
                     <View style={{...styles.menu_view, flex:2.2}}>
-                        {side_menu.map((item) => {return <Menu key={item.id} id={item.id} name={item.name} cost={item.price} clickMenu={clickSide}/>})}
+                        {side_menu.map((item) => {return <Menu type={"side"} key={item.id} id={item.id} name={item.name} cost={item.price} clickMenu={clickSide}/>})}
                     </View>
                 </Card>
             </View>
@@ -124,7 +141,6 @@ const BasketScreen = (props) => {
         {id: 1, name: "김치찌개", price: 6000},
         {id: 2, name: "청국장", price: 7000},
         // 3개 넘는 시점부터 아래로 내리기
-        // {name: "갈비탕", price: 8000}
     ]
     const side_menu = [
         {id: 100, name: "사이다", price: 2000},
