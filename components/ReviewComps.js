@@ -15,10 +15,11 @@ const font = windowHeight / 89;
 
 const DIAMETER = font*7;
 
-const Pick = () => {
+const Pick = (props) => {
+    // props: info_name
     return (
         <View style={styles.pick__wrapper}>
-            <Text style={styles.pick__text}>눈송</Text>
+            <Text style={styles.pick__text}>{props.info_name}</Text>
             <Text style={{ ...styles.pick__text, color: "white" }}>'s PICK</Text>
         </View>
     );
@@ -35,7 +36,7 @@ const Menu = (props) => {
                     props.dispatch({ type: props.action_type, curMenu: props.id });
                 }}
             >
-                <ImageBackground source={props.photo} style={styles.pick__image} imageStyle={{ width: DIAMETER, height: DIAMETER, borderRadius: DIAMETER * 2 }}></ImageBackground>
+                <ImageBackground source={{uri: props.photo}} style={styles.pick__image} imageStyle={{ width: DIAMETER, height: DIAMETER, borderRadius: DIAMETER * 2 }}></ImageBackground>
             </TouchableHighlight>
             <Text style={styles.pick__menu__text}>{props.menu_name}</Text>
         </View>

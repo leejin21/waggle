@@ -87,6 +87,7 @@ const CouponsScreen = (props) => {
                     } else {
                         return (
                             <Coupon
+                                info_name={props.route.params.info_name}
                                 coupon_id={item.coupon_id} 
                                 name={item.name}
                                 content={item.content}

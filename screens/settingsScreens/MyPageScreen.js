@@ -70,7 +70,7 @@ const MyPageScreen = (props) => {
                     <Text style={styles.my_info__text}>{info.name}</Text>
                     <Text style={styles.my_info__text}>{info.phone_num}</Text>
                 </View>
-                <BottomButton onPress={() => props.navigation.navigate("Coupons")} active={true} style_back_color={styles.mid__button}>
+                <BottomButton onPress={() => props.navigation.navigate("Coupons", {info_name: info.name})} active={true} style_back_color={styles.mid__button}>
                     <Text style={styles.button_text}>쿠폰함</Text>
                 </BottomButton>
 

@@ -1,5 +1,10 @@
-import React from "react";
+// ! FIXME 1 alert 2번 표시되는 버그
+// ! FIXME 2 allCompleted 제대로 동작 안하는 버그(간혹)
+
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, Alert, Dimensions } from "react-native";
+
+import { Context } from "../../navigation/Store";
 
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
@@ -8,15 +13,38 @@ import BottomButton from "../../components/BottomButton";
 import Card from "../../components/Card";
 import { Pick, Menu, Star, ReviewButtonGroup } from "../../components/ReviewComps";
 
+import {par2url, getHeader} from "../../fetch/fetchApi";
+import ApiUrls from "../../constants/ApiUrls";
+
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 const font = windowHeight / 87;
 
-const orderedMenuData = [
-    { id: 0, menu_id: "321", name: "비빔밥", photo: require("../../assets/images/thumbnails/bibimbap.jpg") },
-    { id: 1, menu_id: "320", name: "고기", photo: require("../../assets/images/thumbnails/meat.jpg") },
-    { id: 2, menu_id: "325", name: "타코", photo: require("../../assets/images/thumbnails/mexican.jpg") },
-    { id: 3, menu_id: "326", name: "얼그레이 케이크", photo: require("../../assets/images/thumbnails/earlgreycake.jpg") },
+// ! FIXME: FETCH ERROR https://www.valentinog.com/blog/hooks/#fetching-data-with-useeffect
+const getMenuData = async (state, coupon_id) => {
+    const totUrl = par2url('/main/menu', {ordered: true, coupon_id});
+    const header = getHeader(state.userToken);
+    
+    try {
+        let response = await fetch(totUrl, {
+            method: 'GET',
+            headers: header,
+        });
+        let json = await response.json();
+        console.log('GET /MAIN/MENU');
+        console.log(json);
+        return json;
+    } catch (e) {
+        console.error(e);
+    }
+    
+};
+
+const dummyMenuData = [
+    { id: 0, menu_id: "321", name: "", photo: 0 },
+    { id: 1, menu_id: "320", name: "", photo: 0 },
+    { id: 2, menu_id: "325", name: "", photo: 0 },
+    { id: 3, menu_id: "326", name: "", photo: 0 },
 ];
 
 const sliceMenuName = (name) => {
@@ -50,10 +78,51 @@ const alert = (title, message) => {
 
 const ReviewScreen = (props) => {
     props.navigation.setOptions({ title: props.route.params.title });
+    
+    const [loaded, setLoaded] = React.useState(false);
+    const [menuData, setMenuData] = React.useState(dummyMenuData);
+    const [authState, authDispatch] = React.useContext(Context);
+
+    useEffect(()=> {
+        const fetchMenuData = async () => {
+            const json = await getMenuData(authState, props.route.params.coupon_id);
+            await setMenuData(json);
+            await setLoaded(true);
+            const setDispatch = async () => {
+                dispatch({type: "UPDATE"});
+            };
+            await setDispatch();
+        };
+        fetchMenuData();
+    }, []);
+    
     const [state, dispatch] = React.useReducer(
         (prevState, action) => {
             const menu_review = prevState.menuReview;
             switch (action.type) {
+                case "UPDATE": 
+                    if (menuData !== dummyMenuData){
+                        return {
+                            menuReview: menuData.map((x) => {
+                                return {
+                                    // menu: data 상에서 구분 위해(curMenu와 후에 대조)
+                                    // menu_id: POST REQUEST 때
+                                    menu: x.id,
+                                    menu_id: x.menu_id,
+                                    starPoint: [true, true, true, false, false],
+                                    saltReview: -1,
+                                    amountReview: -1,
+                                    otherReview: -1,
+                                    complete: false,
+                                };
+                            }),
+                            curMenu: 0,
+                        }
+                    } else {
+                        console.log("menuData not updated");
+                        return prevState;
+                    }
+                        
                 case "SWITCH_MENU":
                     // SECTION 리뷰할 메뉴
                     const salt_review = prevState.menuReview[prevState.curMenu].saltReview;
@@ -104,7 +173,7 @@ const ReviewScreen = (props) => {
             }
         },
         {
-            menuReview: orderedMenuData.map((x) => {
+            menuReview: dummyMenuData.map((x) => {
                 return {
                     // menu: data 상에서 구분 위해(curMenu와 후에 대조)
                     // menu_id: POST REQUEST 때
@@ -121,80 +190,91 @@ const ReviewScreen = (props) => {
         }
     );
 
+
     return (
-        <View style={{ ...CommonStyles.body, width: "100%" }}>
-            <View style={styles.body__middle}>
-                <Card style={{ ...styles.card, height: "25%", flex: 0 }}>
-                    <Pick></Pick>
-                    <FlatList
-                        key={"_"}
-                        data={orderedMenuData}
-                        horizontal={true}
-                        renderItem={({ item }) => {
-                            return (
-                                <Menu
-                                    photo={item.photo}
-                                    menu_name={sliceMenuName(item.name)}
-                                    dispatch={dispatch}
-                                    action_type={"SWITCH_MENU"}
-                                    id={item.id}
-                                    active={state.curMenu == item.id ? true : false}
-                                ></Menu>
-                            );
-                        }}
-                        keyExtractor={(item) => item.id.toString()}
-                        style={{ marginBottom: -(pad*1.5) }}
-                    ></FlatList>
-                </Card>
+        !loaded ? (
+            <View style={{ ...CommonStyles.body, width: "100%" }}>
+                <Text>
+                    loading...
+                </Text>
+            </View>)
+            : 
+            (
+            <View style={{ ...CommonStyles.body, width: "100%" }}>
+                <View style={styles.body__middle}>
+                    <Card style={{ ...styles.card, height: "25%", flex: 0 }}>
+                        <Pick info_name={props.route.params.info_name}></Pick>
+                        <FlatList
+                            key={"_"}
+                            data={menuData}
+                            horizontal={true}
+                            renderItem={({ item }) => {
+                                return (
+                                    <Menu
+                                        photo={ApiUrls.FETCH_MENU+item.photo.toString()+'.jpg'}
+                                        menu_name={sliceMenuName(item.name)}
+                                        dispatch={dispatch}
+                                        action_type={"SWITCH_MENU"}
+                                        id={item.id}
+                                        active={state.curMenu == item.id ? true : false}
+                                    ></Menu>
+                                );
+                            }}
+                            keyExtractor={(item) => item.id.toString()}
+                            style={{ marginBottom: -(pad*1.5) }}
+                        ></FlatList>
+                    </Card>
 
-                <Card style={{ ...styles.card, ...styles.review__card }}>
-                    <View style={styles.review__star}>
-                        {state.menuReview[state.curMenu].starPoint.map((x, star_id) => {
-                            const name = x ? "star" : "star-border";
-                            return <Star name={name} id={star_id} key={star_id} dispatch={dispatch} action_type={"STAR_CHANGE"}></Star>;
-                        })}
-                    </View>
+                    <Card style={{ ...styles.card, ...styles.review__card }}>
+                        <View style={styles.review__star}>
+                            {state.menuReview[state.curMenu].starPoint.map((x, star_id) => {
+                                const name = x ? "star" : "star-border";
+                                return <Star name={name} id={star_id} key={star_id} dispatch={dispatch} action_type={"STAR_CHANGE"}></Star>;
+                            })}
+                        </View>
 
-                    <View style={styles.review__section}>
-                        <ReviewButtonGroup
-                            tags={["싱거워요", "적당해요", "짜요"]}
-                            direction="row"
-                            dispatch={dispatch}
-                            action_type={"SALT_CHANGE"}
-                            state={state.menuReview[state.curMenu].saltReview}
-                        ></ReviewButtonGroup>
-                        <ReviewButtonGroup
-                            tags={["양 적어요", "적당해요", "양 많아요"]}
-                            direction="row"
-                            dispatch={dispatch}
-                            action_type={"AMOUNT_CHANGE"}
-                            state={state.menuReview[state.curMenu].amountReview}
-                        ></ReviewButtonGroup>
-                    </View>
-                    <View style={styles.review__section}>
-                        <ReviewButtonGroup
-                            tags={["눅눅해요", "소스가 덜 묻어있어요", "너무 식어서 왔어요", "요청이 누락됐어요"]}
-                            direction="column"
-                            dispatch={dispatch}
-                            action_type={"OTHER_CHANGE"}
-                            state={state.menuReview[state.curMenu].otherReview}
-                        ></ReviewButtonGroup>
-                    </View>
-                </Card>
+                        <View style={styles.review__section}>
+                            <ReviewButtonGroup
+                                tags={["싱거워요", "적당해요", "짜요"]}
+                                direction="row"
+                                dispatch={dispatch}
+                                action_type={"SALT_CHANGE"}
+                                state={state.menuReview[state.curMenu].saltReview}
+                            ></ReviewButtonGroup>
+                            <ReviewButtonGroup
+                                tags={["양 적어요", "적당해요", "양 많아요"]}
+                                direction="row"
+                                dispatch={dispatch}
+                                action_type={"AMOUNT_CHANGE"}
+                                state={state.menuReview[state.curMenu].amountReview}
+                            ></ReviewButtonGroup>
+                        </View>
+                        <View style={styles.review__section}>
+                            <ReviewButtonGroup
+                                tags={["눅눅해요", "소스가 덜 묻어있어요", "너무 식어서 왔어요", "요청이 누락됐어요"]}
+                                direction="column"
+                                dispatch={dispatch}
+                                action_type={"OTHER_CHANGE"}
+                                state={state.menuReview[state.curMenu].otherReview}
+                            ></ReviewButtonGroup>
+                        </View>
+                    </Card>
+                </View>
+
+                <View style={CommonStyles.body__end}>
+                    {allCompleted(state.menuReview) ? (
+                        <BottomButton active={true} style_back_color={{ backgroundColor: Colors.deep_yellow }} onPress={() => props.navigation.goBack()}>
+                            <Text style={{ ...styles.button_text, color: "black" }}>눈송슐랭 평가완료!</Text>
+                        </BottomButton>
+                    ) : (
+                        <BottomButton active={false} style_back_color={{ backgroundColor: "black" }}>
+                            <Text style={styles.button_text}>눈송슐랭 평가완료!</Text>
+                        </BottomButton>
+                    )}
+                </View>
             </View>
-
-            <View style={CommonStyles.body__end}>
-                {allCompleted(state.menuReview) ? (
-                    <BottomButton active={true} style_back_color={{ backgroundColor: Colors.deep_yellow }} onPress={() => props.navigation.goBack()}>
-                        <Text style={{ ...styles.button_text, color: "black" }}>눈송슐랭 평가완료!</Text>
-                    </BottomButton>
-                ) : (
-                    <BottomButton active={false} style_back_color={{ backgroundColor: "black" }}>
-                        <Text style={styles.button_text}>눈송슐랭 평가완료!</Text>
-                    </BottomButton>
-                )}
-            </View>
-        </View>
+                )
+            
     );
 };
 

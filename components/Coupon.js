@@ -31,7 +31,6 @@ const putCoupon = async (state, coupon_id, what) => {
     */
     const totUrl = par2url('/event/coupon', {});
     const header = getHeader(state.userToken);
-    console.log(header);
     const data = {
             coupon_id: coupon_id,
             what: what
@@ -116,7 +115,7 @@ const StampCoupon = (props) => {
 };
 
 const Coupon = (props) => {
-    // props: usable, reviewed, name, content, useDate, ICON_SIZE, coupon_id
+    // props: usable, reviewed, name, content, useDate, ICON_SIZE, coupon_id, info_name
     const [authState, authDispatch] = useContext(Context);
     const [state, dispatch] = useReducer(
         (prevState, action) => {
@@ -207,6 +206,8 @@ const Coupon = (props) => {
                                     dispatch({ type: "USED__REVIEWED" });
                                     props.navigation.navigate("Review", {
                                         title: props.name,
+                                        coupon_id: props.coupon_id,
+                                        info_name: props.info_name
                                     });
                                 }}
                             >
