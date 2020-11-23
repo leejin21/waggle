@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
@@ -11,6 +11,7 @@ import { Context } from "../../navigation/Store";
 import { par2url, getHeader} from "../../fetch/fetchApi";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
+import ApiUrls from "../../constants/ApiUrls";
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
@@ -25,14 +26,18 @@ const Circle_check = () => {
         <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>
     );
 }
-const Circle_uncheck = () => {
+const Circle_uncheck = (props) => {
+    // props: menu_id
     return(
-        <TouchableHighlight style={{...styles.circle, backgroundColor:"white", marginRight: padding_size}}/>
+        <TouchableHighlight style={{...styles.circle, backgroundColor:"white", marginRight: padding_size}}>
+            <Image source={{uri: ApiUrls.FETCH_MENU+props.menu_id.toString()+".jpg"}} style={styles.circle}></Image>
+        </TouchableHighlight>
     );
 }
 
 const Menu = (props) => {
-
+    // props
+    // menu_id (추가)
     const [selected, setSelected] = useState(false);
 
     const handleClick = () => {
@@ -49,7 +54,7 @@ const Menu = (props) => {
     if(props.type == "main"){
         return(
             <TouchableOpacity onPress={() => handleClick()} style={{width: circle_size + padding_size, height: circle_size + padding_size, justifyContent:"flex-start", alignItems:"flex-start"}}>
-                {selected? <Circle_check/>:<Circle_uncheck/>}
+                {selected? <Circle_check/>:<Circle_uncheck menu_id={props.menu_id}/>}
                 <View style={{flexDirection:"row", borderTopWidth: pad/2, borderColor: "transparent"}}> 
                     <View style={{flex: 0.5}}></View>
                     <View style={{flex: 2}}>
@@ -63,7 +68,7 @@ const Menu = (props) => {
     if(props.type == "side"){
         return(
             <TouchableOpacity onPress={() => handleClick()} style={{width: circle_size + padding_size, height: circle_size + padding_size, justifyContent:"flex-start", alignItems:"flex-start"}}>
-                {selected? <Circle_check/>:<Circle_uncheck/>}
+                {selected? <Circle_check/>:<Circle_uncheck menu_id={props.menu_id}/>}
                 <View style={{flexDirection:"row", borderTopWidth: pad/2, borderColor: "transparent"}}> 
                     <View style={{flex: 0.5}}></View>
                     <View style={{flex: 2}}>
@@ -86,7 +91,7 @@ const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
                     <Text style={{...CommonStyles.bold_text, fontSize: font*2.5, color: "white"}}>메인 메뉴</Text>
                 </View>
                 <View style={{...styles.menu_view, flex: 7, paddingHorizontal: 0}}>
-                    {main_menu.map((item) => {return <Menu type={"main"} key={item.id} id={item.id} name={item.name} cost={item.price} clickMenu={clickMain}/>})}
+                    {main_menu.map((item) => {return <Menu type={"main"} key={item.id} id={item.id} name={item.name} cost={item.price} menu_id={item.menu_id} clickMenu={clickMain}/>})}
                 </View>
             </View>
             <View style={{flex: 4.7, width: "100%", alignItems: "center"}}>
@@ -96,7 +101,7 @@ const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
                         <Text style={{...CommonStyles.bold_text, fontSize: font*2.5, color: "white"}}>사이드 메뉴</Text>
                     </View>
                     <View style={{...styles.menu_view, flex:2.2}}>
-                        {side_menu.map((item) => {return <Menu type={"side"} key={item.id} id={item.id} name={item.name} cost={item.price} clickMenu={clickSide}/>})}
+                        {side_menu.map((item) => {return <Menu type={"side"} key={item.id} id={item.id} name={item.name} menu_id={item.menu_id} cost={item.price} clickMenu={clickSide}/>})}
                     </View>
                 </Card>
             </View>

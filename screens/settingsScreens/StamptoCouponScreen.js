@@ -15,6 +15,7 @@ const font = windowHeight / 87;
 const circle_size = font*9.3;
 
 const StampView = ({fullstampNum, laststampNum}) => {
+    console.log(fullstampNum, laststampNum);
     const stamps = [
         {id: 1, date: "20.09.15"},
         {id: 2, date: "20.09.16"}
@@ -89,7 +90,12 @@ const StamptoCouponScreen = (props) => {
     
     return (
         <CardTemplate_modal
-        cardview={<StampView fullstampNum={props.route.params.fullstampNum} laststampNum={props.route.params.laststampNum}></StampView>}
+        cardview={
+            <StampView 
+                fullstampNum={props.route.params.fullstampNum} 
+                laststampNum={props.route.params.laststampNum}
+            ></StampView>
+        }
         buttonname={"쿠폰발급하기"}
         toWhere={"HomeMain"} //일단 HomeMain으로
         navigation={props.navigation}
