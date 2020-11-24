@@ -15,12 +15,12 @@ import { Pick, Menu, Star, ReviewButtonGroup } from "../../components/ReviewComp
 
 import {par2url, getHeader} from "../../fetch/fetchApi";
 import ApiUrls from "../../constants/ApiUrls";
+import {putCoupon } from "../../components/Coupon";
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 const font = windowHeight / 87;
 
-// ! FIXME: FETCH ERROR https://www.valentinog.com/blog/hooks/#fetching-data-with-useeffect
 const getMenuData = async (state, coupon_id) => {
     const totUrl = par2url('/main/menu', {ordered: true, coupon_id});
     const header = getHeader(state.userToken);
@@ -39,6 +39,45 @@ const getMenuData = async (state, coupon_id) => {
     }
     
 };
+
+const postReview = async (state, data) => {
+    /*
+    * JSON 형식
+    data = {
+        coupon: {
+            coupon_id: 1,
+            review_able: false
+        },
+        review: [
+            {
+                menu_id: 10,
+                star_review: 1,
+                salt_review: 1,
+                amount_review: 1,
+                other_review: 1,
+            },
+    }
+    * review 속 변수들은 0부터 시작
+    * other_review의 경우 다른 리뷰와는 달리 -1이 가능.
+    */
+    const totUrl = par2url('/event/review', {});
+    const header = getHeader(state.userToken);
+    
+    try {
+        let response = await fetch(totUrl, {
+            method: 'POST',
+            headers: header,
+            body: JSON.stringify(data),
+        });
+        let json = await response.json();
+        console.log('POST /event/review');
+        console.log(json);
+        return json;
+    } catch (e) {
+        console.error(e);
+    }
+    
+}
 
 const dummyMenuData = [
     { id: 0, menu_id: "321", name: "", photo: 0 },
@@ -75,17 +114,48 @@ const alert = (title, message) => {
     Alert.alert(title, message);
 }
 
+const getPostDataForm = (coupon_id, state) => {
+    // * post할 data 구해주기
+    const star2int = (starArr) => {
+        // get starPoint as int type: not arr
+        let cnt = 0;
+        for (let s = 0; s<starArr.length; s++) {
+            if (starArr[s] === false){
+                console.log(cnt);
+                return cnt;
+            }
+            cnt ++;
+        }
+    };
+
+    return {
+        coupon: {
+            coupon_id: coupon_id,
+            review_able: false
+        },
+        review: state.menuReview.map(r => {
+            return {
+                menu_id: r.menu_id,
+                star_review: star2int(r.starPoint),
+                salt_review: r.saltReview,
+                amount_review: r.amountReview,
+                other_review: r.otherReview
+            };
+        })
+    };
+}
+
 
 const ReviewScreen = (props) => {
     props.navigation.setOptions({ title: props.route.params.title });
-    
+    const coupon_id = props.route.params.coupon_id;
     const [loaded, setLoaded] = React.useState(false);
     const [menuData, setMenuData] = React.useState(dummyMenuData);
     const [authState, authDispatch] = React.useContext(Context);
 
     useEffect(()=> {
         const fetchMenuData = async () => {
-            const json = await getMenuData(authState, props.route.params.coupon_id);
+            const json = await getMenuData(authState, coupon_id);
             await setMenuData(json);
             await setLoaded(true);
             const setDispatch = async () => {
@@ -263,7 +333,18 @@ const ReviewScreen = (props) => {
 
                 <View style={CommonStyles.body__end}>
                     {allCompleted(state.menuReview) ? (
-                        <BottomButton active={true} style_back_color={{ backgroundColor: Colors.deep_yellow }} onPress={() => props.navigation.goBack()}>
+                        <BottomButton 
+                            active={true} 
+                            style_back_color={{ backgroundColor: Colors.deep_yellow }} 
+                            onPress={() => {
+                                const fetchReview = async () => {
+                                    const data = getPostDataForm(coupon_id, state);
+                                    console.log(data);
+                                    await postReview(authState, data);
+                                }
+                                fetchReview();
+                                return props.navigation.goBack();
+                            }}>
                             <Text style={{ ...styles.button_text, color: "black" }}>눈송슐랭 평가완료!</Text>
                         </BottomButton>
                     ) : (

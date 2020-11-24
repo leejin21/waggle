@@ -1,4 +1,5 @@
 // USE:: settings screens: coupon
+// ! FIXME:: 리뷰 화면에서 돌아가기 버튼 이후 리뷰 남기고 스탬프 찍기 버튼은 노란 버튼으로 유지되어야 함.
 
 import React, { useState, useReducer, useContext } from "react";
 import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
@@ -26,7 +27,6 @@ const putCoupon = async (state, coupon_id, what) => {
             coupon_id: 1,
             [view_remove: true],
             [used: true],
-            [review_able: false]
         }
     */
     const totUrl = par2url('/event/coupon', {});
@@ -40,8 +40,6 @@ const putCoupon = async (state, coupon_id, what) => {
         data.view_remove = true;
     else if (what === "used")
         data.used = true;
-    else if (what === "review_able")
-        data.review_able = false;
 
     try {    
         let response = await fetch(totUrl, {
@@ -199,10 +197,6 @@ const Coupon = (props) => {
                             <TouchableOpacity
                                 style={{ ...styles.card__button, backgroundColor: Colors.deep_yellow }}
                                 onPress={() => {
-                                    const fetchCoupon = async () => {
-                                        await putCoupon(authState, props.coupon_id, "review_able");
-                                    }
-                                    fetchCoupon();
                                     dispatch({ type: "USED__REVIEWED" });
                                     props.navigation.navigate("Review", {
                                         title: props.name,
@@ -297,3 +291,4 @@ const styles = StyleSheet.create({
 
 export default Coupon;
 export { StampCoupon };
+export { putCoupon };
