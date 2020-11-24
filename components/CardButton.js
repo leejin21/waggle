@@ -33,7 +33,6 @@ const CardButton = (props) => {
     );
 };
 const styles = StyleSheet.create({
-    // TODO 핸드폰 dimenstion size에 따라 달라질 수 있으므로 비율로 margin, padding 다 조정하기(b/c card__button)
     card: {
         backgroundColor: "#565656",
         marginHorizontal: pad,
