@@ -26,9 +26,14 @@ const StampView = ({fullstampNum, laststampNum}) => {
     const Circle = ({num}) => { // bool인 checked, exist 받음
         if(num > 0){ // exist
             if(num > 1){ // checked
-                return <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>;
+                return (
+                    //id=n인 stamps의 원소에 대해 date도 출력해야
+                    <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>
+                );
             }
-            return <TouchableHighlight style={styles.circle}/>;
+            return (
+                <TouchableHighlight style={styles.circle}/>
+            );
         }
         // exist=false: return nothing
         return <TouchableHighlight style={{...styles.circle, backgroundColor: "#565656"}}/>;
