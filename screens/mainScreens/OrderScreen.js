@@ -15,35 +15,50 @@ const circle_size = font*9.1;
 const margin_size = pad*2;
 
 // 반복 생성
-const Menu = ({menu_name, menu_price}) => {
-    return(
-        <View style={{width: circle_size+margin_size, justifyContent:"flex-start", alignItems:"center"}}>
-            <CheckCircle SIZE={circle_size} touchable={false}/>
-            <View style={{borderTopWidth: pad/2, borderColor: "transparent"}}>
-                <Text style={CommonStyles.small_text}>{menu_name}</Text>
-                <Text style={CommonStyles.small_text}>{''+menu_price}</Text>
-            </View>
-        </View>   
-    );
+const Menu = ({type, menu_name, menu_price}) => {
+    if(type == "main"){
+        return(
+            <View style={{width: circle_size+margin_size, justifyContent:"flex-start", alignItems:"center"}}>
+                <CheckCircle SIZE={circle_size} touchable={false}/>
+                <View style={{borderTopWidth: pad/2, borderColor: "transparent"}}>
+                    <Text style={CommonStyles.small_text}>{menu_name}</Text>
+                    <Text style={CommonStyles.small_text}>{menu_price}₩</Text>
+                </View>
+            </View>   
+        );
+    }
+    if(type == "side"){
+        return(
+            <View style={{width: circle_size+margin_size, justifyContent:"flex-start", alignItems:"center"}}>
+                <CheckCircle SIZE={circle_size} touchable={false}/>
+                <View style={{borderTopWidth: pad/2, borderColor: "transparent"}}>
+                    <Text style={CommonStyles.small_text}>{menu_name}</Text>
+                    <Text style={{...CommonStyles.small_text, textDecorationLine: 'line-through'}}> {menu_price}₩</Text>
+                    <Text style={{...CommonStyles.small_text, color: Colors.deep_yellow}}>{"0₩"}</Text>
+                </View>
+            </View>   
+        );
+    }
 };
 
 const OrderView = ({route}) => { 
-    //mainArray, sideArray , totalCost
+    //mainArray, sideArray , mainCost, sideCost
     //menuArray: [{id, name, price}]
     const mainArray = route.params.mainArray;
     const sideArray = route.params.sideArray;
 
-    const totalCost = route.params.totalCost;
+    const mainCost = route.params.mainCost;
+    const sideCost = route.params.sideCost;
 
     return (
     <View style={styles.view1}>
         <View style={styles.view2_1}>
             <View style={styles.view3_1}>
                 <View style={[styles.title_view, styles.view4_1]}>
-    <Text style={[CommonStyles.bold_text, styles.txt1]}> 메인 메뉴</Text>
+                    <Text style={[CommonStyles.bold_text, styles.txt1]}> 메인 메뉴</Text>
                 </View>
                 <View style={[styles.menu_view, styles.view4_2]}>
-                    {mainArray.map((item) => {return <Menu key={item.id} menu_name={item.name} menu_price={item.price}/>})}
+                    {mainArray.map((item) => {return <Menu type={"main"} key={item.id} menu_name={item.name} menu_price={item.price}/>})}
                 </View>
             </View>
             <View style={styles.view3_2}>
@@ -51,18 +66,17 @@ const OrderView = ({route}) => {
                     <Text style={[CommonStyles.bold_text, styles.txt1]}>+ 사이드 메뉴</Text>
                 </View>
                 <View style={[styles.menu_view, styles.view4_4]}>
-                    {sideArray.map((item) => {return <Menu key={item.id} menu_name={item.name} menu_price={item.price}/>})}
+                    {sideArray.map((item) => {return <Menu type={"side"} key={item.id} menu_name={item.name} menu_price={item.price}/>})}
                 </View>
             </View>   
         </View>
 
         <View style={styles.view2_2}>
             <View style={[styles.title_view, styles.view3_3]}>
-                <Text style={[CommonStyles.bold_text, styles.txt2]}> = 총합 {totalCost}</Text>
-                <Text style={[CommonStyles.small_text, styles.txt3]}>  (메인 메뉴 얼마 + 사이드 메뉴 얼마) </Text>
+                <Text style={[CommonStyles.bold_text, styles.txt2]}>= 총합 {mainCost}₩</Text>
+                <Text style={[CommonStyles.small_text, styles.txt3]}>(메인 메뉴 {mainCost}₩ + 사이드 메뉴 {0}₩) </Text>
             </View>
         </View>
-
     </View>
 
     );
@@ -83,14 +97,14 @@ const OrderScreen = (props) => {
 
 const styles = StyleSheet.create({
     view1: {width: "100%", height: "100%", paddingHorizontal: pad*3, alignItems: "center"},
-    view2_1: {width: "93%", height: "100%", flex:2.3},
-    view3_1: {width: "100%", height: "100%", flex:1, },
-    view3_2: {width: "90%", height: "100%", flex:1, justifyContent:"flex-start", alignItems:"flex-start"},
+    view2_1: {width: "98%", height: "100%", flex:2.3},
+    view3_1: {width: "100%", height: "100%", flex:0.9, },
+    view3_2: {width: "90%", height: "100%", flex:1.1, justifyContent:"flex-start", alignItems:"flex-start"},
     view4_1: {width: "100%", height: "100%", flex:1, borderTopColor:"white", borderTopWidth:1, alignItems:"flex-start"},
     view4_2: {width: "100%", height: "100%", flex:3, paddingBottom:pad},
     view4_3: {width: "100%", height: "100%", flex:1, alignItems:"flex-start"},
     view4_4: {width: "100%", height: "100%", flex:3, paddingBottom:pad},
-    view2_2: {width: "93%", height: "100%", flex:1},
+    view2_2: {width: "98%", height: "100%", flex:1},
     view3_3: {width: "100%", height: "100%", justifyContent: "flex-start", alignItems:"flex-start", borderTopColor:"white", borderTopWidth:1, paddingTop: pad},
     txt1: {color: "white", fontSize: font*2.5},
     txt2: {color: Colors.deep_yellow, fontSize: font*4.4},
