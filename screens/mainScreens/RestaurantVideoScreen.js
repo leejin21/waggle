@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Video } from "expo-av";
-import VideoPlayer from 'expo-video-player'
+import VideoPlayer from 'expo-video-player';
 
 import Colors from "../../constants/Colors";
 import { headerOptions } from "../../constants/Options";
