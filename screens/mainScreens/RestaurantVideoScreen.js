@@ -82,19 +82,20 @@ const RestaurantVideoScreen = (props) => {
             <View style={styles.video__wrapper}>
                 {/* TODO video component: fetch from the server */}
                 {/* FIXME IOS: not working, need to eject */}
-                <Video
-                    source={{ uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" }}
-                    rate={1.0}
-                    volume={1.0}
-                    isMuted={false}
-                    shouldPlay={true}
-                    resizeMode="cover"
-                    isLooping={false}
-                    useNativeControls={false}
-                    style={{ width: windowWidth, height: font*30 }}
-                    positionMillis={pos}
-                    
-                ></Video>
+                <VideoPlayer
+                    videoProps={{
+                    source: { uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" },
+                    rate: 1.0,
+                    volume: 1.0,
+                    isMuted: false,
+                    shouldPlay: true,
+                    resizeMode: "cover",
+                    isLooping: false,
+                    useNativeControls: false,
+                    style: { width: windowWidth, height: font*30 },
+                    positionMillis: pos
+                    }}
+                />
             </View>
             <View style={styles.timestamp__wrapper}>
                 {timestamp.map((item) => {return <TimeStamp key={item.id} id={item.id} name={item.name} milisec={item.milisec} setPos={setPos}></TimeStamp>})}

@@ -29,6 +29,10 @@ npm audit fix
 # 20.09.26 추가
 npm i react-native-modal
 
+# 20.11.28 추가
+expo install expo-av @react-native-community/netinfo @react-native-community/slider
+npm install expo-video-player
+
 ```
 
 ## Issues
