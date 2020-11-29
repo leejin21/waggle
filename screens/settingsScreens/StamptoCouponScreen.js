@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, Text } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 import Colors from "../../constants/Colors";
@@ -24,12 +24,19 @@ const StampView = ({fullstampNum, laststampNum}) => {
     //const laststampNum = 2;  // fullstampNum개 중 laststampNum개는 checked = true
     // 아니면 exist면 1, 거기에다가 checked면 1 더해서 2로 할까?
 
-    const Circle = ({num}) => { // bool인 checked, exist 받음
+    const Circle = ({num, idx}) => { // bool인 checked, exist 받음
         if(num > 0){ // exist
             if(num > 1){ // checked
-                return <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>;
+                return (
+                    <View style={{alignItems:"center"}}>
+                        <CheckCircle SIZE={circle_size} touchable={false}></CheckCircle>
+                        <Text style={{color:"white", fontSize:font*1.3}}>{stamps[idx].date}</Text>
+                    </View>
+                );
             }
-            return <TouchableHighlight style={styles.circle}/>;
+            return (
+                <TouchableHighlight style={styles.circle}/>
+            );
         }
         // exist=false: return nothing
         return <TouchableHighlight style={{...styles.circle, backgroundColor: "#565656"}}/>;
@@ -45,7 +52,7 @@ const StampView = ({fullstampNum, laststampNum}) => {
                     num++;
                 }
             }
-            arr.push(num);
+            arr.push([i, num]);
             num = 0;
         }
 
@@ -57,16 +64,16 @@ const StampView = ({fullstampNum, laststampNum}) => {
     return(
         <View style={{...styles.view_out, zIndex: 0}}> 
             <View style={{...styles.view_in_odd, zIndex: 2}}>
-                {[arr[0], arr[1], arr[2]].map((n, id) => {return <Circle num={n} key={id}/>})}
+                {[arr[0], arr[1], arr[2]].map((n) => {return <Circle num={n[1]} idx={n[0]}/>})}
             </View>
             <View style={{...styles.view_in_even, zIndex: 2}}>
-                {[arr[3], arr[4], arr[5]].map((n, id) => {return <Circle num={n} key={id}/>})}
+                {[arr[3], arr[4], arr[5]].map((n) => {return <Circle num={n[1]} idx={n[0]}/>})}
             </View>
             <View style={{...styles.view_in_odd, zIndex: 2}}>
-                {[arr[6], arr[7], arr[8]].map((n, id) => {return <Circle num={n} key={id}/>})}
+                {[arr[6], arr[7], arr[8]].map((n) => {return <Circle num={n[1]} idx={n[0]}/>})}
             </View>
             <View style={{...styles.view_in_even, zIndex: 2}}>
-                {[arr[9], arr[10], arr[11]].map((n, id) => {return <Circle num={n} key={id}/>})}
+                {[arr[9], arr[10], arr[11]].map((n) => {return <Circle num={n[1]} idx={n[0]}/>})}
             </View>
         </View>
         
