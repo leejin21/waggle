@@ -49,6 +49,23 @@ const post = async (endpoint, data) => {
     }
 };
 
+const getValidate = async (token, endpoint, data) => {
+    let header = getHeader(token);
+    let url = par2url(endpoint, {});
+    try {
+        let response = await fetch(url, {
+            method: 'GET',
+            headers: header,
+        });
+        const status = await response.status;
+        const res = await response.json();
+
+        return {res};
+    } catch(error) {
+        return {error}
+    }
+}
+
 // - MAIN FUNCTION
 const BigNavigator = (props) => {
     // Main or Auth
@@ -69,12 +86,20 @@ const BigNavigator = (props) => {
             try {
                 userToken = await AsyncStorage.getItem("userToken");
                 userToken = JSON.parse(userToken);
+                // validate token
+                const json = await getValidate(userToken, 'user/token');
+                if (json.val) {
+                    console.log("header validation SUCCESS");
+                    dispatch({ type: "RESTORE_TOKEN", token: userToken });
+                } else {
+                    console.log("header validation FAILED");
+                    dispatch({type: "SIGN_OUT"});
+                }
             } catch (e) {
                 // Restoring token failed
-                console.log("Restoring token failed")
+                console.log("Restoring token failed");
+                dispatch({type: "SIGN_OUT"});
             }
-            // TODO need to validate token: if expired
-            dispatch({ type: "RESTORE_TOKEN", token: userToken });
         };
 
         bootstrapAsync();
