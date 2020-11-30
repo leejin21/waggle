@@ -27,6 +27,7 @@ const alert = (title, message) => {
 
 const post = async (endpoint, data) => {
     // Authorization 관련 코드
+    console.log('LOGIN POST');
     let header = getHeader();
     let url = par2url(endpoint, {});
     try {
@@ -49,7 +50,8 @@ const post = async (endpoint, data) => {
     }
 };
 
-const getValidate = async (token, endpoint, data) => {
+const getValidate = async (token, endpoint) => {
+    console.log('GET TOKEN VALIDATION');
     let header = getHeader(token);
     let url = par2url(endpoint, {});
     try {
@@ -59,8 +61,9 @@ const getValidate = async (token, endpoint, data) => {
         });
         const status = await response.status;
         const res = await response.json();
+        console.log(res);
 
-        return {res};
+        return res;
     } catch(error) {
         return {error}
     }
@@ -87,8 +90,9 @@ const BigNavigator = (props) => {
                 userToken = await AsyncStorage.getItem("userToken");
                 userToken = JSON.parse(userToken);
                 // validate token
-                const json = await getValidate(userToken, 'user/token');
-                if (json.val) {
+                const json = await getValidate(userToken, '/user/token');
+                // console.log(json);
+                if (json.val === "success") {
                     console.log("header validation SUCCESS");
                     dispatch({ type: "RESTORE_TOKEN", token: userToken });
                 } else {
@@ -117,7 +121,6 @@ const BigNavigator = (props) => {
                 } else {
                     // After getting token, we need to persist the token using `AsyncStorage`
                     let userToken = res.accessToken;
-
                     try {
                         // TODO token json 형식으로 저장해야 하는 지 찾아보기
                         await AsyncStorage.setItem("userToken", JSON.stringify(userToken));

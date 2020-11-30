@@ -17,7 +17,7 @@ const pad = windowHeight / 60;
 
 const BottomButton_2 = (props) => {
     return(
-        <BottomButton active={true} onPress={props.onPress}>
+        <BottomButton active={props.active} onPress={props.onPress}>
             <Text style={{ ...CommonStyles.bold_text, color: "black" }}>{props.name}</Text>
         </BottomButton>
     );
@@ -25,7 +25,7 @@ const BottomButton_2 = (props) => {
 
 const CardTemplate_modal = (props) => {   
     // props; 
-    // (default) cardview, buttonname, toWhere, navigation, modal_title
+    // (default) cardview, buttonname, toWhere, navigation, modal_title, button_active
     // detailtxt, card_flex (detail부분이 1), card_padding
 
     const [isModalVisible, setModalVisible] = useState(false);
@@ -39,27 +39,26 @@ const CardTemplate_modal = (props) => {
 
     return(
         <View style={{...CommonStyles.body, width: "100%"}}>
-        <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
-            <View style={{...CommonStyles.body, width: "100%"}}>
-                <Text style={CommonStyles.small_text}>
-                    {props.detailtxt}
-                </Text>
+            <View style={{ ...CommonStyles.body__middle, width: "100%" }}>
+                <View style={{...CommonStyles.body, width: "100%"}}>
+                    <Text style={CommonStyles.small_text}>
+                        {props.detailtxt}
+                    </Text>
+                </View>
+                <View style={{ ...CommonStyles.body__middle, width: "100%", flex: props.card_flex }}>
+                    <Card style={{width:"95%", marginBottom: pad*1.5, marginTop: 0, padding: props.card_padding}}>
+                        <ImageBackground source={require('../assets/images/backimg.png')} style={styles.image}>
+                            {props.cardview}
+                        </ImageBackground>
+                    </Card>
+                </View>
             </View>
-            <View style={{ ...CommonStyles.body__middle, width: "100%", flex: props.card_flex }}>
-                <Card style={{width:"95%", marginBottom: pad*1.5, marginTop: 0, padding: props.card_padding}}>
-                    <ImageBackground source={require('../assets/images/backimg.png')} style={styles.image}>
-                        {props.cardview}
-                    </ImageBackground>
-                </Card>
+            <View style={{ ...CommonStyles.body__end, width: "100%" }}>
+                <BottomButton_2 name={props.buttonname} onPress={toggleModal} active={props.button_active}/>
             </View>
-        </View>
-        <View style={{ ...CommonStyles.body__end, width: "100%" }}>
-            <BottomButton_2 name={props.buttonname} onPress={toggleModal}/>
-        </View>
 
-        <Modal isVisible={isModalVisible}>
+            <Modal isVisible={isModalVisible}>
                 <View style={{flex:1}}/>
-
                 <Card style={{padding: pad, marginHorizontal: 0, flex:1, alignItems:"center", justifyContent: "center"}}> 
                     <View style={styles.title__view}>
                         <Text style={styles.title__txt}>스탬프 완료쿠폰 발급 완료!</Text>
@@ -75,11 +74,9 @@ const CardTemplate_modal = (props) => {
                     <View style={{flex:1, width:"100%", height:"100%", paddingHorizontal: pad*0.6, paddingVertical: pad*0.8}}>
                         <ModalButton navigation={navi} toggle={toggleModal}/>
                     </View>
-                </Card>   
-
-                <View style={{flex:1}}/>            
+                </Card>
+                <View style={{flex:1}}/>
             </Modal>
-
         </View>
     );
 };

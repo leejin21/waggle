@@ -13,8 +13,9 @@ import { par2url, getHeader } from "../../fetch/fetchApi";
 import { Context } from "../../navigation/Store";
 
 const stampDatas = [
-    { name: 'ABC레스토랑', collected: '2', all: '10'},
-    { name: '가나다레스토랑', collected: '1', all: '10'}
+    // { name: 'ABC레스토랑', collected: '2', all: '10'},
+    { name: '풀사이드', collected: '10', all: '10'},
+    { name: 'ABC', collected: '13', all: '10'}
 ]
 
 const getStampBox = async (state) => {
@@ -39,10 +40,13 @@ const getStampBox = async (state) => {
 const StampboxView = (props) => {
     // props: stampBox
     const navi = props.navigation;
+    
 
-    const renderItem = ({item}) => (
-        <CardButton name={item.name} fullstampNum={item.all} laststampNum={item.collected} collected={item.collected} all={item.all} navigation={navi}/>
-    );
+    const renderItem = ({item}) => {
+        // stampbox의 collected가 10을 초과할 경우 10개로 넘겨주기.
+        const laststampNum = (item.collected >= 10) ? 10: item.collected;
+        return (<CardButton name={item.name} fullstampNum={item.all} laststampNum={laststampNum} collected={item.collected} all={item.all} navigation={navi}/>);
+    }
 
     return(
         <View style={{ width: "100%" }}>
@@ -78,18 +82,19 @@ const StampboxScreen = (props) => {
             color: "white",
         },
     });
-    const [stampBox, setStampBox] = React.useState([]);
+    // const [stampBox, setStampBox] = React.useState([]);
     const [AuthState, authDispatch] = React.useContext(Context);
     const navi = props.navigation; //?
-
-    useEffect(()=> {
-        const fetchStampBox = async () => {
-            const json = await getStampBox(AuthState);
-            // await getStampBox(AuthState);
-            await setStampBox(json);
-        };
-        fetchStampBox();
-    }, []);
+    
+    const stampBox = stampDatas;
+    // useEffect(()=> {
+    //     const fetchStampBox = async () => {
+    //         const json = await getStampBox(AuthState);
+    //         // await getStampBox(AuthState);
+    //         await setStampBox(json);
+    //     };
+    //     fetchStampBox();
+    // }, []);
     
     return (
         <NoCardTemplate

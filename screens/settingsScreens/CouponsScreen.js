@@ -48,6 +48,9 @@ const getCouponDatas = async (state) => {
 
 
 const CouponsScreen = (props) => {
+    // ! [Unhandled promise rejection: TypeError: undefined is not an object (evaluating 'props.route.params.info_name')]
+    // ! StamptoCouponScreen => CouponsScreen에서 props.route.params에 info_name이 없음.
+    // TODO 해결: MyPageScreen에서 info_name, info_phone Context로 뿌려서 Global하게 가지고 있기
     const [state, dispatch] = React.useContext(Context);
     const [couponDatas, setCouponDatas] = useState([]);
 
