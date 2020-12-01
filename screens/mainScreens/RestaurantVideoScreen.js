@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
-import { Video } from "expo-av";
+import VideoPlayer from 'expo-video-player';
 
 import Colors from "../../constants/Colors";
 import { headerOptions } from "../../constants/Options";
@@ -11,7 +11,12 @@ import BottomButton from "../../components/BottomButton";
 import CommonStyles from "../../constants/CommonStyles";
 
 import Card from "../../components/Card";
+
 import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons'; 
+
+//import Share from 'react-native-share';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -76,23 +81,51 @@ const RestaurantVideoScreen = (props) => {
 
     const [pos, setPos] = useState(0);
 
+    const playIcon = () => {
+        return (
+            <FontAwesome name="play" size={font*5} color="white" />
+        );
+    }
+    const pauseIcon = () => {
+        return (
+            <FontAwesome name="pause" size={font*5} color="white" />
+        );
+    }
+    const replayIcon = () => {
+        return (
+            <MaterialIcons name="replay" size={font*5} color="white" />
+        );
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.video__wrapper}>
                 {/* TODO video component: fetch from the server */}
                 {/* FIXME IOS: not working, need to eject */}
-                <Video
-                    source={{ uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" }}
-                    rate={1.0}
-                    volume={1.0}
-                    isMuted={false}
-                    shouldPlay={true}
-                    resizeMode="cover"
-                    isLooping={false}
-                    useNativeControls
-                    style={{ width: windowWidth, height: font*30 }}
-                    positionMillis={pos}
-                ></Video>
+                <VideoPlayer
+                    videoProps={{
+                    source: { uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" },
+                    rate: 1.0,
+                    volume: 1.0,
+                    isMuted: false,
+                    shouldPlay: true,
+                    resizeMode: "cover",//contain
+                    isLooping: false,
+                    positionMillis: pos
+                    }}
+                    hideControlsTimerDuration={10000000}//to be fixed
+                    inFullscreen={true}
+                    width={windowWidth}
+                    height={windowHeight*12/15.4}//to be fixed
+                    playIcon={playIcon}
+                    pauseIcon={pauseIcon}
+                    replayIcon={replayIcon}
+                    videoBackground={Colors.body_grey}
+                    showControlsOnLoad={true}
+                    sliderColor={Colors.deep_yellow}
+                    showFullscreenButton={false}
+                    textStyle={{color:Colors.body_grey, fontSize:0.01}}
+                />
             </View>
             <View style={styles.timestamp__wrapper}>
                 {timestamp.map((item) => {return <TimeStamp key={item.id} id={item.id} name={item.name} milisec={item.milisec} setPos={setPos}></TimeStamp>})}
