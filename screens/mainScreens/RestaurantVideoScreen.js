@@ -16,7 +16,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
 
-import Share from 'react-native-share';
+//import Share from 'react-native-share';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

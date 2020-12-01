@@ -34,6 +34,7 @@ expo install expo-av @react-native-community/netinfo @react-native-community/sli
 npm install expo-video-player
 
 # 20.12.01 추가
+(안쓸수도)
 npm i react-native-share --save
 
 ```
