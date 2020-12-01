@@ -12,7 +12,10 @@ import BottomButton from "../../components/BottomButton";
 import CommonStyles from "../../constants/CommonStyles";
 
 import Card from "../../components/Card";
+
 import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -77,6 +80,22 @@ const RestaurantVideoScreen = (props) => {
 
     const [pos, setPos] = useState(0);
 
+    const playIcon = () => {
+        return (
+            <FontAwesome name="play" size={font*5} color="white" />
+        );
+    }
+    const pauseIcon = () => {
+        return (
+            <FontAwesome name="pause" size={font*5} color="white" />
+        );
+    }
+    const replayIcon = () => {
+        return (
+            <MaterialIcons name="replay" size={font*5} color="white" />
+        );
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.video__wrapper}>
@@ -89,12 +108,22 @@ const RestaurantVideoScreen = (props) => {
                     volume: 1.0,
                     isMuted: false,
                     shouldPlay: true,
-                    resizeMode: "cover",
+                    resizeMode: "cover",//contain
                     isLooping: false,
-                    useNativeControls: false,
-                    style: { width: windowWidth, height: font*30 },
                     positionMillis: pos
                     }}
+                    hideControlsTimerDuration={10000000}//to be fixed
+                    inFullscreen={true}
+                    width={windowWidth}
+                    height={windowHeight*12/15.4}//to be fixed
+                    playIcon={playIcon}
+                    pauseIcon={pauseIcon}
+                    replayIcon={replayIcon}
+                    videoBackground={Colors.body_grey}
+                    showControlsOnLoad={true}
+                    sliderColor={Colors.deep_yellow}
+                    showFullscreenButton={false}
+                    textStyle={{color:Colors.body_grey, fontSize:0.01}}
                 />
             </View>
             <View style={styles.timestamp__wrapper}>
