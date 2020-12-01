@@ -8,6 +8,7 @@ import ApiUrls from "../constants/ApiUrls";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import {par2url, getHeader} from "../fetch/fetchApi";
 import { Context } from "../navigation/Store";
+import postData from "../fetch/postData";
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
@@ -16,31 +17,19 @@ const BORDER_RADIUS = pad*2;
 const HEART_SIZE = pad*2;
 
 const postHeartChanged = async (state, filled, rest_id) => {
-    /*
-        * POST JSON FORM
+    /*  
+        * POST main/heartchanged
+        [JSON FORM]
         Object {
             "heart_filled": true,
             "rest_id": 1,
         },
     */
-    // * POST main/heartchanged
-    const totUrl = par2url('/main/heartchanged', {});
-    const header = getHeader(state.userToken);
     const data = {
             heart_filled: filled, 
             rest_id: rest_id,
     };
-    try {    
-        let response = await fetch(totUrl, {
-            method: 'POST',
-            headers: header,
-            body: JSON.stringify(data),
-        });
-        console.log(await response.status);
-    } catch(error) {
-        // error의 경우 뭘 return해 줄 지 고민
-        console.log(error);
-    }
+    await postData(state, '/main/heartchanged', data);
 };
 
 const HeartIcon = (props) => {

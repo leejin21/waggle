@@ -1,4 +1,3 @@
-// 로그인 post request => 로그인해서 token 받기
 
 import React, { useState, useContext } from "react";
 import { View, Text, TextInput, Keyboard, TouchableWithoutFeedback, StyleSheet, TouchableOpacity, Dimensions } from "react-native";

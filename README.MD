@@ -35,3 +35,6 @@ npm i react-native-modal
 
 -   Async Storage 공부하기
     https://react-native-community.github.io/async-storage/docs/api
+
+-   error message 표시하기
+    POST

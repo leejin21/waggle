@@ -16,6 +16,7 @@ import { Pick, Menu, Star, ReviewButtonGroup } from "../../components/ReviewComp
 import {par2url, getHeader} from "../../fetch/fetchApi";
 import ApiUrls from "../../constants/ApiUrls";
 import {putCoupon } from "../../components/Coupon";
+import postData from "../../fetch/postData";
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
@@ -40,9 +41,10 @@ const getMenuData = async (state, coupon_id) => {
     
 };
 
-const postReview = async (state, data) => {
+const postReview = async (authState, coupon_id, state) => {
     /*
-    * JSON 형식
+    * POST REVIEW
+    [JSON 형식]
     data = {
         coupon: {
             coupon_id: 1,
@@ -60,23 +62,9 @@ const postReview = async (state, data) => {
     * review 속 변수들은 0부터 시작
     * other_review의 경우 다른 리뷰와는 달리 -1이 가능.
     */
-    const totUrl = par2url('/event/review', {});
-    const header = getHeader(state.userToken);
-    
-    try {
-        let response = await fetch(totUrl, {
-            method: 'POST',
-            headers: header,
-            body: JSON.stringify(data),
-        });
-        let json = await response.json();
-        console.log('POST /event/review');
-        console.log(json);
-        return json;
-    } catch (e) {
-        console.error(e);
-    }
-    
+    const data = getPostDataForm(coupon_id, state);
+    const json = postData(authState, '/event/review', data);
+    return json;
 }
 
 const dummyMenuData = [
@@ -338,9 +326,7 @@ const ReviewScreen = (props) => {
                             style_back_color={{ backgroundColor: Colors.deep_yellow }} 
                             onPress={() => {
                                 const fetchReview = async () => {
-                                    const data = getPostDataForm(coupon_id, state);
-                                    console.log(data);
-                                    await postReview(authState, data);
+                                    await postReview(authState, coupon_id, state);
                                 }
                                 fetchReview();
                                 return props.navigation.goBack();

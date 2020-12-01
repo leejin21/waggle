@@ -9,6 +9,7 @@ import { Context } from "../../navigation/Store";
 import {par2url, getHeader} from "../../fetch/fetchApi";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
+import postData from "../../fetch/postData";
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
@@ -89,7 +90,8 @@ const OrderView = ({route}) => {
 const postCoupon = async (state, rest_id, mainArray, sideArray) => {
     
     /*
-        * JSON FORM
+        * POST event/coupon
+        [JSON FORM]
         {
             type: "G",
             rest_id: 1,
@@ -97,10 +99,6 @@ const postCoupon = async (state, rest_id, mainArray, sideArray) => {
         }
     */
     
-    // * POST event/coupon
-    const totUrl = par2url('/event/coupon', {});
-    const header = getHeader(state.userToken);
-
     let menus = mainArray.map(m => m.menu_id);
     menus = menus.concat(sideArray.map(m => m.menu_id));
 
@@ -109,18 +107,7 @@ const postCoupon = async (state, rest_id, mainArray, sideArray) => {
             rest_id: rest_id,
             menus
     };
-
-    try {    
-        let response = await fetch(totUrl, {
-            method: 'POST',
-            headers: header,
-            body: JSON.stringify(data),
-        });
-        console.log(await response.status);
-    } catch(error) {
-        // error의 경우 뭘 return해 줄 지 고민
-        console.log(error);
-    }
+    await postData(state, '/event/coupon', data);
 };
 
 

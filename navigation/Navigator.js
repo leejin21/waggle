@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 // - LOCAL MODULES
 import {Context} from "./Store";
 import {getHeader, par2url} from "../fetch/fetchApi";
+import postData from "../fetch/postData";
 
 /////////////////////////////////////////////////////////////////////////////////
 // * MAIN CODE SECTION
@@ -24,31 +25,6 @@ const AuthContext = React.createContext();
 const alert = (title, message) => {
     Alert.alert(title, message);
 }
-
-const post = async (endpoint, data) => {
-    // Authorization 관련 코드
-    console.log('LOGIN POST');
-    let header = getHeader();
-    let url = par2url(endpoint, {});
-    try {
-        let response = await fetch(url, {
-            method: 'POST',
-            headers: header,
-            body: JSON.stringify(data)
-        });
-        const status = await response.status;
-        const res = await response.json();
-        console.log(res, status)
-
-        if (status!= 400){
-            return {res};
-        } else {
-            return {error: res.error};
-        }
-    } catch(error) {
-        return {error}
-    }
-};
 
 const getValidate = async (token, endpoint) => {
     console.log('GET TOKEN VALIDATION');
@@ -113,7 +89,7 @@ const BigNavigator = (props) => {
         () => ({
             signIn: async (data) => {
                 // Send data (email, pw) to server and get a token
-                const {res, error} = await post("/user/login", data);
+                const {res, error} = await postData(null, "/user/login", data);
             
                 if (error) {
                     // handle errors if sign in failed
