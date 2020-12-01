@@ -29,13 +29,15 @@ const CardTemplate_modal = (props) => {
     // detailtxt, card_flex (detail부분이 1), card_padding
 
     const [isModalVisible, setModalVisible] = useState(false);
+    const sideMenu = "A메뉴";
+    // TODO sideMenu get하기
     
     const toggleModal = () => {
       setModalVisible(!isModalVisible);
     };
 
     const navi = props.navigation; 
-    const title = props.modal_title;
+    const {title, info_name} = props.route.params;
 
     return(
         <View style={{...CommonStyles.body, width: "100%"}}>
@@ -65,14 +67,14 @@ const CardTemplate_modal = (props) => {
                     </View>
                     <View style={styles.body__view}>
                         <View style={styles.body_title__view}>
-                            <Text style={styles.body_title__txt}>{title} - A메뉴</Text>
+                            <Text style={styles.body_title__txt}>{title} - {sideMenu}</Text>
                         </View>
                         <View style={styles.body_exp__view}>
                             <Text style={styles.body_exp__txt}>[마이페이지] - [쿠폰함]에 지급되었어요!{"\n"}스탬프 완료쿠폰은 재지급이 불가합니다.</Text>
                         </View>
                     </View>
                     <View style={{flex:1, width:"100%", height:"100%", paddingHorizontal: pad*0.6, paddingVertical: pad*0.8}}>
-                        <ModalButton navigation={navi} toggle={toggleModal}/>
+                        <ModalButton navigation={navi} toggle={toggleModal} route={props.route}/>
                     </View>
                 </Card>
                 <View style={{flex:1}}/>

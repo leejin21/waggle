@@ -40,12 +40,12 @@ const getStampBox = async (state) => {
 const StampboxView = (props) => {
     // props: stampBox
     const navi = props.navigation;
-    
+    const info_name = props.route.params.info_name;
 
     const renderItem = ({item}) => {
         // stampbox의 collected가 10을 초과할 경우 10개로 넘겨주기.
         const laststampNum = (item.collected >= 10) ? 10: item.collected;
-        return (<CardButton name={item.name} fullstampNum={item.all} laststampNum={laststampNum} collected={item.collected} all={item.all} navigation={navi}/>);
+        return (<CardButton name={item.name} fullstampNum={item.all} laststampNum={laststampNum} collected={item.collected} all={item.all} navigation={navi} info_name={info_name}/>);
     }
 
     return(
@@ -98,7 +98,7 @@ const StampboxScreen = (props) => {
     
     return (
         <NoCardTemplate
-        bodyview={<StampboxView navigation={navi} stampBox={stampBox}/>}
+        bodyview={<StampboxView navigation={navi} stampBox={stampBox} route={props.route}/>}
         needButton={false}
         isHeaderBlack={false}
         />

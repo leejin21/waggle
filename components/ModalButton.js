@@ -18,7 +18,9 @@ const ModalButton = (props) => {
     // collected, all -> stringify
     buttonPress = () => {
         props.toggle();
-        props.navigation.navigate("Coupons");
+        props.navigation.navigate("Coupons", {
+            info_name: props.route.params.info_name
+        });
     }
 
     return (
@@ -35,7 +37,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#161616",
         marginHorizontal: 0,
         borderRadius: pad*3,
-
         width: "100%",
         height: "100%",
         flex: 0,

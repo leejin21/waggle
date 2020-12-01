@@ -74,7 +74,7 @@ const MyPageScreen = (props) => {
                     <Text style={styles.button_text}>쿠폰함</Text>
                 </BottomButton>
 
-                <BottomButton onPress={() => props.navigation.navigate("Stampbox")} active={true} style_back_color={styles.mid__button}>
+                <BottomButton onPress={() => props.navigation.navigate("Stampbox", {info_name: info.name})} active={true} style_back_color={styles.mid__button}>
                     <Text style={styles.button_text}>스탬프함</Text>
                 </BottomButton>
                 <BottomButton onPress={() => props.navigation.navigate("EditInfo")} active={true} style_back_color={styles.mid__button}>
