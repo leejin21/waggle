@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
-import { Video } from "expo-av";
 import VideoPlayer from 'expo-video-player';
 
 import Colors from "../../constants/Colors";
@@ -16,6 +15,8 @@ import Card from "../../components/Card";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
+
+import Share from 'react-native-share';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

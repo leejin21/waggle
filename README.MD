@@ -33,6 +33,9 @@ npm i react-native-modal
 expo install expo-av @react-native-community/netinfo @react-native-community/slider
 npm install expo-video-player
 
+# 20.12.01 추가
+npm i react-native-share --save
+
 ```
 
 ## Issues
