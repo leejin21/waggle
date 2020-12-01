@@ -1,54 +1,34 @@
 // 음식점 리스트에 접근: 하트 쳐둔 것 관련 정보 받기, 하트 쳐둔 것 대로 정렬?
+
+/////////////////////////////////////////////////////////////////////////////////
+//* IMPORT SECTION
+
+// import made modules
 import React, { useContext, useState , useEffect} from "react";
 import { View, StyleSheet, FlatList, Dimensions } from "react-native";
 
+// import custom modules
 import { logoHeaderOptions } from "../../constants/Options";
 import ApiUrls from "../../constants/ApiUrls";
 import ProfileLogo from "../../components/ProfileLogo";
 import ListPhoto from "../../components/ListPhoto";
-import {par2url, getHeader} from "../../fetch/fetchApi";
-
 import CommonStyles from "../../constants/CommonStyles";
+
+// import custom fetch modules
+import getData from "../../fetch/getData";
 import { Context } from "../../navigation/Store";
 
+/////////////////////////////////////////////////////////////////////////////////
+// * INITIALIZE: COMPONENT SIZE
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 
-// * 서버 부착
-const getThumbnails = async (state) => {
-    // TODO photo 없애고 rest_id로 대신하기(like video url)
-    /*
-        * JSON FORM
-        Array [
-            Object {
-                "heart_filled": true,
-                "name": "포이푸",
-                "photo": "1.png",
-                "rest_id": 1,
-            },
-        ...
-        ]
-    */
-    // * GET main/thumbnails
-    const totUrl = par2url('/main/thumbnails', {});
-    const header = getHeader(state.userToken)
-    try {    
-        let response = await fetch(totUrl, {
-            method: 'GET',
-            headers: header,
-        });
-        let json = await response.json();
-        
-        console.log(json);
-        return json;
-    } catch(error) {
-        // error의 경우 뭘 return해 줄 지 고민
-        console.log(error);
-    }
-};
-
+/////////////////////////////////////////////////////////////////////////////////
+// * SCREEN SECTION
 const HomeMainScreen = (props) => {
+    /////////////////////////////////////////////////////////////////////////////////
+    // INITIALIZATION AND STATES SECTION
     const [imageDatas, setImageDatas] = useState()
     const [state, dispatch] = useContext(Context);
     props.navigation.setOptions({
@@ -56,19 +36,35 @@ const HomeMainScreen = (props) => {
         headerRight: () => <ProfileLogo touchable={true} navigation={props.navigation} style={{ marginRight: pad*1.2 }}></ProfileLogo>,
     });
 
-    // 예시 찾아보기: flatlist, fetch
+    /////////////////////////////////////////////////////////////////////////////////
+    // USE EFFECT SECTION: AFTER DID MOUNT, BEFORE RENDER
     useEffect(()=> {
         const fetchImages = async () =>  {
-            try {
-                const json = await getThumbnails(state);
-                setImageDatas(imageDatas => json);
-            } catch (e) {
-                console.log(e);
+            /*
+            TODO photo 없애고 rest_id로 대신하기(like video url)
+            * GET /main/thumbnails 
+            * JSON FORM
+            Array [
+                Object {
+                    "heart_filled": true,
+                    "name": "포이푸",
+                    "photo": "1.png",
+                    "rest_id": 1,
+                },
+                ...
+            ]
+            */
+            const {res, error} = await getData(state, '/main/thumbnails', {});
+            if (error) {
+                Alert.alert('네트워크 에러', '네트워크가 불안정합니다.');
+            } else {
+                setImageDatas(imageDatas => res);
             }
         };
         fetchImages();
     }, []);
-
+    /////////////////////////////////////////////////////////////////////////////////
+    // RENDERING SECTION
     return (
         <View style={styles.body}>
             <FlatList
@@ -93,7 +89,8 @@ const HomeMainScreen = (props) => {
     );
 };
 
-
+/////////////////////////////////////////////////////////////////////////////////
+//* STYLES SECTION
 const styles = StyleSheet.create({
     body: {
         ...CommonStyles.body,
@@ -103,4 +100,6 @@ const styles = StyleSheet.create({
     },
 });
 
+/////////////////////////////////////////////////////////////////////////////////
+//* EXPORT SECTION
 export default HomeMainScreen;

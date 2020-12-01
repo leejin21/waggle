@@ -1,45 +1,51 @@
+
+/////////////////////////////////////////////////////////////////////////////////
+//* IMPORT SECTION
+
+// import made modules
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
-
 import { Video } from "expo-av";
 
+// import custom modules
 import Colors from "../../constants/Colors";
 import { headerOptions } from "../../constants/Options";
-
-import { Context } from "../../navigation/Store";
-
 import { HeartIcon } from "../../components/ListPhoto";
 import { Feather } from "@expo/vector-icons";
 import BottomButton from "../../components/BottomButton";
 import CommonStyles from "../../constants/CommonStyles";
-import ApiUrls from "../../constants/ApiUrls";
-
-import {par2url, getHeader} from "../../fetch/fetchApi";
-
 import Card from "../../components/Card";
 import { AntDesign } from "@expo/vector-icons";
 
+// import custom fetch modules
+import getData from "../../fetch/getData";
+import { Context } from "../../navigation/Store";
+import ApiUrls from "../../constants/ApiUrls";
+
+/////////////////////////////////////////////////////////////////////////////////
+// * INITIALIZE: COMPONENT SIZE
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 const font = windowHeight / 87;
 
 const ICON_SIZE = font*2.4;
-
+/////////////////////////////////////////////////////////////////////////////////
+// * SMALL FUNCTIONS || JSON
 const getHeart = async (state, rest_id) => {
-    // 하트의 유무 결정
-    const totUrl = par2url('/main/heartchanged', {rest_id});
-    const header = getHeader(state.userToken);
-    try {
-        let response = await fetch(totUrl, {
-            method: 'GET',
-            headers: header,
-        });
-        let json = await response.json();
-        console.log(json);
-        return json;
-    } catch (e) {
-        console.error(e);
+    /*
+        * GET /main/heartchanged 
+        * JSON FORM
+        Object {
+            "heart_filled": true,
+            "rest_id": 1,
+        }
+    */
+    const {res, error} = await getData(state, '/main/heartchanged', {rest_id});
+    if (error) {
+        Alert.alert('네트워크 에러', '네트워크가 불안정합니다.');
+    } else {
+        return res;
     }
 }
 
@@ -47,6 +53,29 @@ const timestamp = [
     {id:0, name: "메뉴소개", milisec: 3000},
     {id: 1, name: "먹방", milisec: 8000}
 ]
+
+
+const options = (route, json) => {
+    return {
+        ...headerOptions,
+        headerTintColor: Colors.deep_yellow,
+        headerTransparent: true,
+        headerStyle: {
+            height: font*15,
+            shadowColor: "transparent",
+        },
+        headerTitleStyle: {
+            ...headerOptions.headerTitleStyle,
+            color: "white",
+        },
+        // - set header title and header right buttons
+        title: route.params.title,
+        headerRight: () => <HeaderRight item={route.params.item} rest_id={route.params.rest_id} heart_filled={json.heart_filled} ></HeaderRight>,
+    };
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+// * SMALL COMPONENTS SECTION
 const TimeStamp = (props) => {
     const handleClick = () => {
         props.setPos(props.milisec);
@@ -78,6 +107,9 @@ const HeaderRight = (props) => {
     );
 };
 
+/////////////////////////////////////////////////////////////////////////////////
+// * MAIN COMPONENT SECTION
+
 const RestaurantVideoScreen = (props) => {
     const [state, dispatch] = React.useContext(Context);
     const [pos, setPos] = useState(0);
@@ -87,28 +119,10 @@ const RestaurantVideoScreen = (props) => {
             // * get heart json
             const json = await getHeart(state, props.route.params.rest_id);
             // * set header
-            await props.navigation.setOptions({
-                ...headerOptions,
-                headerTintColor: Colors.deep_yellow,
-                headerTransparent: true,
-                headerStyle: {
-                    height: font*15,
-                    shadowColor: "transparent",
-                },
-                headerTitleStyle: {
-                    ...headerOptions.headerTitleStyle,
-                    color: "white",
-                },
-                // - set header title and header right buttons
-                title: props.route.params.title,
-                headerRight: () => <HeaderRight item={props.route.params.item} rest_id={props.route.params.rest_id} heart_filled={json.heart_filled} ></HeaderRight>,
-            });
+            await props.navigation.setOptions(options(props.route, json));
         };
         fetchHeart();
     },[])
-    
-
-    
 
     return (
         <View style={styles.container}>
@@ -139,6 +153,8 @@ const RestaurantVideoScreen = (props) => {
         </View>
     );
 };
+/////////////////////////////////////////////////////////////////////////////////
+//* STYLES SECTION
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -202,5 +218,6 @@ const styles = StyleSheet.create({
         fontFamily: "noto_bold",
     }
 });
-
+/////////////////////////////////////////////////////////////////////////////////
+//* EXPORT SECTION
 export default RestaurantVideoScreen;

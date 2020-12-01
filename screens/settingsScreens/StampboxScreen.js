@@ -9,8 +9,8 @@ import NoCardTemplate from "../../templates/NoCardTemplate";
 import CardButton from "../../components/CardButton"; 
 
 // custom modules for fetch
-import { par2url, getHeader } from "../../fetch/fetchApi";
 import { Context } from "../../navigation/Store";
+import getData from "../../fetch/getData";
 
 const stampDatas = [
     // { name: 'ABC레스토랑', collected: '2', all: '10'},
@@ -19,22 +19,24 @@ const stampDatas = [
 ]
 
 const getStampBox = async (state) => {
-    const totUrl = par2url('/stamp/box', {});
-    const header = getHeader(state.userToken);
-    console.log("stamp/box GET");
-    try {
-        let response = await fetch(totUrl, {
-            method: 'GET',
-            headers: header,
-        });
-        let json = await response.json();
-        console.log('GET /STAMP/BOX');
-        console.log(json);
-        return json;
-    } catch (e) {
-        console.error(e);
+    /*
+        * GET /stamp/box
+        [JSON FORM]
+        Array [
+            Object {
+                "all": "10",
+                "collected": "1",
+                "name": "포이푸",
+            },
+            ...
+        ]
+    */
+    const {res, error} = await getData(state, '/stamp/box', {});
+    if (error) {
+        Alert.alert('네트워크 에러', '네트워크가 불안정합니다.');
+    } else {
+        return res;
     }
-    
 };
 
 const StampboxView = (props) => {
@@ -82,19 +84,19 @@ const StampboxScreen = (props) => {
             color: "white",
         },
     });
-    // const [stampBox, setStampBox] = React.useState([]);
+    const [stampBox, setStampBox] = React.useState([]);
     const [AuthState, authDispatch] = React.useContext(Context);
     const navi = props.navigation; //?
     
-    const stampBox = stampDatas;
-    // useEffect(()=> {
-    //     const fetchStampBox = async () => {
-    //         const json = await getStampBox(AuthState);
-    //         // await getStampBox(AuthState);
-    //         await setStampBox(json);
-    //     };
-    //     fetchStampBox();
-    // }, []);
+    // const stampBox = stampDatas;
+    useEffect(()=> {
+        const fetchStampBox = async () => {
+            const json = await getStampBox(AuthState);
+            // await getStampBox(AuthState);
+            await setStampBox(json);
+        };
+        fetchStampBox();
+    }, []);
     
     return (
         <NoCardTemplate

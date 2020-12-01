@@ -9,6 +9,7 @@ import CheckCircle from "../../components/CheckCircle";
 
 import { Context } from "../../navigation/Store";
 import { par2url, getHeader} from "../../fetch/fetchApi";
+import getData from "../../fetch/getData";
 
 import NoCardTemplate from "../../templates/NoCardTemplate";
 import ApiUrls from "../../constants/ApiUrls";
@@ -109,40 +110,6 @@ const BasketView = ({main_menu, side_menu, clickMain, clickSide}) => {
     );
 }
 
-const getMenu = async (state, params) => {
-    /*
-        * JSON FORM
-        Array [
-            Object {
-                "id": 0,
-                "menu_id": 1,
-                "rest_id": 1,
-                "name": "스무디볼",
-                "price": 12000,
-                "type": "main",
-            },
-        ...
-        ]
-    */
-    // * GET main/menu
-    console.log('======================================');
-    console.log('GET main/menu');
-    const totUrl = par2url('/main/menu', params);
-    const header = getHeader(state.userToken)
-    try {    
-        let response = await fetch(totUrl, {
-            method: 'GET',
-            headers: header,
-        });
-        let json = await response.json();
-        console.log(json);
-        return json;
-    } catch(error) {
-        // error의 경우 뭘 return해 줄 지 고민
-        console.log(error);
-    }
-}
-
 
 const BasketScreen = (props) => {
     props.navigation.setOptions({title: props.route.params.title});
@@ -156,21 +123,35 @@ const BasketScreen = (props) => {
     const [mainCost, setMaincost] = useState(0);
     const [sideCost, setSidecost] = useState(0);
 
-    console.log("mainArray: ", mainArray);
-    console.log("sideArray:", sideArray);
-
     useEffect(() => {
         // get main menu and side menu
-        const fetchMain = async () => {
-            const json = await getMenu(state, {ordered: false, rest_id: props.route.params.rest_id, type: "main"});
-            await set_main_menu(json);
+        const fetchMenu = async (type) => {
+            /*
+            * GET /main/menu 
+            * JSON FORM
+            Array [
+                Object {
+                    "id": 0,
+                    "menu_id": 1,
+                    "rest_id": 1,
+                    "name": "스무디볼",
+                    "price": 12000,
+                    "type": "main",
+                },
+                ...
+                ]
+            */
+            const params = {ordered: false, rest_id: props.route.params.rest_id, type: type};
+            const {res, error} = await getData(state, '/main/menu', params);
+            if (error) {
+                Alert.alert('네트워크 에러', '네트워크가 불안정합니다.');
+            } else {
+                if (type==='main')  set_main_menu(res);
+                else set_side_menu(res);
+            }
         }
-        const fetchSide = async () => {
-            const json = await getMenu(state, {ordered: false, rest_id: props.route.params.rest_id, type: "side"});
-            await set_side_menu(json);
-        }
-        fetchMain();
-        fetchSide();
+        fetchMenu('main');
+        fetchMenu('side');
     }, []);
 
     const clickMain = (id, selected) => { // selected 바꾸기 전에 전해줌 = 클릭 이전에 selected였는지

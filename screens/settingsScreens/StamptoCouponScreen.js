@@ -9,7 +9,7 @@ import CheckCircle from "../../components/CheckCircle";
 import CardTemplate_modal from "../../templates/CardTemplate_modal";
 import { Context } from "../../navigation/Store";
 
-import { getHeader, par2url } from "../../fetch/fetchApi";
+import getData from "../../fetch/getData";
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
@@ -18,21 +18,23 @@ const font = windowHeight / 87;
 const circle_size = font*9.3;
 
 const getStampDetails = async (token, endpoint) => {
-    console.log('GET STAMP DETAILS');
-    let header = getHeader(token);
-    let url = par2url(endpoint, {});
-    try {
-        let response = await fetch(url, {
-            method: 'GET',
-            headers: header,
-        });
-        const status = await response.status;
-        const res = await response.json();
-        console.log(res);
-
+    /*
+        * GET /stamp/box
+        [JSON FORM]
+        Array [
+            Object {
+                "all": "10",
+                "collected": "1",
+                "name": "포이푸",
+            },
+            ...
+        ]
+    */
+    const {res, error} = await getData({token}, endpoint, {});
+    if (error) {
+        Alert.alert('네트워크 에러', '네트워크가 불안정합니다.');
+    } else {
         return res;
-    } catch(error) {
-        return {error}
     }
 };
 

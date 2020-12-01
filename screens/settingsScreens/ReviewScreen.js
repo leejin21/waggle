@@ -1,6 +1,6 @@
 // ! FIXME 1 alert 2번 표시되는 버그
 // ! FIXME 2 allCompleted 제대로 동작 안하는 버그(간혹)
-
+// TODO refactoring
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, Alert, Dimensions } from "react-native";
 
@@ -13,32 +13,35 @@ import BottomButton from "../../components/BottomButton";
 import Card from "../../components/Card";
 import { Pick, Menu, Star, ReviewButtonGroup } from "../../components/ReviewComps";
 
-import {par2url, getHeader} from "../../fetch/fetchApi";
+
 import ApiUrls from "../../constants/ApiUrls";
-import {putCoupon } from "../../components/Coupon";
 import postData from "../../fetch/postData";
+import getData from "../../fetch/getData";
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 const font = windowHeight / 87;
 
 const getMenuData = async (state, coupon_id) => {
-    const totUrl = par2url('/main/menu', {ordered: true, coupon_id});
-    const header = getHeader(state.userToken);
-    
-    try {
-        let response = await fetch(totUrl, {
-            method: 'GET',
-            headers: header,
-        });
-        let json = await response.json();
-        console.log('GET /MAIN/MENU');
-        console.log(json);
-        return json;
-    } catch (e) {
-        console.error(e);
+    /*
+        * GET /main/menu 
+        [JSON FORM]
+        Array [
+            Object {
+                "id": 0,
+                "menu_id": 1,
+                "name": "스무디볼",
+                "photo": 1,
+            },
+            ...
+        ]
+    */
+    const {res, error} = await getData(state, '/main/menu', {ordered: true, coupon_id});
+    if (error) {
+        Alert.alert('네트워크 에러', '네트워크가 불안정합니다.');
+    } else {
+        return res;
     }
-    
 };
 
 const postReview = async (authState, coupon_id, state) => {

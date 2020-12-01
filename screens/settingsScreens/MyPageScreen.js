@@ -4,38 +4,32 @@ import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
 import ProfileLogo from "../../components/ProfileLogo";
 import BottomButton from "../../components/BottomButton";
 
-import { AuthContext } from "../../navigation/Navigator";
-import { Context } from "../../navigation/Store";
-import {par2url, getHeader} from "../../fetch/fetchApi";
-
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import { logoHeaderOptions } from "../../constants/Options";
+
+import { AuthContext } from "../../navigation/Navigator";
+import { Context } from "../../navigation/Store";
+import getData from "../../fetch/getData";
 
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 const font = windowHeight / 87;
 
 const getMyInfo = async (state) => {
-    // * GET user/settings
-    // 상단의 이름, 전화번호 표시 위해 fetch
-    if (state.userToken !== null){
-        const totUrl = par2url('/user/settings', {});
-        const header = getHeader(state.userToken);
-        try {
-            let response = await fetch(totUrl, {
-                method: 'GET',
-                headers: header,
-            });
-            let json = await response.json();
-            console.log(json);
-            return json;
-        } catch (e) {
-            console.error(e);
+    /*
+        * GET /user/settings 
+        [JSON FORM]
+        Object {
+            "name": "이애나",
+            "phone_num": "010-2222-2222",
         }
-            
+    */
+    const {res, error} = await getData(state, '/user/settings', {});
+    if (error) {
+        Alert.alert('네트워크 에러', '네트워크가 불안정합니다.');
     } else {
-        console.log("user token not exist");
+        return res;
     }
 }
 

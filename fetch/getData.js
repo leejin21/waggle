@@ -20,7 +20,7 @@ const getData = async (state, end, params) => {
     console.log('GET '+end);
 
     const totUrl = par2url(end, params);
-    const header = getHeader(state.userToken);
+    const header = state === null ? getHeader(): getHeader(state.userToken);
 
     try {
         let response = await fetch(totUrl, {

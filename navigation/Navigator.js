@@ -12,8 +12,8 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 // - LOCAL MODULES
 import {Context} from "./Store";
-import {getHeader, par2url} from "../fetch/fetchApi";
 import postData from "../fetch/postData";
+import getData from "../fetch/getData";
 
 /////////////////////////////////////////////////////////////////////////////////
 // * MAIN CODE SECTION
@@ -24,25 +24,6 @@ const AuthContext = React.createContext();
 // - SMALL FUNCTION 
 const alert = (title, message) => {
     Alert.alert(title, message);
-}
-
-const getValidate = async (token, endpoint) => {
-    console.log('GET TOKEN VALIDATION');
-    let header = getHeader(token);
-    let url = par2url(endpoint, {});
-    try {
-        let response = await fetch(url, {
-            method: 'GET',
-            headers: header,
-        });
-        const status = await response.status;
-        const res = await response.json();
-        console.log(res);
-
-        return res;
-    } catch(error) {
-        return {error}
-    }
 }
 
 // - MAIN FUNCTION
@@ -63,12 +44,10 @@ const BigNavigator = (props) => {
         const bootstrapAsync = async () => {
             let userToken;
             try {
-                userToken = await AsyncStorage.getItem("userToken");
-                userToken = JSON.parse(userToken);
+                userToken = JSON.parse(await AsyncStorage.getItem("userToken"));
                 // validate token
-                const json = await getValidate(userToken, '/user/token');
-                // console.log(json);
-                if (json.val === "success") {
+                const {res, error} = await getData({userToken}, '/user/token', {});
+                if (res) {
                     console.log("header validation SUCCESS");
                     dispatch({ type: "RESTORE_TOKEN", token: userToken });
                 } else {
@@ -100,6 +79,8 @@ const BigNavigator = (props) => {
                     try {
                         // TODO token json 형식으로 저장해야 하는 지 찾아보기
                         await AsyncStorage.setItem("userToken", JSON.stringify(userToken));
+                        console.log('저장된 user token');
+                        console.log(JSON.parse(await AsyncStorage.getItem("userToken")));
                     } catch (e) {
                         // Restoring token failed
                         console.log("sign in: failed set user token");

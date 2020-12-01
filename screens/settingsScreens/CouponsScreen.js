@@ -1,23 +1,32 @@
+/////////////////////////////////////////////////////////////////////////////////
+//* IMPORT SECTION
+
+// import made modules
 import React, {useEffect, useState} from "react";
 import { View, Text, StyleSheet, FlatList, Dimensions } from "react-native";
 
+// import custom modules
 import Colors from "../../constants/Colors";
 import CommonStyles from "../../constants/CommonStyles";
 import { headerOptions } from "../../constants/Options";
-import { Context } from "../../navigation/Store";
-
 import Coupon, { StampCoupon } from "../../components/Coupon";
 
-import {par2url, getHeader} from "../../fetch/fetchApi";
+// import custom fetch modules
+import { Context } from "../../navigation/Store";
+import getData from "../../fetch/getData";
 
-
+/////////////////////////////////////////////////////////////////////////////////
+// * INITIALIZE: COMPONENT SIZE
 const windowHeight = Dimensions.get("window").height;
 const pad = windowHeight / 80;
 const font = windowHeight / 87;
 
+/////////////////////////////////////////////////////////////////////////////////
+// * SMALL FUNCTIONS
+
 const getCouponDatas = async (state) => {
-    // event/coupon GET
     /*
+    * event/coupon GET
     * JSON FORM
     [
         { 
@@ -31,21 +40,16 @@ const getCouponDatas = async (state) => {
         ...
     ]
     */
-    const totUrl = par2url('/event/coupon', {});
-    const header = getHeader(state.userToken);
-    try {
-        let response = await fetch(totUrl, {
-            method: 'GET',
-            headers: header,
-        });
-        let json = await response.json();
-        console.log(json);
-        return json;
-    } catch (e) {
-        console.error(e);
+    const {res, error} = await getData(state, '/event/coupon', {});
+    if (error) {
+        Alert.alert('네트워크 에러', '네트워크가 불안정합니다.');
+    } else {
+        return res;
     }
 };
 
+/////////////////////////////////////////////////////////////////////////////////
+// * MAIN COMPONENT SECTION
 
 const CouponsScreen = (props) => {
     const [state, dispatch] = React.useContext(Context);
@@ -106,6 +110,9 @@ const CouponsScreen = (props) => {
         </View>
     );
 };
+/////////////////////////////////////////////////////////////////////////////////
+//* STYLES SECTION
+
 const styles = StyleSheet.create({
     // CouponsScreen comp의 styles
     body: {
@@ -126,5 +133,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
 });
-
+/////////////////////////////////////////////////////////////////////////////////
+//* EXPORT SECTION
 export default CouponsScreen;
