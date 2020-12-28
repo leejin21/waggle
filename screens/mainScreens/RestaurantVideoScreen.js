@@ -111,17 +111,18 @@ const RestaurantVideoScreen = (props) => {
                     shouldPlay: true,
                     resizeMode: "cover",//contain
                     isLooping: false,
-                    positionMillis: pos
+                    positionMillis: pos,
+                    useNativeControls: false
                     }}
                     hideControlsTimerDuration={10000000}//to be fixed
                     inFullscreen={true}
                     width={windowWidth}
                     height={windowHeight*12/15.4}//to be fixed
-                    playIcon={playIcon}
-                    pauseIcon={pauseIcon}
-                    replayIcon={replayIcon}
+                    //playIcon={playIcon}
+                    //pauseIcon={pauseIcon}
+                    //replayIcon={replayIcon}
                     videoBackground={Colors.body_grey}
-                    showControlsOnLoad={true}
+                    //showControlsOnLoad={true}
                     sliderColor={Colors.deep_yellow}
                     showFullscreenButton={false}
                     textStyle={{color:Colors.body_grey, fontSize:0.01}}
