@@ -1,7 +1,8 @@
 # WaggleApp
 
-앱 와글을 구현한 소스코드 모음입니다.
-react native로 구현하였으며, expo로 프로젝트 개설하였고 eject하여 각 native에 맞게 개발할 예정입니다.
+2020 실험실창업탐색팀 맵믈리에팀의 시제품 앱 와글을 구현한 레포지터리입니다.
+react native로 구현하였으며, expo로 프로젝트 개설하였고 eject 하지 않았습니다.
+구동 영상: https://youtu.be/HF9CCzLJLXI
 
 ## Environments
 
